@@ -1,0 +1,119 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={17.18cm, 24.62cm}]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+
+\begin{document}
+
+\begin{center}
+    Lan Yung-Chi, 2026/01/15
+\end{center}
+
+\section{Definition}
+
+\begin{itemize}
+    \item A \textit{linear combination} of a list \(v_1, v_2, \dots, v_m\) of vectors in \(V\) is a vector of the form
+    \[
+        a_1 v_1 + \cdots + a_m v_m,
+    \]
+    where \(a_1, \dots, a_m \in \mathbf{F}\).
+    \item The set of all linear combination of a list \(v_1, \dots, v_m\) of vectors in \(V\) is called the \textit{span} of \(v_1, \dots, v_m\), denoted \(\text{span}(v_1, \dots, v_m)\). In other words,
+    \[
+        \text{span}(v_1, \dots, v_m) = \{ a_1 v_1 + \cdots + a_m v_m \mid a_1, \dots, a_m \in \mathbf{F} \}.
+    \]
+    \item The span of the empty list is defined to be \(\{0\}\).
+    \item If \(\text{span}(v_1, \dots, v_m)\) equals \(V\), we say that \(v_1, \dots, v_m\) \textit{spans} \(V\).
+\end{itemize}
+
+\subsubsection*{Note}
+
+Technically we should use \((v_1, \dots, v_m)\) to denote a list of vectors, but that would create too many parentheses, so we usually omit it. For example, we say that \(v_1, \dots, v_m\) \textit{is} a list of vectors.
+
+\section{Exercise}
+
+\subsection{Smallest subspace}
+
+The span of a list of vectors in \(V\) is the smallest subspace of \(V\) containing all vectors in the list.
+
+\subsubsection*{Proof}
+
+Given a list \(v_1, \dots, v_m\) of vectors in \(V\), we aim to show that \(\text{span}(v_1, \dots, v_m)\) is a subspace of \(V\), then that it contains \(v_1, \dots, v_m\), finally that it is the smallest subspace of \(V\) containing \(v_1, \dots, v_m\).
+
+\begin{enumerate}
+    \item \(\text{span}(v_1, \dots, v_m)\) is a subspace of \(V\) by satisfying the following conditions of subspace.
+    \begin{itemize}
+        \item \(\text{span}(v_1, \dots, v_m) \subseteq V\)
+        
+        For all \(u \in \text{span}(v_1, \dots, v_m)\),
+        \[
+            u = a_1 v_1 + \cdots + a_m v_m, \quad \text{for some } a_1, \dots, a_m.
+        \]
+        And since each \(v_i \in V\) and \(V\) is closed under addition and scalar multiplication, it follows that \(u \in V\).
+
+        \item Additive identity
+        \[
+            0v_1 + \cdots + 0v_m = 0 \quad \in \text{span}(v_1, \dots, v_m).
+        \]
+
+        \item Closed under addition
+        
+        For all \(u, w \in \text{span}(v_1, \dots, v_m)\),
+        \begin{align*}
+            u + w
+            &= (a_1 v_1 + \cdots + a_m v_m) + (c_1 v_1 + \cdots + c_m v_m) \\
+            &= (a_1 + c_1) v_1 + \cdots (a_m + c_m) v_m \quad \in \text{span}(v_1, \dots, v_m).
+        \end{align*}
+
+        \item Closed under scalar multiplication
+        
+        For all \(\lambda \in \mathbf{F}\) and all \(u \in \text{span}(v_1, \dots, v_m)\),
+        \begin{align*}
+            \lambda u
+            &= \lambda (a_1 v_1 + \cdots + a_m v_m) \\
+            &= (\lambda a_1) v_1 + \cdots + (\lambda a_m) v_m \quad \in \text{span}(v_1, \dots, v_m).
+        \end{align*}
+    \end{itemize}
+
+    \item For each \(v_j \in \{v_1, \dots, v_m\}\), \(v_j\) is clearly a linear combination of \(v_1, \dots, v_m\) (by setting all \(a\) to 0 except \(a_i = 1\)).
+
+    \item For every subspace \(U\) of \(V\) containing \(v_1, \dots, v_m\), \(U\) should contain all the linear combination of \(v_1, \dots, v_m\). If \(U\) did not contain some linear combination of them, \(U\) would not be a vector space since it would not be closed under addition or scalar multiplication.
+
+    Thus, there is no subspace of \(V\) containing \(v_1, \dots, v_m\) smaller than \(\text{span}(v_1, \dots, v_m)\).
+\end{enumerate}
+
+\subsection{}
+
+Suppose \(v_1, v_2, v_3, v_4\) spans \(V\). Prove that the following list also spans \(V\):
+\[
+    v_1 - v_2,\, v_2 - v_3,\, v_3 - v_4,\, v_4.
+\]
+
+\subsubsection*{Proof}
+
+Let \(U = \text{span}(v_1, v_2, v_3, v_4)\) and \(U' = \text{span}(v_1 - v_2,\, v_2 - v_3,\, v_3 - v_4,\, v_4)\). We aim to show that \(U = U'\).
+
+\begin{itemize}
+    \item \fbox{\(U \subseteq U'\)}
+    
+    For every \(u \in U\), there exist some \(a_1, a_2, a_3, a_4\) such that
+    \begin{align*}
+        u
+        &= a_1 v_1 + a_2 v_2 + a_3 v_3 + a_4 v_4 \\
+        &= a_1 (v_1 - v_2) + (a_1 + a_2) (v_2 - v_3) + (a_1 + a_2 + a_3) (v_3 - v_4) + (a_1 + a_2 + a_3 + a_4) v_4
+    \end{align*}
+    Thus, \(u \in U'\).
+
+    \item \fbox{\(U \subseteq U'\)}
+    
+    For every \(u' \in U'\), there exist some \(c_1, c_2, c_3, c_4\) such that
+    \begin{align*}
+        u'
+        &= c_1 (v_1 - v_2) + c_2 (v_2 - v_3) + c_3 (v_3 - v_4) + c_4 v_4 \\
+        &= c_1 v_1 + (-c_1 + c_2) v_2 + (-c_2 + c_3) v_4 + (-c_3 + c_4) v_4
+    \end{align*}
+    Thus, \(u' \in U\).
+\end{itemize}
+        
+\end{document}

@@ -1,0 +1,88 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={17.18cm, 24.62cm}]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+    Lan Yung-Chi, 2026/01/16
+\end{center}
+
+\section{Definition}
+
+\begin{itemize}
+    \item A function \(p: \mathbf{F} \to \mathbf{F}\) is called a \textit{polynomial} with coefficients in \(\mathbf{F}\) if there exist \(a_0, \dots a_m \in \mathbf{F}\) such that
+    \[
+        p(z) = a_0 + a_1 z + a_2 z^2 + \cdots + a_m z^m
+    \]
+    for all \(z \in \mathbf{F}\).
+    
+    \item \(\mathcal{P}(\mathbf{F})\) is the set of all polynomials with coefficients in \(\mathbf{F}\).
+
+    \item A polynomial \(p \in \mathcal{P}(\mathbf{F})\) is said to have \textit{degree} \(m\) if there exist scalars \(a_0, a_1, \dots, a_m \in \mathbf{F}\) with \(a_m \neq 0\) such that
+    \[
+        p(z) = a_0 + a_1 z + a_2 z^2 + \cdots + a_m z^m
+    \]
+    for all \(z \in \mathbf{F}\).
+
+    \item If \(p\) has degree \(m\), we write \(\text{deg } p = m\).
+
+    \item The polynomial that is identically 0 is said to have degree \(-\infty\).
+
+    \item For \(m\) a nonnegative integer, \(\mathcal{P}_m(\mathbf{F})\) denotes the set of all polynomials with coefficients in \(\mathbf{F}\) and degree at most \(m\).
+
+    Note that we use the convention \(m > -\infty\), which means that the polynomial 0 is in \(\mathcal{P}_m(\mathbf{F})\) for every nonnegative integer \(m\).
+\end{itemize}
+
+\section{Exercise}
+
+With the usual operations of addition and scalar multiplication, \(\mathcal{P}(\mathbf{F})\) is a vector space over \(\mathbf{F}\). In other words, \(\mathcal{P}(\mathbf{F})\) is a subspace of \(\mathbf{F}^{\mathbf{F}}\).
+
+\subsubsection*{Note}
+
+Recall that \(\mathbf{F}^{\mathbf{F}}\) denotes the set of functions from \(\mathbf{F}\) to \(\mathbf{F}\). And for \(f, g \in \mathbf{F}^{\mathbf{F}}\) and \(\lambda \in \mathbf{F}\), the sum \(f + g \in \mathbf{F}^{\mathbf{F}}\) and the product \(\lambda f \in \mathbf{F}^{\mathbf{F}}\) are defined by
+\[
+    (f + g)(z) = f(z) + g(z), \quad (\lambda f)(z) = \lambda f(z)
+\]
+for all \(z \in \mathbf{F}\).
+
+\subsubsection*{Proof}
+
+Let's show that \(\mathcal{P}(\mathbf{F})\) is a subspace of \(\mathbf{F}^{\mathbf{F}}\).
+
+\begin{itemize}
+    \item \(\mathcal{P}(\mathbf{F}) \subseteq \mathbf{F}^{\mathbf{F}}\) because a polynomial is a function from \(\mathbf{F}\) to \(\mathbf{F}\).
+
+    \item \(0 \in \mathcal{P}(\mathbf{F})\) by definition of the degree \(-\infty\) polynomial.
+
+    \item For all \(p, q \in \mathcal{P}(\mathbf{F})\), we can write
+    \begin{align*}
+        &p(z) = a_0 + a_1 z + \cdots + a_m z^m, \quad \text{for some nonnegative integer } m, \\
+        &q(z) = c_0 + a_1 z + \cdots + c_n z^n, \quad \text{for some nonnegative integer } n.
+    \end{align*}
+    Without loss of generality, assume \(m \geq n\), then
+    \begin{align*}
+        (p + q)(z)
+        &= p(z) + q(z) \\
+        &= (a_0 + a_1 z + \cdots + a_m z^m) + (c_0 + c_1 z + \cdots + c_n z^n) \\
+        &= (a_0 + c_0) + (a_1 + c_1) z + \cdots + (a_n + c_n) z_n + \cdots + a_m z_m \\
+        &\in \mathcal{P}(\mathbf{F}).
+    \end{align*}
+    Thus, \(\mathcal{P}(\mathbf{F})\) is closed under addition.
+
+    \item For all \(\lambda \in \mathbf{F}\) and \(p \in \mathcal{P}(\mathbf{F})\),
+    \begin{align*}
+        (\lambda p)(z)
+        &= \lambda p(z) \\
+        &= \lambda (a_0 + a_1 z + \cdots + a_m z^m) \\
+        &= \lambda a_0 + \lambda a_1 z + \cdots + \lambda a_m z^m \\
+        &\in \mathcal{P}(\mathbf{F})
+    \end{align*}
+    Thus, \(\mathcal{P}(\mathbf{F})\) is closed under scalar multiplication.
+\end{itemize}
+
+\end{document}

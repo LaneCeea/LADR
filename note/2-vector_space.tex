@@ -1,0 +1,281 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={17.18cm, 24.62cm}]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+    Lan Yung-Chi, 2026/01/08
+\end{center}
+
+\section{Definition}
+
+\subsection{Addition, Scalar Multiplication} \label{intro}
+
+\begin{itemize}
+    \item An \textit{addition} on a set \(V\) is a function \(V \times V \to V\) that maps each pair \((u, v)\) to an element \(u + v\).
+
+    \item A \textit{scalar multiplication} on a set \(V\) over a field \(\mathbf{F}\) is a function \(\mathbf{F} \times V \to V\) that maps each pair \((\lambda, v)\) to an element \(\lambda v\).
+\end{itemize}
+
+\subsection{Vector Space}
+
+A vector space is a set \(V\) over a field \(\mathbf{F}\) along with an addition on \(V\) and a scalar multiplication on \(V\) and \(\mathbf{F}\) such that the following properties hold:
+\begin{enumerate}
+    \item \textbf{Commutativity}
+
+    \hspace{5mm} \(u + v = v + u\), for all \(u, v \in V\).
+
+    \item \textbf{Associativity}
+
+    \hspace{5mm} \((u + v) + w = u + (v + w)\) and \((ab)v = a(bv)\), for all \(u, v, w \in V\) and all \(a, b \in \mathbf{F}\).
+
+    \item \textbf{Additive Identity}
+
+    \hspace{5mm} There exists an element \(0 \in V\) such that \(v + 0 = v\) for all \(v \in V\).
+
+    \item \textbf{Additive Inverse}
+
+    \hspace{5mm} For every \(v \in V\), there exists \(w \in V\) such that \(v + w = 0\).
+
+    \item \textbf{Multiplicative Identity}
+
+    \hspace{5mm} \(1v = v\) for all \(v \in V\).
+
+    \item \textbf{Distributive Properties}
+
+    \hspace{5mm} \(a(u + v) = au + av\) and \((a + b)v = av + bv\), for all \(a, b \in \mathbf{F}\) and all \(u, v \in V\).
+\end{enumerate}
+
+\subsubsection*{Note}
+
+The 5-th property is not requiring the existence of \(1\), as \(1\) implicitly exists in any field \(\mathbf{F}\); instead, it states that based on the given operation of scalar multiplication, \(1\) should be the multiplicative identity for all vectors.
+
+\newpage
+
+\subsection{\(\mathbf{F}^{S}\)}
+
+\begin{itemize}
+    \item \(\mathbf{F}^S\) denotes the set of functions from a set \(S\) to a field \(\mathbf{F}\).
+
+    \item For \(f, g \in \mathbf{F}^S\), the \textit{sum} \(f + g \in \mathbf{F}^S\) is the function defined by
+    \[
+        (f + g)(x) = f(x) + g(x)
+    \]
+    for all \(x \in S\).
+
+    \item For \(\lambda \in \mathbf{F}\) and \(f \in \mathbf{F}^S\), the \textit{product} \(\lambda f \in \mathbf{F}^S\) is the function defined by
+    \[
+        (\lambda f)(x) = \lambda f(x)
+    \]
+    for all \(x \in S\).
+\end{itemize}
+
+\subsubsection*{Note}
+
+The usual \(\mathbf{F}^n\) is actually a special case of \(\mathbf{F}^S\) because a \(n\)-tuple of number can be thought of as a function from \(\{1, 2, \dots, n\}\) to \(\mathbf{F}\). That is, we can think of \(\mathbf{F}^n\) as \(\mathbf{F}^{\{1, 2, \dots, n\}}\). Confusing this may seen, an example will clarify the abstraction. Take \(\mathbf{R}^3\) as example.
+
+\begin{itemize}
+    \item \(\mathbf{R}^3\) denotes the set of functions from the set \(\{1, 2, 3\}\) to \(\mathbf{R}\). Here functions are what we understand as vectors. That is, the function \(v \in \mathbf{R}^3\) has \(1, 2, 3\) map to \(v_1, v_2, v_3 \in \mathbf{R}\) correspondingly.
+
+    \item For \(f, g \in \mathbf{R}^3\), the \textit{sum} \(f + g \in \mathbf{R}^3\) is the function defined by
+    \[
+        (f + g)(x) = f(x) + g(x), \quad \text{for all } x \in \{1, 2, 3\}.
+    \]
+    That is, for all \(u, v \in \mathbf{R}^3\),
+    \begin{equation}
+        u + v = (u_1, u_2, u_3) + (v_1, v_2, v_3) = (u_1 + v_1, u_2 + v_2, u_3 + v_3).
+    \end{equation}
+
+    \item For \(\lambda \in \mathbf{R}\) and \(f \in \mathbf{R}^3\), the \textit{product} \(\lambda f \in \mathbf{R}^3\) is the function defined by
+    \[
+        (\lambda f)(x) = \lambda f(x), \quad \text{for all } x \in \{1, 2, 3\}.
+    \]
+    That is, for all \(\lambda \in \mathbf{R}\) and \(v \in \mathbf{R}^3\),
+    \begin{equation}
+        \lambda v = \lambda (v_1, v_2, v_3) = (\lambda v_1, \lambda v_2, \lambda v_3).
+    \end{equation}
+\end{itemize}
+
+In conclusion, this subsection provides an instantiation of addition and scalar multiplication mentioned in \ref{intro}, and we can proceed to see that \(\mathbf{F}^S\) is a vector space.
+
+\section{Exercise}
+
+\subsection{Vector Space}
+
+Prove that \(\mathbf{R}^3\) is a vector space (with the operations given in equation (1) and (2)).
+
+\subsubsection*{Proof}
+
+\begin{enumerate}
+    \item Commutativity
+
+    For all \(u, v \in \mathbf{R}^3\),
+    \begin{align*}
+        u + v
+        &= (u_1, u_2, u_3) + (v_1, v_2, v_3) \\
+        &= (u_1 + v_1, u_2 + v_2, u_3 + v_3) & \text{by (1)} \\
+        v + u
+        &= (v_1, v_2, v_3) + (u_1, u_2, u_3) \\
+        &= (v_1 + u_1, v_2 + u_2, v_3 + u_3) & \text{by (1)} \\
+        &= v + u    & \text{by comm. of } \mathbf{R}
+    \end{align*}
+
+    \item Associativity
+
+    For all \(u, v, w \in \mathbf{R}^3\),
+    \begin{align*}
+        (u + v) + w
+        &= \bigl((u_1, u_2, u_3) + (v_1, v_2, v_3)\bigl) + (w_1, w_2, w_3) \\
+        &= (u_1 + v_1, u_2 + v_2, u_3 + v_3) + (w_1, w_2, w_3)          & \text{by (1)} \\
+        &= ((u_1 + v_1) + w_1, (u_2 + v_2) + w_2, (u_3 + v_3) + w_3)    & \text{by (1)} \\
+        u + (v + w)
+        &= (u_1, u_2, u_3) + \bigl((v_1, v_2, v_3) + (w_1, w_2, w_3)\bigl) \\
+        &= (u_1, u_2, u_3) + (v_1 + w_1, v_2 + w_2, v_3 + w_3)          & \text{by (1)} \\
+        &= (u_1 + (v_1 + w_1), u_2 + (v_2 + w_2), u_3 + (v_3 + w_3))    & \text{by (1)} \\
+        &= (u + v) + w  & \text{by asso. of } \mathbf{R}
+    \end{align*}
+
+    For all \(a, b \in \mathbf{R}\) and all \(v \in \mathbf{R}^3\),
+    \begin{align*}
+        (ab)v
+        &= (ab)(v_1, v_2, v_3) \\
+        &= ((ab)v_1, (ab)v_2, (ab)v_3)      & \text{by (2)} \\
+        a(bv)
+        &= a\bigl(b(v_1, v_2, v_3)\bigl) \\
+        &= a(b v_1, b v_2, b v_3)           & \text{by (2)} \\
+        &= (a(b v_1), a(b v_2), a(b v_3))   & \text{by (2)} \\
+        &= (ab)v   & \text{by asso. of } \mathbf{R}
+    \end{align*}
+
+    \item Additive Identity
+
+    We show the existence of zero vector by finding one. (We later show that this zero vector is unique.) Let the zero vector be \(0 = (0_1, 0_2, 0_3) \in \mathbf{R}^3\) such that for all \(v \in \mathbf{R_3}\),
+    \begin{align*}
+        &v + 0 = v, \\
+        \Rightarrow \quad &(v_1 + 0_1, v_2 + 0_2, v_3 + 0_3) = (v_1, v_2, v_3)  &\text{by (1)} \\
+        \Rightarrow \quad &(0_1, 0_2, 0_3) = (0, 0, 0)                          &\text{by add.iden. of } \mathbf{R}
+    \end{align*}
+
+    \item Additive Inverse
+
+    We show the existence of additive inverse for every vector by finding one for each of them. (We later show that for every vector, its additive inverse is unique.) For every \(u \in \mathbf{R}^3\), let \(w \in \mathbf{R}^3\) be the vector such that
+    \begin{align*}
+        &u + w = 0, \\
+        \Rightarrow \quad &(u_1 + w_1, u_2 + w_2, u_3 + w_3) = (0, 0, 0)    &\text{by (1) and } 0 \in \mathbf{R}^3 \\
+        \Rightarrow \quad &(w_1, w_2, w_3) = (-u_1, -u_2, -u_3)             &\text{by add.inv. of } \mathbf{R}
+    \end{align*}
+
+    \item Multiplicative Identity
+
+    For all \(v \in \mathbf{R}^3\),
+    \begin{align*}
+        1v
+        &= 1(v_1, v_2, v_3) \\
+        &= (1v_1, 1v_2, 1v_3)   & \text{by (2)} \\
+        &= (v_1, v_2, v_3)      & \text{by mul.iden. of } \mathbf{R} \\
+        &= v
+    \end{align*}
+
+    \item Distributive Properties
+
+    For all \(a \in \mathbf{R}\) and all \(u, v \in \mathbf{R}^3\),
+    \begin{align*}
+        a(u + v)
+        &= a \bigl( (u_1, u_2, u_3) + (v_1, v_2, v_3) \bigr) \\
+        &= a (u_1 + v_1, u_2 + v_2, u_3 + v_3)          & \text{by (1)} \\
+        &= (a(u_1 + v_1), a(u_2 + v_2), a(u_3 + v_3))   & \text{by (2)} \\
+        au + av
+        &= a(u_1, u_2, u_3) + a(v_1, v_2, v_3) \\
+        &= (au_1, au_2, au_3) + (av_1, av_2, av_3)  & \text{by (2)} \\
+        &= (au_1 + av_1, au_2 + av_2, au_3 + av_3)  & \text{by (1)} \\
+        &= a(u + v)                                 & \text{by dist. of } \mathbf{R} \\
+    \end{align*}
+
+    For all \(a, b \in \mathbf{R}\) and all \(v \in \mathbf{R}^3\),
+    \begin{align*}
+        (a + b)v
+        &= (a + b)(v_1, v_2, v_3) \\
+        &= ((a + b)v_1, (a + b)v_2, (a + b)v_3)     & \text{by (2)} \\
+        av + bv
+        &= a(v_1, v_2, v_3) + b(v_1, v_2, v_3) \\
+        &= (av_1, av_2, av_3) + (bv_1, bv_2, bv_3)  & \text{by (2)} \\
+        &= (av_1 + bv_1, av_2 + bv_2, av_3 + bv_3)  & \text{by (1)} \\
+        &= (a + b)v                                 & \text{by dist. of } \mathbf{R}
+    \end{align*}
+\end{enumerate}
+
+\subsection{Unique Additive Identity}
+
+A vector space has a unique additive identity.
+
+\subsubsection*{Proof}
+
+Suppose to the contrary that there were a vector space \(V\) with distinct additive identities \(0, 0' \in V\), then we would create a contradiction that \(0' = 0\) as follows:
+\begin{align*}
+    0'
+    &= 0' + 0   & \text{by add.iden. of } V \\
+    &= 0 + 0'   & \text{by comm. of } V \\
+    &= 0        & \text{by add.iden. of } V
+\end{align*}
+
+\subsection{Unique Additive Inverse}
+
+Every element in a vector space has a unique additive inverse.
+
+\subsubsection*{Proof}
+
+Suppose to the contrary that there were a vector space \(V\) with some element \(v \in V\) having distinct additive inverses \(w, w' \in V\), then we would create a contradiction that \(w = w'\) as follows:
+\begin{align*}
+    w
+    &= w + 0        & \text{by add.iden. of } V \\
+    &= w + (v + w') & \text{by add.inv. of } V \\
+    &= (w + v) + w' & \text{by asso. of } V \\
+    &= 0 + w'       & \text{by add.inv of } V \\
+    &= w' + 0       & \text{by comm. of } V \\
+    &= w'           & \text{by add.iden. of } V
+\end{align*}
+
+\subsubsection*{Note}
+
+As we show that additive inverses are unique, now the following notation makes sense. Let \(v, w \in V\), then
+\begin{itemize}
+    \item \(-v\) denotes the additive inverse of \(v\);
+    \item \(w - v\) is defined to be \(w + (-v)\).
+\end{itemize}
+
+\subsection{The number \(0\)}
+
+For every vector space \(V\) over a field \(\mathbf{F}\), \(0v = \mathbf{0}\) for all \(v \in V\).
+
+\subsubsection*{Proof}
+To avoid confusion, mark the additive identity in \(\mathbf{F}\) as 0, and the additive identity in \(V\) as \(\mathbf{0}\).
+\begin{align*}
+    0v
+    &= (0 + 0)v    & \text{by add.iden. of } \mathbf{F} \\
+    &= 0v + 0v      & \text{by dist. of } V \\
+    \Rightarrow 0v + w &= 0v + 0v + w & \text{where } w \text{ is the additive inverse of } 0v \\
+    \Rightarrow \mathbf{0} &= 0v + \mathbf{0} & \text{by add.inv. of } V \\
+    &= 0v & \text{by add.iden. of } V
+\end{align*}
+
+\subsection{The vector 0}
+
+For every vector space \(V\) over a field \(\mathbf{F}\), \(a\mathbf{0} = \mathbf{0}\) for every \(a \in \mathbf{F}\).
+
+\subsubsection*{Proof}
+To avoid confusion, mark the additive identity in \(\mathbf{F}\) as 0, and the additive identity in \(V\) as \(\mathbf{0}\).
+\begin{align*}
+    a \mathbf{0}
+    &= a (\mathbf{0} + \mathbf{0})  & \text{by add.iden. of } V \\
+    &= a \mathbf{0} + a \mathbf{0}  & \text{by dist. of } V \\
+    \Rightarrow a \mathbf{0} + w &= a \mathbf{0} + a \mathbf{0} + w & \text{where } w \text{ is the additive inverse of } a \mathbf{0} \\
+    \Rightarrow \mathbf{0} &= a \mathbf{0} + \mathbf{0} & \text{by add.inv. of } V \\
+    &= a \mathbf{0} & \text{by add.iden. of } V
+\end{align*}
+
+\end{document}

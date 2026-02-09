@@ -1,0 +1,228 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={17.18cm, 24.62cm}]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+    Lan Yung-Chi, 2026/01/16
+\end{center}
+
+\section{Definition}
+
+\begin{itemize}
+    \item A list \(v_1, \dots, v_m\) of vectors in \(V\) is called \textit{linearly independent} if the only choice of \(a_1, \dots, a_m \in \mathbf{F}\) that makes \(a_1 v_1 + \cdots + a_m v_m\) equal \(0\) is \(a_1 = \cdots = a_m = 0\).
+
+    \item The empty list is declared to be linearly independent.
+
+    \item A list of vectors in \(V\) is called \textit{linearly dependent} if it is not linearly independent. In other words, a list \(v_1, \dots, v_m\) of vectors in \(V\) is linearly dependent if there exist \(a_1, \dots, a_m \in \mathbf{F}\), not all \(0\), such that \(a_1 v_1 + \cdots + a_m v_m = 0\).
+\end{itemize}
+
+\section{Exercise}
+
+\subsection{Unique Linear Combination}
+
+Given any \(v_1, \dots, v_m \in V\), \(v_1, \dots, v_m\) is linearly independent if and only if each vector in \(\text{span}(v_1, \dots, v_m)\) has only one representation as a linear combination of \(v_1, \dots, v_m\).
+
+\subsubsection*{Proof}
+
+For all \(u \in \text{span}(v_1, \dots, v_m)\), we can write
+\[
+    u = a_1 v_1 + \cdots + a_m v_m, \quad \text{for some } a_1, \dots a_m \in \mathbf{F}.
+\]
+Let's consider another set of coefficients
+\[
+    u = c_1 v_1 + \cdots + c_m v_m, \quad \text{for some } c_1, \dots c_m \in \mathbf{F}.
+\]
+Subtracting the two equations gives
+\[
+    0 = (a_1 - c_1) v_1 + \cdots + (a_m - c_m) v_m.
+\]
+
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)} Suppose that \(v_1, \dots, v_m\) is linearly independent, then each \(a_j - c_j\) should equal \(0\). Thus \(u\) has only one unique linear combination of \(v_1, \dots, v_m\).
+
+    \item \fbox{\(\Longleftarrow\)} Suppose that \(u\) has only one unique linear combination of \(v_1, \dots, v_m\), then each \(a_j = c_j\) and \(v_1, \dots, v_m\) is linearly independent. If \(v_1, \dots, v_m\) were linearly dependent, then there would exist \(a_j - c_j \neq 0\), which leads to multiple representations of \(u\).
+\end{itemize}
+
+\subsection{}
+
+If some vectors are removed from a linearly independent list, the remaining list is also linearly independent.
+
+\subsubsection*{Proof}
+
+Given a list \(v_1, \dots, v_m\) of linearly independent vectors in \(V\), suppose to the contrary that by removing some vectors in the list, it became linearly dependent.
+
+Without loss of generality, let's suppose we remove some vectors at the end. (The order of vector is not important here.) That is, let \(I = \{1, \dots, k\}\) be the set of indicies that we keep, and \(J = \{k + 1, \dots, m\}\) be the set of indicies we remove, where \(1 \leq k < m\). (For the case where we remove all vectors, \(k = 0\), the empty remaining list is declared to be linearly independent.)
+
+By the assumption that the remaining list is linearly dependent, we have \(a_1, \dots a_k \in \mathbf{F}\), not all \(0\), such that
+\[
+    a_1 v_1 + \cdots + a_k v_k = 0.
+\]
+Then by filling up with the removed vectors, we get
+\[
+    (a_1 v_1 + \cdots + a_k v_k) + (0 v_{k+1} + \cdots + 0 v_m) = 0
+\]
+That is, there exist non-trivial linear combination of \(v_1, \dots, v_m\) that equals \(0\), which contradicts that \(v_1, \dots, v_m\) is linearly independent.
+
+\subsection{} \label{this}
+
+If some vector in a list of vectors in \(V\) is a linear combination of the other vectors, then the list is linearly dependent.
+
+\subsubsection*{Proof}
+
+Given a list \(v_1, \dots, v_m\) of vectors in \(V\) where \(m > 1\). Without loss of generality, we assume that the first vector \(v_1\) is a linear combination of the other vectors \(v_2, \dots, v_m\). Then there exist \(a_2, \dots, a_m \in \mathbf{F}\) such that
+\[
+    v_1 = a_2 v_2 + \cdots + a_m v_m
+\]
+\[
+    \Rightarrow -v_1 + a_2 v_2 + \cdots + a_m v_m = 0
+\]
+Thus, \(v_1, \dots, v_m\) is linearly dependent.
+
+\subsection{}
+
+The converse of the previous statement: if a list of vectors in \(V\) is linearly dependent, then some vector in the list is a linear combination of the other vectors.
+
+\subsubsection*{Proof}
+
+This is more tedious since we have to consider many edge cases.
+
+\begin{itemize}
+    \item For the case where the list is of length 0, the empty list is declared to be linearly independent, so we don't have to consider it.
+
+    \item For the case where the list is of length 1, it will be proved that for this list to be linearly dependent, that one vector has to be the zero vector. And technically, this zero vector is a linear combination of \textit{the other} vectors. See that there is actually no other vector left, and by definition of \(\text{span}() = \{ 0 \}\), we can convince ourself that the zero vector is a linear combination of an empty list. Thus, the statement holds for this edge case when we turn the natural language to a more precise notation.
+
+    \item For the cases where the list is of length greater than 1, let the list be \(v_1, \dots, v_m\) in \(V\) where \(m > 1\). Suppose the list is linearly dependent, then there exist \(a_1, \dots, a_m \in \mathbf{F}\), not all zeros, such that
+    \[
+        a_1 v_1 + \cdots + a_m v_m = 0.
+    \]
+    Without loss of generality, assume that \(a_1\) is not zero. Then arranging the equation gives
+    \[
+        v_1 = -\frac{a_2}{a_1} v_2 - \cdots - \frac{a_m}{a_1} v_m.
+    \]
+    Thus, we have \(v_1\) which is a linear combination of the other vectors. (Generally, each \(v_j\) with \(a_j \neq 0\) is a linear combination of the other vectors since we can then safely arrange the equation.)
+\end{itemize}
+
+\subsubsection*{Note}
+
+From this two statements we can see that, a list of vector is linearly dependent could be defined as whether there is one of the vector being a linear combination of the other vectors. But it is not so precise to think like this way due to the dubious maening of ``one of the vector'' and ``the other vectors''. In fact, we do not even consider the edge cases in \ref{this} since it seems like the condition assumes the existence of that vector and the other vectors. Moreover, this way of phrasing make one of the vector ``guilty'', while the original definition only states that there is a non-trivial linear combination equal to 0.
+
+\subsection{}
+
+Every list of vectors in \(V\) containing the zero vector is linearly dependent.
+
+\subsubsection*{Proof}
+
+Given a list \(v_1, \dots, v_m\) of vectors in \(V\), where \(m \geq 1\), suppose one of them is the zero vector. Without loss of generality, assume \(v_1\) is the zero vector. Then \(v_1\) can be written as a trivial linear combination of the other vectors:
+\[
+    v_1 = 0 v_2 + \cdots + 0 v_m.
+\]
+Then by \ref{this}, \(v_1, \dots, v_m\) is linearly dependent.
+
+\subsection{Linear Dependence Lemma}
+
+Suppose \(v_1, \dots, v_m\) is a linearly dependent list in \(V\). Then there exists \(j \in \{1, \dots, m\}\) such that the following hold:
+\begin{enumerate}
+    \item[(a)] \(v_j \in \text{span}(v_1, \dots, v_{j-1})\);
+    \item[(b)] if the \(j^{\text{th}}\) term is removed from \(v_1, \dots, v_m\), the span of the remaining list equals \(\text{span}(v_1, \dots, v_m)\).
+\end{enumerate}
+
+\subsubsection*{Proof}
+
+\begin{enumerate}
+    \item[(a)]
+    Because the list is linearly dependent, there exist \(a_1, \dots, a_m \in \mathbf{F}\), not all 0, such that
+    \[
+        a_1 v_1 + \cdots + a_m v_m = 0.
+    \]
+    Let \(j\) be the largest element of \(\{1, \dots, m\}\) such that \(a_j \neq 0\). Then
+    \[
+        a_1 v_1 + \cdots + a_j v_j = 0
+    \]
+    \begin{equation} \label{eq}
+        \Rightarrow \; v_j = - \frac{a_1}{a_j} v_1 - \cdots - \frac{a_{j-1}}{a_j} v_{j-1}
+    \end{equation}
+    Thus, (a) is true.
+
+    \item[(b)]
+    Suppose \(u \in \text{span}(v_1, \dots, v_m)\). Then there exist \(c_1, \dots, c_m \in \mathbf{F}\) such that
+    \[
+        u = c_1 v_1 + \cdots + c_j v_j + \cdots + c_m v_m.
+    \]
+    Then we can replace \(v_j\) with \eqref{eq}, which shows that \(u\) is in the span of the list \(v_1, \dots, v_m\) without \(v_j\). Thus, \(\text{span}(v_1, \dots, v_m) \subseteq \text{span}(v_1, \dots, v_m \setminus v_j)\).
+
+    And \(\text{span}(v_1, \dots, v_m \setminus v_j) \subseteq \text{span}(v_1, \dots, v_m)\) is obviously true since for every \(u\) as a linear combination of the list \(v_1, \dots, v_m \setminus v_j\), adding \(0 v_j\) gives a linear combination of the list \(v_1, \dots, v_m\). Therefore, (b) is true.
+\end{enumerate}
+
+\subsection{}
+
+Suppose \(v_1, v_2, v_3, v_4\) is linearly independent in \(V\). Prove that the following list is also linearly independent:
+\[
+    v_1 - v_2,\, v_2 - v_3,\, v_3 - v_4,\, v_4.
+\]
+
+\subsubsection*{Proof}
+
+Given \(a_1, a_2, a_3, a_4 \in \mathbf{F}\), suppose the following holds
+\[
+    a_1 (v_1 - v_2) + a_2 (v_2 - v_3) + a_3 (v_3 - v_4) + a_4 v_4 = 0.
+\]
+Arranging the equation gives
+\[
+    a_1 v_1 + (-a_1 + a_2) v_2 + (-a_2 + a_3) v_3 + (-a_3 + a_4) v_4 = 0.
+\]
+Then the linear independence of \(v_1, v_2, v_3, v_4\) requires that \(a_1 = a_2 = a_3 = a_4 = 0\). Thus the list \(v_1 - v_2,\, v_2 - v_3,\, v_3 - v_4,\, v_4\) is also linearly independent.
+
+\subsection{}
+
+Suppose \(v_1, \dots, v_m\) is linearly independent in \(V\) and \(w \in V\). Prove that if \(v_1 + w, \dots, v_m + w\) is linearly dependent, then \(w \in \text{span}(v_1, \dots, v_m)\).
+
+\subsubsection*{Proof}
+
+Suppose \(v_1 + w, \dots, v_m + w\) is linearly dependent, then there exist \(a_1, \dots, a_m \in \mathbf{F}\), not all 0, such that
+\[
+    a_1 (v_1 + w) + \cdots + a_m (v_m + w) = 0
+\]
+\[
+    \Rightarrow \; a_1 v_1 + \cdots + a_m v_m = - (a_1 + \cdots + a_m) w
+\]
+And by the linear independence of \(v_1, \dots, v_m\), the linear combination on the left hand side cannot be zero, thus \(a_1 + \cdots + a_m \neq 0\) and \(w \neq 0\). Then we can arrange the equation to
+\[
+    w = - \frac{a_1}{a_1 + \cdots + a_m} v_1 - \cdots - \frac{a_m}{a_1 + \cdots + a_m} v_m.
+\]
+Therefore, \(w \in \text{span}(v_1, \dots, v_m)\).
+
+\subsection{}
+
+Suppose \(v_1, \dots, v_m\) is linearly independent in \(V\) and \(w \in V\). Show that \(v_1, \dots, v_m, w\) is linearly independent if and only if \(w \notin \text{span}(v_1, \dots, v_m)\).
+
+\subsubsection*{Proof}
+
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)}
+    Suppose to the contrary that \(v_1, \dots, v_m, w\) is linearly independent and \(w \in \text{span}(v_1, \dots, v_m)\), then there exist \(a_1, \dots, a_m \in \mathbf{F}\) such that
+    \[
+        w = a_1 v_1 + \cdots + a_m v_m.
+    \]
+    Arranging the equation gives
+    \[
+        a_1 v_1 + \cdots + a_m v_m - w = 0
+    \]
+    This shows that \(v_1, \dots, v_m, w\) is linearly dependent, which is a contradiction.
+
+    \item \fbox{\(\Longleftarrow\)}
+    Suppose to the contrary that \(w \notin \text{span}(v_1, \dots, v_m)\) and \(v_1, \dots, v_m, w\) is linearly dependent, then there exist \(c_1, \dots, c_m, c_w \in \mathbf{F}\), not all 0, such that
+    \[
+        c_1 v_1 + \cdots + c_m v_m + c_w w = 0.
+    \]
+    For the case where \(c_w = 0\), then \(c_1, \dots, c_m\) is linearly dependent, which is a contradiction.
+
+    For the case where \(c_w \neq 0\), then we arrange the equation so that \(w\) is a linear combination of \(v_1, \dots, v_m\), which contradicts that \(w \notin \text{span}(v_1, \dots, v_m)\).
+\end{itemize}
+
+\end{document}

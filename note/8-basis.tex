@@ -1,0 +1,142 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={17.18cm, 24.62cm}]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+    Lan Yung-Chi, 2026/01/20
+\end{center}
+
+\section{Definition}
+
+A \textbf{\textit{basis}} of \(V\) is a list of vectors in \(V\) that is linearly independent and spans \(V\).
+
+\section{Theorem}
+
+\subsection{Crierion for basis}
+
+A list \(v_1, \dots, v_n\) of vectors in \(V\) is a basis of \(V\) if and only if every \(v \in V\) can be written uniquely in the form
+\begin{equation}\label{eq1}
+    v = a_1 v_1 + \cdots + a_n v_n,
+\end{equation}
+where \(a_1, \dots, a_n \in \mathbf{F}\).
+
+\subsubsection*{Proof}
+
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)} Suppose that \(v_1, \dots, v_n\) is a basis of \(V\). For every \(v \in V\), there exist \(a_1, \dots, a_n \in \mathbf{F}\) satisfying the equation \eqref{eq1} since \(v_1, \dots, v_n\) spans \(V\). To show the uniqueness of the representation, suppose another set of scalars \(c_1, \dots, c_n \in \mathbf{F}\) such that
+    \[
+        v = c_1 v_1 + \cdots + c_n v_n.
+    \]
+    Subtracting this equation from \eqref{eq1} gives
+    \[
+        0 = (a_1 - c_1) v_1 + \cdots + (a_n - c_n) v_n.
+    \]
+    This implies that each \(a_j - c_j = 0\) because \(v_1, \dots, v_n\) is linearly independent. Thus, each \(a_j = c_j\), the representation is unique.
+
+    \item \fbox{\(\Longleftarrow\)} Suppose that every \(v \in V\) can be written uniquely in the form of \eqref{eq1}. This clearly shows that \(v_1, \dots, v_n\) spans \(V\). To show that \(v_1, \dots, v_n\) is linearly independent, suppose to the contrary that there exist \(a_1, \dots, a_n \in \mathbf{F}\), not all 0, such that
+    \[
+        0 = a_1 v_1 + \cdots + a_n v_n.
+    \]
+    Then we can have a different set of scalars with each \(c_j = 2 a_j\) such that
+    \[
+        0 = c_1 v_1 + \cdots + c_n v_n,
+    \]
+    creating another representation, which contradicts the assumption that the representation is unique. Thus, \(a_1 = \cdots = a_n = 0\), so \(v_1, \dots, v_n\) is linearly independent.
+\end{itemize}
+
+\subsection{Spanning list contains a basis} \label{ex2}
+
+Every spanning list in a vector space can be reduced to a basis of the vector space. (By ``reduce'' we mean removing some vectors in the list, or not removing any vector at all.)
+
+\subsubsection*{Proof}
+
+Suppose \(v_1, \dots, v_n\) is a spanning list of \(V\). We are going to show that the following procedure reduces the list to a basis of \(V\).
+
+\begin{center}
+    \fbox{
+        \begin{minipage}{.9\textwidth}
+            \(B\) starts as the list \(v_1, \dots, v_n\).
+
+            \textbf{Step 1}
+
+            \hspace{5mm} If \(v_1 = 0\), remove \(v_1\) from \(B\); otherwise, leave \(B\) unchanged.
+
+            \textbf{Step j (from 2 to n)}
+
+            \hspace{5mm} If \(v_j \in \text{span}(v_1, \dots, v_{j-1})\), remove \(v_j\) from \(B\); otherwise, leave \(B\) unchanged.
+        \end{minipage}
+    }
+\end{center}
+If the original spanning list is already linearly independent, then the procedure does not remove any vector, which is the correct output. Now suppose that the spanning list is linearly dependent at the beginning. By the Linear Dependence Lemma, after each step the span of \(B\) does not change, thus at the end of the procedure we have \(\text{span}(B) = V\). And since the procedure ensures that no vector in \(B\) is in the span of the preceding vectors, \(B\) becomes linearly independent. Therefore, the procedure correcetly reduces the spanning list to \(B\) as a basis of \(V\).
+
+\subsection{Basis of finite-dimensional vector space}
+
+Every finite-dimensional vector space has a basis.
+
+\subsubsection*{Proof}
+
+By definition, every finite-dimensional vector space \(V\) has a spanning list. And this spanning list can be reduced to a basis of \(V\) by the result of \ref{ex2}.
+
+\subsection{Linearly independent list extends to a basis}
+
+Every linearly independent list of vectors in a finite-dimensional vector space can be extended to a basis of the vector space. (By ``extend'' we mean adding some vectors, or not adding any vector at all.)
+
+\subsubsection*{Proof}
+
+Suppose \(u_1, \dots, u_m\) is linearly independent in a finite-dimensional vector space \(V\). Let \(w_1, \dots, w_n\) be a basis of \(V\). Then the list
+\[
+    u_1, \dots, u_m, w_1, \dots, w_n
+\]
+spans \(V\). Applying the procedure in the proof of \ref{ex2} to this list produces a basis of \(V\) consisting of \(u_1, \dots, u_m\) and some \(w\)'s, as none of the \(u\)'s get removed because \(u_1, \dots, u_m\) is linearly independent.
+
+\section{Exercise}
+
+\subsection{}
+
+Find all vector spaces that have exactly one basis.
+
+\subsubsection*{Solution}
+
+The vector space \(V = \{ 0 \}\) is the only vector space that has exactly one basis, which is the empty set since \(\text{span}() = \{0\}\). For every other vector spaces, suppose \(w_1, w_2, \dots, w_n\) is a basis, then \(cw_1, w_2, \dots, w_n\)
+is also a basis for every \(c \in \mathbf{F} \setminus \{ 0, 1 \}\).
+
+\subsection{}
+
+Suppose \(v_1, v_2, v_3, v_4\) is a basis of \(V\). Prove that the following list is also a basis of \(V\).
+\[
+    v_1 + v_2, \, v_2 + v_3, \, v_3 + v_4, \, v_4
+\]
+
+\subsubsection*{Solution}
+
+Given a basis \(v_1, v_2, v_3, v_4\) of \(V\), we aim to show that \(v_1 + v_2, \, v_2 + v_3, \, v_3 + v_4, \, v_4\) is linearly independent and spans \(V\).
+
+\begin{itemize}
+    \item Suppose \(a_1, a_2, a_3, a_4 \in \mathbf{F}\) are such that
+    \[
+        a_1 (v_1 + v_2) + a_2 (v_2 + v_3) + a_3 (v_3 + v_4) + a_4 v_4 = 0.
+    \]
+    Arranging the equation gives
+    \[
+        a_1 v_1 + (a_1 + a_2) v_2 + (a_2 + a_3) v_3 + (a_3 + a_4) v_4 = 0.
+    \]
+    Then because \(v_1, v_2, v_3, v_4\) is linearly independent, we have \(a_1 = a_2 = a_3 = a_4 = 0\), thus \(v_1 + v_2, \, v_2 + v_3, \, v_3 + v_4, \, v_4\) is linearly independent.
+
+    \item For every \(v \in V\), we have \(c_1, c_2, c_3, c_4 \in \mathbf{F}\) such that
+    \[
+        c_1 v_1 + c_2 v_2 + c_3 v_3 + c_4 v_4 = v.
+    \]
+    Arranging the equation gives
+    \[
+        c_1 (v_1 + v_2) + (-c_1 + c_2) (v_2 + v_3) + (c_1 - c_2 + c_3) (v_3 + v_4) + (-c_1 + c_2 - c_3 + c_4) v_4 = v.
+    \]
+    Thus, \(v \in \text{span}(v_1 + v_2, \, v_2 + v_3, \, v_3 + v_4, \, v_4)\), we have \(V \subseteq \text{span}(v_1 + v_2, \, v_2 + v_3, \, v_3 + v_4, \, v_4)\). Also, \(\text{span}(v_1 + v_2, \, v_2 + v_3, \, v_3 + v_4, \, v_4) \subseteq V\) is trivial; therefore, the list spans \(V\).
+\end{itemize}
+
+\end{document}

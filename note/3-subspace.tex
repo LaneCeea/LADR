@@ -1,0 +1,83 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={17.18cm, 24.62cm}]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+    Lan Yung-Chi, 2026/01/09
+\end{center}
+
+\section{Definition}
+
+For vector space \(V\) over a field \(\mathbf{F}\) and subset \(U\) in \(V\),
+\begin{center}
+    \(U\) is a \textit{subspace} of \(V\) if \(U\) is also a vector space over \(\mathbf{F}\),
+\end{center}
+with the same operations of addition and scalar multiplication as on \(V\).
+
+\section{Conditions}
+
+A subset \(U\) of \(V\) is a subspace of \(V\) iff \(U\) satisfies the following three conditions:
+
+\begin{enumerate}
+    \item \textbf{Additive Identity}
+
+    \hspace{5mm} \(0 \in U\).
+
+    \item \textbf{Closed Under Addition}
+
+    \hspace{5mm} For all \(u, w \in U\), \(u + w \in U\).
+
+    \item \textbf{Closed Under Scalar Multiplication}
+
+    \hspace{5mm} For all \(a \in \mathbf{F}\) and all \(u \in U\), \(au \in U\).
+\end{enumerate}
+
+\subsubsection*{Note about additive identity}
+
+If one were to carelessly exclude the first condition, thinking that it should have been implicitly satisfied by the third condition as follows:
+\begin{center}
+    Choose \(a = 0\) and any \(u \in U\), then \(au = 0 \in U\) exists. (Wrong!)
+\end{center}
+While this may good as \(0\) always exists in a field, \(U\) might be an empty set thus \(u\) cannot be chosen. The issue is that the second and third conditions alone fail to rule out the case \(U = \varnothing\), as they only states that \textit{all} vectors are closed under addition and scalar multiplication, not the \textit{existence} of them.
+
+\subsubsection*{Note about definition}
+
+The three conditions are not the definition of subspaces; instead, it shall be proved that they are equivalent to the definition of subspaces.
+
+\subsubsection*{Proof}
+
+\begin{itemize}
+
+    \item \fbox{\(\Longrightarrow\)} Given a subset \(U\) of \(V\), if \(U\) is a subspace of \(V\), then \(U\) satisfies the three conditions.
+
+    Suppose that \(U\) is a subspace of \(V\), that is, \(U\) is the vector space over the same field.
+
+    \begin{itemize}
+        \item The 1-st condition is satisfied by the definition of the vector space that \(U\) has a additive identity \(0\).
+        \item The 2-nd and 3-rd conditions are satisfied by the definitions of operations on \(U\), as addition is the function of \(U \times U \to U\) and scalar multiplication is the function of \(\mathbf{F} \times U \to U\). This implies that all sums between vectors and all products between numbers and vectors, are both vectors in \(U\).
+    \end{itemize}
+    
+    \item \fbox{\(\Longleftarrow\)} Given a subset \(U\) of \(V\), if \(U\) satisfies the three conditions, then \(U\) is a subspace of \(V\).
+
+    Suppose that a subset \(U\) of \(V\) satisfies the three conditions, we aim to show that \(U\) is a vector space over the same field.
+
+    First of all, the operations of addition \(U \times U \to U\) and scalar multiplication \(\mathbf{F} \times U \to U\) have to make sense. This is ensured by the 2-nd and 3-rd conditions.
+
+    Let's move on to the properties of vector spaces.
+    \begin{itemize}
+        \item The existence of additive identity is ensured by the 1-st condition.
+        \item For all \(u \in U\), the additive inverse \((-1)u = -u\) exists in \(U\) by the 3-rd condition.
+        \item The other properties (i.e. commutativity, associativity, multiplicative identity, distributive properties) are automatically satisfied for \(U\) because they hold on a larger set \(V\). This can be verified easily.
+    \end{itemize}
+
+    Thus, \(U\) is a vector space and hence is a subspace of \(V\).
+    
+\end{itemize}
+
+\end{document}

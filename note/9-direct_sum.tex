@@ -1,0 +1,244 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={17.18cm, 24.62cm}]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+    Lan Yung-Chi, 2026/01/22
+\end{center}
+
+\section{Definition}
+
+\begin{itemize}
+    \item Suppose \(U_1, \dots, U_m\) are subsets of \(V\). The \textbf{\textit{sum}} of \(U_1, \dots ,U_m\), denoted \(U_1 + \cdots + U_m\), is the set of all possible sums of elements of \(U_1, \dots, U_m\). More precisely,
+    \[
+        U_1 + \cdots + U_m = \{ u_1 + \cdots + u_m \mid u_1 \in U_1, \dots, u_m \in U_m \}.
+    \]
+
+    \item Suppose \(U_1, \dots, U_m\) are subspaces of \(V\). The sum \(U_1 + \cdots + U_m\) is called a \textbf{\textit{direct sum}} if each element of \(U_1 + \cdots + U_m\) can be written uniquely as a sum \(u_1 + \cdots u_m\), where each \(u_j \) is in \(U_j\).
+
+    \item If \(U_1 + \cdots + U_m\) is a direct sum, then \(U_1 \oplus \cdots \oplus U_m\) denotes \(U_1 + \cdots + U_m\), with the \(\oplus\) notation serving as an indication that this is a direct sum.
+\end{itemize}
+
+\section{Theorem}
+
+\subsection{Smallest containing subspace}
+
+Suppose \(U_1, \dots, U_m\) are subspaces of \(V\). Then \(U_1 + \cdots + U_m\) is the smallest subspace of \(V\) containing \(U_1, \dots, U_m\).
+
+\subsubsection*{Proof}
+
+Given subspaces \(U_1, \dots, U_m\) of \(V\), we aim to show that \(U_1 + \cdots + U_m\) is a subspace of \(V\), contains \(U_1, \dots, U_m\), and is the smallest subspace of \(V\) containing \(U_1, \dots, U_m\).
+
+\begin{itemize}
+    \item Because \(U_1, \dots, U_m\) are subspaces of \(V\), it is obvious that \(0 \in U_1 + \cdots + U_m\) and that \(U_1 + \cdots U_m\) is closed under addition and scalar multiplication.
+
+    \item In each \(U_j\), for every \(u_j \in U_j\), clearly that \(u_j \in U_1 + \cdots U_m\) because we can choose all the other \(u\)'s as 0. Thus, each \(U_j \subseteq U_1 + \cdots U_m\).
+
+    \item For every subspace \(W\) of \(V\) that containing \(U_1, \dots, U_m\), we have \(U_1 + \cdots + U_m \subseteq W\), for the following reason. For every \(u \in U_1 + \cdots + U_m\), we can write
+    \[
+        u = u_1 + \cdots + u_m,
+    \]
+    where \(u_1 \in U_1, \dots, u_m \in U_m\). And because \(W\) contains \(U_1, \dots, U_m\), this means that each \(u_j \in W\), and so is their sum \(u_1 + \cdots + u_m\) since \(W\) is closed under addition. Thus \(u \in W\).
+\end{itemize}
+
+\subsection{Condition for a direct sum}\label{sub:cond}
+
+Suppose \(U_1, \dots, U_m\) are subspaces of \(V\). Then \(U_1 + \cdots + U_m\) is a direct sum if and only if the only way to write 0 as a sum \(u_1 + \cdots + u_m\), where each \(u_j\) is in \(U_j\), is by taking each \(u_j\) equal to 0.
+
+\subsubsection*{Proof}
+
+Given subspaces \(U_1, \dots, U_m\) of \(V\), we aim to show that both directions are true.
+
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)} Suppose that \(U_1 + \cdots + U_m\) is a direct sum. If there were \(u_1 \in U_1, \dots, u_m \in U_m\), not all 0, such that
+    \[
+        u_1 + \cdots + u_m = 0.
+    \]
+    Then we would have a different representation that adds to 0, as
+    \[
+        2 u_1 + \cdots + 2 u_m = 0,
+    \]
+    which contradicts the definition of the direct sum \(U_1 + \cdots + U_m\).
+
+    \item \fbox{\(\Longleftarrow\)} Suppose that the only way to write 0 as a sum \(u_1 + \cdots + u_m\), where each \(u_j\) is in \(U_j\), is by taking each \(u_j\) equal to 0. For every \(w \in U_1 + \cdots + U_m\), we can write
+    \[
+        w = u_1 + \cdots + u_m,
+    \]
+    for some \(u_1 \in U_1, \dots, u_m \in U_m\). To show that this representation is unique, consider that
+    \[
+        w = v_1 + \cdots + v_m,
+    \]
+    for some \(v_1 \in U_1, \dots, v_m \in U_m\). Subtracting these two equations gives
+    \[
+        0 = (u_1 - v_1) + \cdots + (u_m - v_m).
+    \]
+    Because \((u_1 - v_1) \in U_1, \dots, (u_m - v_m) \in U_m\), based on the assumption we have each \(u_j - v_j = 0\). Thus \(u_1 = v_1, \dots, u_m = v_m\); that is, there is a unique representation of \(w\).
+\end{itemize}
+
+\subsection{Direct sum of two subspaces}
+
+Suppose \(U\) and \(W\) are subspaces of \(V\). Then \(U + W\) is a direct sum if and only if \(U \cap W = \{ 0 \}\).
+
+\subsubsection*{Proof}
+
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)} Given that \(U\) and \(W\) are subspaces of \(V\), suppose that \(U + W\) is a direct sum. Then we know that for every \(u \in U\) and \(w \in W\), \(u + w = 0\) implies \(u = w = 0\) by \ref{sub:cond}. Now given any \(v \in U \cap W\), there exists its additive inverse \(v' \in U \cap W\) such that \(v + v' = 0\). And since it is also true that \(v \in U\) and \(v' \in W\), we have \(v = 0\). Thus, \(U \cap W = \{ 0 \}\).
+
+    \item \fbox{\(\Longleftarrow\)} Given that \(U\) and \(W\) are subspaces of \(V\), suppose \(U \cap W = \{ 0 \}\). To prove that \(U + W\) is a direct sum, suppose \(u \in U\) and \(w \in W\) such that \(u + w = 0\), we want to show that \(u = w = 0\). Because the additive inverse is unique, we know that \(u = -w \in W\). This implies that \(u \in U \cap W\), and thus \(u = 0\).
+\end{itemize}
+
+\subsection{Every subspace of \(V\) is part of a direct sum equal to \(V\)}
+
+Suppose \(V\) is finite-dimensional and \(U\) is a subspace of \(V\). Then there is a subspace \(W\) of \(V\) such that \(V = U \oplus W\).
+
+\subsubsection*{Proof}
+
+Given that \(V\) is finite-dimensional and \(U\) is a subspace of \(V\), \(U\) is also finite-dimensional. Let \(u_1, \dots, u_m\) be a basis of \(U\). The list can then be extended to be a basis of \(V\). Let the extended list be
+\[
+    u_1, \dots, u_m, w_1, \dots, w_n.
+\]
+Let \(W = \text{span}(w_1, \dots, w_n)\). We aim to show that \(U + W\) is a direct sum and \(V = U + W\).
+
+\begin{itemize}
+    \item For every \(v \in U \cap W\), there exist scalars \(a_1, \dots, a_m, b_1, \dots, b_n \in \mathbf{F}\) such that
+    \[
+        v = a_1 u_1 + \cdots + a_m u_m = b_1 w_1 + \cdots + b_n w_n.
+    \]
+    Thus
+    \[
+        a_1 u_1 + \cdots + a_m u_m + (-b_1) w_1 + \cdots + (-b_n) w_n = 0.
+    \]
+    Since \(u_1, \dots, u_m, w_1, \dots, w_n\) is linearly independent, it must be that \(a_1 = \cdots = a_m = -b_1 = \cdots = -b_n = 0\). Thus \(v = 0\), which concludes that \(U \cap W = \{ 0 \}\).
+
+    \item \fbox{\(U + W \subseteq V\)} It is trivially true as \(U\) and \(W\) are subspaces of \(V\).
+
+    \item \fbox{\(V \subseteq U + W\)} For every \(v \in V\), since the list \(u_1, \dots, u_m, w_1, \dots, w_n\) spans \(V\), there exist scalars \(a_1, \dots, a_m, b_1, \dots, b_n \in \mathbf{F}\) such that
+    \[
+        v = a_1 u_1 + \cdots + a_m u_m + b_1 w_1 + \cdots + b_n w_n.
+    \]
+    Let \(u = a_1 u_1 + \cdots + a_m u_m \in U\) and \(w = b_1 w_1 + \cdots + b_n w_n \in W\), we can represent \(v\) as \(v = u + w\). Thus \(v \in U + W\).
+\end{itemize}
+
+\section{Exercise}
+
+\subsection{1.C.15}
+
+Suppose \(U\) is a subspace of \(V\). What is \(U + U\)?
+
+\subsubsection*{Solution}
+
+\(U + U = U\). For every \(v \in U + U\), it can be written as \(v = u_1 + u_2\), where \(u_1, u_2 \in U\); thus \(v \in U\) because addition is closed. And For every \(u \in U\), it is trivial that \(u \in U + U\) as it can be written as \(u = u + 0\).
+
+\subsection{1.C.16}
+
+Is the operation of addition on the subspaces of \(V\) commutative? In other words, if \(U\) and \(W\) are subspaces of \(V\), is \(U + W = W + U\)?
+
+\subsubsection*{Solution}
+
+Yes because addition in vector space is commutative. For every \(v \in U + W\), we can write \(v = u + w = w + u \in W + U\) for some \(u \in U\) and \(w \in W\). The other direction is true with the similar reason.
+
+\subsection{1.C.17}
+
+Is the operation of addition on the subspaces of \(V\) associative? In other words, if \(U_1, U_2, U_3\) are subspaces of \(V\), is \((U_1 + U_2) + U_3 = U_1 + (U_2 + U_3)\)?
+
+\subsubsection*{Solution}
+
+Yes because addition in vector space is associative. For every \(v \in (U_1 + U_2) + U_3\), we can write \(v = (u_1 + u_2) + u_3 = u_1 + (u_2 + u_3) \in U_1 + (U_2 + U_3)\) for some \(u_1 \in U_1, u_2 \in U_2, u_3 \in U_3\). The other direction is true with the similar reason.
+
+\subsection{1.C.18}
+
+Does the operation of addition on the subspaces of \(V\) have an additive identity? Which subspaces have additive inverses?
+
+\subsubsection*{Solution}
+
+For every subspaces \(U\) of \(V\), we have \(U + \{ 0 \} = U\); thus \(\{ 0 \}\) is an additive identity. For a subspace \(U\) of \(V\) to have a additive inverse, there should be a subspace \(U'\) of \(V\) such that \(U + U' = \{ 0 \}\). The only \(U\) satisfying this requirement is \(\{ 0 \}\), as any other \(U\) would lead to \(U + U' \neq \{ 0 \}\) for any \(U'\).
+
+\subsection{1.C.24}
+
+A function \(f: \mathbf{R} \to \mathbf{R}\) is called \textit{\textbf{even}} if
+\[
+    f(-x) = f(x), \quad \forall x \in \mathbf{R}.
+\]
+A function \(f: \mathbf{R} \to \mathbf{R}\) is called \textit{\textbf{odd}} if
+\[
+    f(-x) = -f(x), \quad \forall x \in \mathbf{R}.
+\]
+Let \(U_{\text{e}}\) denote the set of real-valued even functions on \(\mathbf{R}\) and let \(U_{\text{o}}\) denote the set of real-valued odd functions on \(\mathbf{R}\). Show that \(\mathbf{R}^{\mathbf{R}} = U_{\text{e}} \oplus U_{\text{o}}\).
+
+\subsubsection*{Solution}
+
+We aim to show that \(U_{\text{e}} + U_{\text{o}}\) is a direct sum, and \(U_{\text{e}} + U_{\text{o}} = \mathbf{R}^{\mathbf{R}}\).
+
+\begin{itemize}
+    \item It can be shown that \(U_{\text{e}} \cap U_{\text{o}} = \{ 0 \}\) where \(0\) is the function that is identically zero; thus \(U_{\text{e}} + U_{\text{o}}\) is a direct sum.
+
+    Suppose to the contrary that there were non-identically-zero \(f \in U_{\text{e}} \cap U_{\text{o}}\), then there would exist \(x \in \mathbf{R}\) such that \(f(x) \neq 0\). By \(f \in U_{\text{e}}\) we have \(f(x) = f(-x)\); and by \(f \in U_{\text{o}}\) we have \(f(x) = -f(-x)\). This leads to \(f(-x) = -f(-x) \neq 0\), which is a contradiction.
+
+    \item \fbox{\(U_{\text{e}} + U_{\text{o}} \subseteq \mathbf{R}^{\mathbf{R}}\)}
+    
+    For every \(f \in U_{\text{e}} + U_{\text{o}}\), it is trivial that \(f \in \mathbf{R}^{\mathbf{R}}\), as \(U_{\text{e}}\) and \(U_{\text{o}}\) are subspaces of \(\mathbf{R}^{\mathbf{R}}\).
+
+    \item \fbox{\(\mathbf{R}^{\mathbf{R}} \subseteq U_{\text{e}} + U_{\text{o}}\)}
+
+    For every \(f \in \mathbf{R}^{\mathbf{R}}\), we want to find \(g \in U_{\text{e}}\) and \(h \in U_{\text{o}}\) such that
+    \[
+        f(x) = g(x) + h(x), \quad \forall x \in \mathbf{R}.
+    \]
+    To find the value of \(g(x)\) and \(h(x)\) at each point \(x = x_0\), we solve the following system.
+    \[
+        \begin{cases}
+            & f(x_0) = g(x_0) + h(x_0) \\
+            & f(-x_0) = g(-x_0) + h(-x_0) = g(x_0) - h(x_0)
+        \end{cases}
+    \]
+    \[
+        \Longrightarrow \quad g(x_0) = \frac{f(x_0) + f(-x_0)}{2}, \quad h(x_0) = \frac{f(x_0) - f(-x_0)}{2}.
+    \]
+    In this way, we find the unique solution (thus also show that it is a direct sum) of \(g(x)\) and \(h(x)\).
+\end{itemize}
+
+\subsection{2.B.8}
+
+Suppose \(U\) and \(W\) are subspaces of \(V\) such that \(V = U \oplus W\). Suppose also that \(u_1, \dots u_m\) is a basis of \(U\) and \(w_1, \dots, w_n\) is a basis of \(W\). Prove that
+\[
+    u_1, \dots, u_m, w_1, \dots, w_n
+\]
+is a basis of \(V\).
+
+\subsubsection*{Proof}
+
+We aim to show that \(u_1, \dots, u_m, w_1, \dots, w_n\) is linearly independent and spans \(V\).
+
+\begin{itemize}
+    \item Let \(a_1, \dots, a_m, b_1, \dots, b_n \in \mathbf{F}\) be scalars such that
+    \[
+        a_1 u_1 + \cdots + a_m u_m + b_1 w_1 + \cdots b_n w_n = 0.
+    \]
+    We can write \(u = a_1 u_1 + \cdots + a_m u_m \in U\) and \(w = b_1 w_1 + \cdots b_n w_n = 0\). And since \(U + W\) is a direct sum, \(u + w = 0\) implies \(u = w = 0\). That is,
+    \[
+        a_1 u_1 + \cdots + a_m u_m = b_1 w_1 + \cdots b_n w_n = 0.
+    \]
+    Because \(u_1, \dots, u_m\) and \(w_1, \dots, w_n\) are bases,
+    \[
+        a_1 = \cdots = a_m = b_1 = \cdots = b_n = 0.
+    \]
+    Thus \(u_1, \dots, u_m, w_1, \dots, w_n\) is linearly independent.
+
+    \item For every \(v \in V\), since \(V = U + W\), there exist \(u \in U\) and \(w \in W\) such that \(v = u + w\). And we can further write \(u\) and \(v\) as
+    \[
+        u = a_1 u_1 + \cdots + a_m u_m, \quad w = b_1 w_1 + \cdots b_n w_n,
+    \]
+    for some scalars \(a_1, \dots, a_m, b_1, \dots, b_n \in \mathbf{F}\). Then
+    \[
+        v = a_1 u_1 + \cdots + a_m u_m + b_1 w_1 + \cdots b_n w_n.
+    \]
+    Thus \(v \in \text{span}(u_1, \dots, u_m, w_1, \dots, w_n)\), which concludes that the list spans \(V\).
+\end{itemize}
+
+\end{document}

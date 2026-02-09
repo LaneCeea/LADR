@@ -1,0 +1,252 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={17.18cm, 24.62cm}]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+    Lan Yung-Chi, 2026/01/16
+\end{center}
+
+\section{Definition}
+
+\begin{itemize}
+    \item A vector space is called \textit{finite-dimensional} if some list of vectors in it spans the space. (Note that by definition lists have finite length.)
+
+    \item A vector space is called \textit{infinite-dimensional} if it is not finite-dimensional.
+\end{itemize}
+
+\section{Exercise}
+
+\subsection{}
+
+\(\mathbf{F}^n\) is a finite-dimensional vector space for every positive integer \(n\).
+
+\subsubsection*{Proof}
+
+Let's show that the following list of vectors spans \(\mathbf{F}^n\).
+\[
+    B = (1, 0, 0, \dots, 0), (0, 1, 0, \dots, 0), \dots, (0, \dots, 0, 1),
+\]
+where the \(j^{\text{th}}\) vector is the \(n\)-tuple with 1 in the \(j^{\text{th}}\) slot and 0 in all the other slots.
+
+\begin{itemize}
+    \item For every vector \(v = (x_1, \dots, x_n) \in \mathbf{F}^n\),
+    \[
+        (x_1, \dots, x_n) = x_1 (1, 0, 0, \dots, 0) + x_2 (0, 1, 0, \dots, 0) + \cdots + x_n (0, \dots, 0, 1).
+    \]
+    Thus \(v \in \text{span}(B)\), thereby \(\mathbf{F}^n \subseteq \text{span}(B)\).
+
+    \item For every vector \(u \in \text{span}(B)\), there exist \(a_1, \dots, a_n \in \mathbf{F}\) such that
+    \[
+        u = a_1 (1, 0, 0, \dots, 0) + a_2 (0, 1, 0, \dots, 0) + \cdots + a_n (0, \dots, 0, 1) = (a_1, a_2, \dots, a_n).
+    \]
+    Thus \(u \in \mathbf{F}^n\), thereby \(\text{span}(B) \subseteq \mathbf{F}^n\).
+\end{itemize}
+
+\subsection{}
+
+\(\mathcal{P}_m(\mathbf{F})\) is a finite-dimensional vector space for each nonnegative integer \(m\).
+
+\subsubsection*{Proof}
+
+\(\mathcal{P}_m(\mathbf{F}) = \text{span}(1, z, \dots, z^m)\), where each \(z^k\) denotes a function.
+
+\subsection{}
+
+\(\mathcal{P}(\mathbf{F})\) is infinite-dimensional.
+
+\subsubsection*{Proof}
+
+Consider any list of polynomials in \(\mathcal{P}(\mathbf{F})\). Let \(m\) be the higest degree of the polynomials in the list. Then every polynomial in the span of this list has degree at most \(m\). Thus \(z^{m+1}\) is not in the span of the list. Hence no list in \(\mathcal{P}(\mathbf{F})\) spans the space.
+
+\subsection{Length of linearly independent list \(\leq\) length of spanning list}
+
+In a finite-dimensional vector space, the length of every linearly independent list of vectors is less than or equal to the length of every spanning list of vectors.
+
+\subsubsection*{Proof}
+
+Suppose \(u_1, \dots, u_m\) is linearly independent in \(V\), and \(w_1, \dots, w_n\) spans \(V\). We aim to prove that \(m \leq n\), by observing the following procedure of adding \(u\) and removing \(w\) one at a time. At the end we will see that all \(u\)'s have been added and we does not run out of \(w\)'s to remove.
+\begin{center}
+    \fbox{
+        \begin{minipage}{.9\textwidth}
+            Let \(B\) be the list \(w_1, \dots w_n\), and for each iteration \(j\) from \(1\) to \(n\),
+            \begin{enumerate}
+                \item insert \(u_j\) to \(B\) at the position where it will be the \(j^{\text{th}}\) element of \(B\);
+                \item remove an element \(v\) in \(B\), where \(v\) is in the span of all the elements before it.
+            \end{enumerate}
+        \end{minipage}
+    }
+\end{center}
+At the end of each \(j^{\text{th}}\) iteration, we claim that the following loop invariants stays true.
+\begin{enumerate}
+    \item[(a)] \(B\) spans \(V\);
+    \item[(b)] \(B\) looks like this:
+    \[
+        u_1, \dots, u_{j}, \text{ remaining } w\text{'s} \quad (\text{total length } m)
+    \]
+\end{enumerate}
+Let's verify the loop invariants.
+\begin{itemize}
+    \item At the start of the \(1^{\text{st}}\) iteration, \(B\) is
+    \[
+        w_1, \dots, w_n \quad (\text{total length } n)
+    \]
+    After the insertion, \(B\) becomes
+    \[
+        u_1, w_1, \dots, w_n \quad (\text{total length } n + 1)
+    \]
+    Because \(w_1, \dots, w_n\) spans the space, \(u_1 \in V\) must be a linear combination of \(w_1, \dots, w_n\). Thus right now \(B\) is linearly dependent. And based on the Linear Dependence Lemma, we can always find an element \(v\) to remove such that, \(v\) is in the span of all the preceding elements, and after the removal the span of the remaining list is still \(V\). The invariant (a) is satisfied.
+
+    Furthermore, the removal does not choose \(u_1\) because if \(u_1\) were to be chosen, it would be that \(u_1 \in \text{span}() = \{ 0 \}\), but that cannot happen because \(u_1, \dots, u_m\) is linearly independent. (Recall that every list containing 0 is linearly dependent.) Thus, one of the \(w\)'s is choosen and removed. \(B\) now looks like
+    \[
+        u_1, \text{ remaining } w\text{'s} \quad (\text{total length } n)
+    \]
+    The invariant (b) is satisfied.
+
+    \item At the start of the \(j^{\text{th}}\) iteration, based on the loop invariant, we have \(B\)
+    \[
+        u_1, \dots, u_{j-1}, \text{ remaining } w\text{'s} \quad (\text{total length } n)
+    \]
+    spanning the space \(V\).
+
+    After the insertion, \(B\) becomes linearly dependent for the reason that \(u_j\) is a linear combination of the original list, since \(B\) originally spans the space.
+    \[
+        u_1, \dots, u_j, \text{ remaining } w\text{'s} \quad (\text{total length } n + 1)
+    \]
+
+    For the removal, based on the Linear Dependence Lemma, there exists an element \(v\) to be choosen, and after the removal \(B\) still spans \(V\). The loop invariant (a) is satisfied. And because \(u_1, \dots, u_j\) is linearly independent, any \(u\) will not be choosen, as it cannot be in the span of the other \(u\)'s. Thus the loop invariant (b) is satisfied.
+\end{itemize}
+
+We have shown that the loop invariants stay true throughout the whole loop. And since for the total of \(m\) iterations, there is always a \(w\) to be choosen and removed, the number of \(w\)'s must be at least \(m\). That is, \(m \leq n\).
+
+\subsubsection*{Note}
+
+The reason it requires that \(V\) is finite-dimensional, is that the existence of a spanning list \(w_1, \dots, w_n\) is ensured at the first place.
+
+\subsection{Finite-dimensional subspaces}
+
+Every subspace of a finite-dimensional vector space is finite-dimensional.
+
+\subsubsection*{Proof}
+
+Suppose \(V\) is finite-dimensional and \(U\) is a subspace of \(V\). We prove that \(U\) is finite-dimensional by constructing a list \(B\) of vectors that spans \(U\).
+
+\begin{center}
+    \fbox{
+        \begin{minipage}{.9\textwidth}
+            \(B\) starts as an empty list.
+
+            \textbf{Step 1}
+            \begin{center}\begin{minipage}{.9\textwidth}
+                If \(U = { 0 }\), then \(U\) is finite-dimensional and we are done; or else, add a nonzero vector \(v_1 \in U\) into the list \(B\).
+            \end{minipage}\end{center}
+
+            \textbf{Step j}
+            \begin{center}\begin{minipage}{.9\textwidth}
+                If \(U = \text{span}(B)\), then \(U\) is finite-dimensional and we are done; or else, add a nonzero vector \(v_j\) with \(v_j \in U\) and \(v_j \notin \text{span}(B)\) into the list \(B\).
+            \end{minipage}\end{center}
+        \end{minipage}
+    }
+\end{center}
+After each step, we have constructed \(B\) such that no vector in \(B\) is in the span of the preceding vectors. That is, for every \(i \in \{1, \dots, j\}\),
+\[
+    v_i \notin \text{span}(v_1, \dots, v_{i-1}).
+\]
+Thus \(B\) is linearly independent after each step, by the Linear Dependence Lemma. And since \(B\) cannot be longer than any spanning list of \(V\), so the process eventually terminates, which means that \(U\) is finite-dimensional.
+
+\subsection{}
+
+Explain why there does not exist a list of six polynomials that is linearly independent in \(\mathcal{P}_4(\mathbf{F})\), and why no list of four polynomials spans \(\mathcal{P}_4(\mathbf{F})\).
+
+\subsubsection*{Solution}
+
+The list of function \((1, z, z^2, z^3, z^4)\) spans \(\mathcal{P}_4(\mathbf{F})\) and is linearly independent, so no list of length larger than 5 is linearly independent in \(\mathcal{P}_4(\mathbf{F})\), and no list of length less than 5 spans \(\mathcal{P}_4(\mathbf{F})\).
+
+\subsection{}
+
+Prove that \(V\) is infinite-dimensional if and only if there is a sequence \(v_1, v_2, \dots\) of vectors in \(V\) such that \(v_1, \dots, v_m\) is linearly independent for every positive integer \(m\).
+
+\subsubsection*{Proof}
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)} Suppose that \(V\) is infinite-dimensional. We will construct the sequence as the following manner.
+
+    \begin{center}
+        \fbox{
+            \begin{minipage}{.9\textwidth}
+                \textbf{Step 1}
+                \begin{center}\begin{minipage}{.9\textwidth}
+                    Choose a nonzero vector \(v_1\) such that \(v_1 \in V\).
+                \end{minipage}\end{center}
+                \textbf{Step j}
+                \begin{center}\begin{minipage}{.9\textwidth}
+                    Choose a vector \(v_j\) such that \(v_j \in V\) and \(v_j \notin \text{span}(v_1, \dots, v_{j-1})\).
+                \end{minipage}\end{center}
+            \end{minipage}
+        }
+    \end{center}
+
+    First, the reason we can always find \(v_j\) in each step is that \(\text{span}(v_1, \dots, v_{j-1}) \subset V\). This is true since \(\text{span}(v_1, \dots, v_{j-1}) \subseteq V\) is trivial as every \(v\) is in \(V\), and \(\text{span}(v_1, \dots, v_{j-1}) \neq V\) because there does not exist a spanning list in \(V\).
+
+    Then, after each step \(j\), for every \(i \in \{1, 2, \dots, j\}\), we have \(v_i \notin \text{span}(v_1, \dots, v_{i-1})\). Thus, the list \(v_1, \dots, v_j\) is linearly independent by the Linear Dependence Lemma.
+
+    \item \fbox{\(\Longleftarrow\)} Suppose that there is a sequence \(v_1, v_2, \dots\) of vectors in \(V\) such that \(v_1, 
+    \dots, v_m\) is linearly independent for every positive integer \(m\). If \(V\) were to be finite-dimensional, then there would exist a spanning list with length \(n\). But at the same time we could have a linearly independent list of length \(n + 1\) larger than that spanning list, which is a contradiction. Thus, \(V\) is infinite-dimensional.
+\end{itemize}
+
+\subsection{}
+
+Prove that \(\mathbf{F}^{\infty}\) is infinite-dimensional.
+
+\subsubsection*{Note}
+
+Recall that \(\mathbf{F}^{\infty}\) can be thought of as \(\mathbf{F}^{\{1, 2, \dots\}}\). It is defined to be the set of all sequences of elements of \(\mathbf{F}\):
+\[
+    \mathbf{F}^{\infty} = \{ (x_1, x_2, \dots) \mid x_j \in \mathbf{F}, \forall j \in \{1, 2, \dots\} \}
+\]
+
+\subsubsection*{Proof}
+
+Suppose to the contrary that there were a spanning list \(v_1, \dots, v_m\) of vectors in \(\mathbf{F}^{\infty}\). For each \(k \in \{1, 2, \dots\}\), defined \(e_k \in \mathbf{F}^{\infty}\) by
+\[
+    e_k = (0, 0, \dots, 0, 1, 0, 0 \dots),
+\]
+where 1 is in the \(k^{\text{th}}\) coordinate of \(e\), and all other coordinates are 0. Then notice that the list \(e_1, \dots, e_{m+1}\) is linearly independent and is longer than the spanning list \(v_1, \dots, v_m\), which is a contradiction.
+
+\subsection{}
+
+Prove that the real vector space of all continuous real-valued functions on the interval \([0, 1]\) is infinite-dimensional.
+
+\subsubsection*{Proof}
+
+Denote the vector space as
+\[
+    C([0, 1], \mathbf{R}) = \{ f: [0, 1] \to \mathbf{R} \mid f \text{ is continuous} \}.
+\]
+Suppose to the contrary that there were a spanning list \(f_1, \dots, f_m\) of functions in \(C([0, 1], \mathbf{R})\). But we can we have a list \((1, x, x^2, \dots, x^m)\) of functions in \(C([0, 1], \mathbf{R})\) that is linearly independent and longer than that spannign list, which is a contradiction.
+
+\subsection{}
+
+Suppose \(p_0, p_1, \dots, p_m\) are polynomials in \(\mathcal{P}_m(\mathbf{F})\) such that \(p_j(2) = 0\) for each \(j\). Prove that \(p_0, p_1, \dots, p_m\) is not linearly independent in \(\mathcal{P}_m(\mathbf{F})\).
+
+\subsubsection*{Proof}
+
+For each \(j\), because \(p_j\) is polynomial and \(p_j(2) = 0\), it can be factorized as
+\[
+    p_j(z) = (z - 2)q_j(z),
+\]
+where \(q_j \in \mathcal{P}_{m-1}(\mathbf{F})\). And since \(\mathcal{P}_{m-1}(\mathbf{F})\) has a spanning list \((1, z, \dots, z^{m-1})\) of length \(m\), the list \((q_0, \dots, q_m)\) of length \(m+1\) in the same space cannot be linearly independent. That is, there exist \(a_0, \dots a_m \in \mathbf{F}\), not all 0, such that
+\[
+    a_0 q_0(z) + \cdots + a_m q_m(z) = 0, \quad \text{for all } z \in \mathbf{F}.
+\]
+Multiply both side by \((z-2)\) gives
+\[
+    a_0 p_0(z) + \cdots + a_m p_m(z) = 0, \quad \text{for all } z \in \mathbf{F}.
+\]
+Thus, \(p_0, \dots, p_m\) is not linearly independent.
+
+\end{document}
