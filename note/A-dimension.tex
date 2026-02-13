@@ -1,0 +1,234 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={17.18cm, 24.62cm}]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\DeclareMathOperator{\spn}{span}
+
+\begin{document}
+
+\begin{center}
+    Lan Yung-Chi, 2026/02/11
+\end{center}
+
+\section{Definition}
+
+\begin{itemize}
+    \item The \textit{\textbf{dimension}} of a finite-dimensional vector space is the length of any basis of the vector space.
+
+    \item The dimension of \(V\) (if \(V\) is finite-dimensional) is denoted by \(\dim V\).
+\end{itemize}
+
+\section{Theorem}
+
+\subsection{Basis length does not depend on basis}
+
+Any two bases of a finite-dimensional vector space have the same length.
+
+\subsubsection*{Proof}
+
+Suppose \(V\) is finite-dimensional. Let \(B_1\) nad \(B_2\) be two bases of \(V\), with length \(m_1\) and \(m_2\) correspondingly.
+\begin{itemize}
+    \item Since \(B_1\) is linearly independent and \(B_2\) spans \(V\), we have \(m_1 \leq m_2\).
+    \item Since \(B_2\) is linearly independent and \(B_1\) spans \(V\), we have \(m_2 \leq m_1\).
+\end{itemize}
+Thus, \(m_1 = m_2\).
+
+\subsection{Dimension of a subspace}
+
+If \(V\) is finite-dimensional and \(U\) is a subspace of \(V\), then \(\dim U \leq \dim V\).
+
+\subsubsection*{Proof}
+
+Let \(B_1\) be a basis of \(V\) and \(B_2\) be a basis of \(U\), with length \(m_1\) and \(m_2\) correspondingly. Since \(B_1\) spans \(V\) and \(B_2\) is linearly independent, we have \(m_1 \geq m_2\). Thus \(\dim V \geq \dim U\).
+
+\subsection{Linearly independent list of the right length is a basis}
+
+Suppose \(V\) is finite-dimensional. Then every linearly independent list of vectors in \(V\) with length \(\dim V\) is a basis of \(V\).
+
+\subsubsection*{Proof}
+
+Let \(\dim V = n\), and \(v_1, \dots, v_n\) be linearly indepedent vectors in \(V\). The list \(v_1, \dots v_n\) can be extended to a basis of \(V\). But notice that every basis of \(V\) has length \(n\), so the extension is the trivial one. That is, the list \(v_1, \dots, v_n\) is a basis.
+
+\subsection{Spanning list of the right length is a basis}
+
+Suppose \(V\) is finite-dimensional. Then every spanning list of vectors in \(V\) with \(\dim V\) is a basis of \(V\).
+
+\subsubsection*{Proof}
+
+Let \(\dim V = n\), and \(v_1, \dots, v_n\) be a spanning list of \(V\). The list \(v_1, \dots v_n\) can be reduced to a basis of \(V\). But notice that every basis of \(V\) has length \(n\), so the reduction is the trivial one. That is, the list \(v_1, \dots, v_n\) is a basis.
+
+\subsection{Dimension of a sum}
+
+If \(U_1\) and \(U_2\) are subspaces of a finite-dimensional vector space, then
+\[
+    \dim(U_1 + U_2) = \dim U_1 + \dim U_2 - \dim(U_1 \cap U_2).
+\]
+
+\subsubsection*{Proof}
+Let
+\[
+    u_1, \dots, u_m \text{ be a basis of } U_1 \cap U_2.
+\]
+Since \(u_1, \dots, u_m\) is linearly indenpendent, it can be extended to be bases of \(U_1\) and \(U_2\). Let
+\begin{align*}
+    & u_1, \dots, u_m, v_1, \dots, v_i \text{\hspace{1.8mm} be a basis of } U_1, \\
+    & u_1, \dots, u_m, w_1, \dots, w_i \text{ be a basis of } U_2.
+\end{align*}
+We aim to show that
+\[
+    u_1, \dots, u_m, v_1, \dots, v_i, w_1, \dots, w_j
+\]
+is a basis of \(U_1 + U_2\). This will conclude that
+\[
+    \dim(U_1 + U_2) = m + i + j = (m + i) + (m + j) - m = \dim U_1 + \dim U_2 - \dim(U_1 \cap U_2).
+\]
+
+\begin{itemize}
+    \item \fbox{Linear Independence}
+
+    Suppose that
+    \[
+        a_1 u_1 + \cdots + a_m u_m + b_1 v_1 + \cdots + b_i v_i + c_1 w_1 + \cdots + c_j w_j = 0
+    \]
+    for some scalars \(a\)'s, \(b\)'s, and \(c\)'s in \(\mathbf{F}\). Let
+    \begin{align*}
+        u &= a_1 u_1 + \cdots + a_m u_m \in U_1 \cap U_2 \\
+        v &= b_1 v_1 \,+ \cdots + b_i v_i \hspace{3.8mm} \in U_1 \\
+        w &= c_1 w_1 + \cdots + c_j w_j \hspace{1.9mm} \in U_2
+    \end{align*}
+    Then we have \(u + v + w = 0\). Arranging the equation gives \(v = -u - w\). Since \(v \in U_1\) and \(-u - w \in U_2\), we have \(v \in U_1 \cap U_2\). And because \(u_1, \dots, u_m\) is a basis of \(U_1 \cap U_2\), we can write \(v\) in term of this basis as
+    \[
+        b_1 v_1 + \cdots + b_i v_i = d_1 u_1 + \cdots + d_m u_m,
+    \]
+    for some scalars \(d\)'s in \(\mathbf{F}\). Notice that \(u_1, \dots, u_m, v_1, \dots, v_i\) is a basis of \(U_1\), that is, it is linearly independent, so all \(b\)'s and \(d\)'s equal 0. Now \(u + v + w = 0\) becomes \(u + w = 0\).
+    \[
+        a_1 u_1 + \cdots + a_m u_m + c_1 w_1 + \cdots + c_j w_j = 0.
+    \]
+    Similarly, \(u_1, \dots, u_m, w_1, \dots, w_j\) is a basis of \(U_2\), so all \(a\)'s and \(c\)'s equal 0. In conclusion, all \(a\)'s, \(b\)'s and \(c\)'s equal 0, so \(u_1, \dots, u_m, v_1, \dots, v_i, w_1, \dots, w_j\) is linearly independent.
+
+    \item \fbox{\(\spn(u_1, \dots, u_m, v_1, \dots, v_i, w_1, \dots, w_j) \subseteq U_1 + U_2\)}
+
+    For every \(v\) in \(\spn(u_1, \dots, u_m, v_1, \dots, v_i, w_1, \dots, w_j)\), we can write
+    \[
+        v = a_1 u_1 + \cdots + a_m u_m + b_1 v_1 + \cdots + b_i v_i + c_1 w_1 + \cdots + c_j w_j,
+    \]
+    for some scalars \(a\)'s, \(b\)'s, \(c\)'s in \(\mathbf{F}\). Because \(a_1 u_1 + \cdots + a_m u_m + b_1 v_1 + \cdots + b_i v_i\) is in \(U_1\) and \(c_1 w_1 + \cdots + c_j w_j\) is in \(U_2\), we have \(v \in U_1 + U_2\).
+
+    \item \fbox{\(U_1 + U_2 \subseteq \spn(u_1, \dots, u_m, v_1, \dots, v_i, w_1, \dots, w_j)\)}
+
+    For every \(v \in U_1 + U_2\), it can be written as
+    \[
+        v = s_1 + s_2,
+    \]
+    for some \(s_1 \in U_1\) and \(s_2 \in U_2\). We can further represent \(s_1\) and \(s_2\) by their bases.
+    \begin{align*}
+        & s_1 = a_1 u_1 + \cdots + a_m u_m + b_1 v_1 + \cdots + b_i v_i \\
+        & s_2 = c_1 u_1 + \cdots + c_m u_m + d_1 w_1 + \cdots + d_j w_j
+    \end{align*}
+    Substitute them in, we get
+    \[
+        v = (a_1 + c_1) u_1 + \cdots + (a_m + c_m) u_m + b_1 v_1 + \cdots + b_i v_i + d_1 w_1 + \cdots + d_j w_j
+    \]
+    Thus, \(v \in \spn(u_1, \dots, u_m, v_1, \dots, v_i, w_1, \dots, w_j)\).
+
+\end{itemize}
+
+\section{Exercise}
+
+\subsection{2.C.1}
+
+Suppose \(V\) is finite-dimensional and \(U\) is a subspace of \(V\) such that \(\dim U = \dim V\). Prove that \(U = V\).
+
+\subsubsection*{Solution}
+
+Let \(v_1, \dots, v_m\) be a basis of \(U\), where \(m = \dim U\), then it is also a basis of \(V\) as \(m = \dim V\). We claim that for any two vector spaces \(U\) and \(V\) sharing a same basis, we have \(U = V\), as every vector in their spaces can be represented by that basis.
+
+\subsection{2.C.9}
+
+Suppose \(v_1, \dots, v_m\) is linearly independent in \(V\) and \(w \in V\). Prove that
+\[
+    \dim \spn(v_1 + w, \dots, v_m + w) \geq m - 1.
+\]
+
+\subsubsection*{Solution}
+
+We aim to find a list of linearly independent vectors of length \(m-1\) in \(\spn(v_1 + w, \dots, v_m + w)\). This will conclude that every basis in this subspace has length no less than \(m-1\), thus \(\dim \spn(v_1 + w, \dots, v_m + w) \geq m - 1\). Let
+\[
+    u_i = (v_i + w) - (v_m + w) = v_i - v_m \in \spn(v_1 + w, \dots, v_m + w)
+\]
+for \(i \in \{1, \dots, m-1\}\). We proceed to show that \(u_1, \dots, u_{m-1}\) is linearly independent. Let \(a_1, \dots, a_{m-1}\) be scalars in \(\mathbf{F}\) such that
+\[
+    a_1 u_1 + \cdots + a_{m-1} u_{m-1} = 0.
+\]
+Then substitution gives
+\[
+    a_1 (v_1 - v_m) + \cdots + a_{m-1} (v_{m-1} - v_m) = 0.
+\]
+That is,
+\[
+    a_1 v_1 + \cdots + a_{m-1} v_{m-1} + (-a_1 - \cdots - a_{m-1}) v_m = 0.
+\]
+Since \(v_1, \dots, v_m\) is linearly independent, all the \(a\)'s must equal 0, thus \(u_1, \dots, u_{m-1}\) is linearly independent.
+
+\subsection{2.C.14}\label{this}
+
+Suppose \(U_1, \dots, U_m\) are finite-dimensional subspaces of \(V\). Prove that \(U_1 + \cdots + U_m\) is finite-dimensional and
+\[
+    \dim(U_1 + \cdots + U_m) \leq \dim U_1 + \cdots + \dim U_m.
+\]
+
+\subsubsection*{Solution}
+
+For \(i \in \{1, \dots, m\}\), let \(d_i = \dim U_i\), and
+\[
+    u_{i, 1}, \, u_{i, 2}, \dots, \, u_{i, d_i}
+\]
+be a basis of \(U_i\). Then all these bases combined is a spanning list of \(U_1 + \cdots + U_m\) for the following reason. For every \(v \in U_1 + \cdots + U_m\) it can be written as \(v = u_1 + \cdots + u_m\) for some \(u_i \in U_i\). And each \(u_i\) can be further represented by its basis \(u_{i, 1}, u_{i, 2}, \dots, u_{i, d_i}\). In addition, the dimension of \(U_1 + \cdots + U_m\) is no more than the length of this spanning list, as the spanning list can be reduced to a basis.
+
+\subsection{2.C.15}
+
+Suppose \(V\) is finite-dimensional, with \(\dim V \geq 1\). Prove that there exist 1-dimensional subspaces \(U_1, \dots, U_n\) of \(V\) such that
+\[
+    V = U_1 \oplus \cdots \oplus U_n.
+\]
+
+\subsubsection*{Solution}
+
+Let \(u_1, \dots, u_n\) be a basis of \(V\), then \(U_1 = \spn(u_1), \dots, U_n = \spn(u_n)\) satisfy the requirement. It is obvious that the dimension of each \(U_i\) is 1. Now we prove that \(U_1 + \cdots + U_n\) is a direct sum. Suppose \(w_1 \in U_1, \dots, w_n \in U_n\) are such that
+\[
+    w_1 + \cdots + w_n = 0.
+\]
+Each \(w_i\) can be written by its basis \(u_i\), that is, there are scalars \(a_1, \dots, a_n\) such that
+\[
+    a_1 u_1 + \cdots + a_n u_n = 0.
+\]
+Since \(u_1, \dots, u_n\) is linearly independent, all \(a\)'s equal 0. Then all \(w\)'s equal 0, thus \(U_1 + \cdots + U_n\) is a direct sum.
+
+\subsection{2.C.16}
+
+Suppose \(U_1, \dots, U_m\) are finite-dimensional subspaces of \(V\) such that \(U_1 + \cdots + U_m\) is a direct sum. Prove that \(U_1 \oplus \cdots \oplus U_m\) is finite-dimensional and
+\[
+    \dim(U_1 \oplus \cdots \oplus U_m) = \dim U_1 + \cdots + \dim U_m.
+\]
+
+\subsubsection*{Solution}
+
+For \(i \in \{1, \dots, m\}\), let \(d_i = \dim U_i\), and
+\[
+    u_{i, 1}, \, u_{i, 2}, \dots, \, u_{i, d_i}
+\]
+be a basis of \(U_i\). Then all these bases combined is a spanning list of \(U_1 + \cdots + U_m\) for the same reason in \ref{this}. Now we show that this spanning list is linearly independent when \(U_1 + \cdots + U_m\) is a direct sum, so it is a basis of \(U_1 \oplus \cdots \oplus U_m\). Let the following scalars \(a\)'s be such that
+\[
+    \sum_{i=1}^{m} \sum_{j=1}^{d_i} a_{i, j} \, u_{i, j} = 0.
+\]
+Let
+\[
+    w_i = \sum_{j=1}^{d_i} a_{i, j} \, u_{i, j},
+\]
+then it is clear that \(\sum_{i=1}^{m} w_i = 0\) implies each \(w_i = 0\) since each \(w_i \in U_i\) and \(U_1 + \cdots + U_m\) is a direct sum.
+
+\end{document}
