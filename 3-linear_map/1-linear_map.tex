@@ -1,0 +1,263 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, total={17.18cm, 24.62cm}]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\newcommand{\Fd}{\mathbf{F}}
+\newcommand{\LM}{\mathcal{L}}
+
+\begin{document}
+
+\begin{center}
+    Lan Yung-Chi, 2026/02/13
+\end{center}
+
+\section{Definition}
+
+\begin{itemize}
+    \item A \textit{\textbf{linear map}} from \(V\) to \(W\) is a function \(T: V \to W\) with the following properties:
+
+    \textbf{additivity}
+    
+    \hspace{1cm}\(T(u + v) = Tu + Tv\) for all \(u, v \in V\);
+
+    \textbf{homogeneity}
+    
+    \hspace{1cm} \(T(\lambda v) = \lambda (Tv)\) for all \(\lambda \in \Fd\) and all \(v \in V\).
+
+    \item The set of all linear maps from \(V\) to \(W\) is denoted as \(\LM(V, W)\).
+
+    \item Let the symbol \(0\) denote the function that maps each element of some vector space to the additive identity of another vector space. That is, \(0 \in \LM(V, W)\) is defined by
+    \[
+        0v = 0,
+    \]
+    where the \(0\) on the left is a function from \(V\) to \(W\), and the \(0\) on the right is the additive identity in \(W\).
+
+    \item The \textit{\textbf{identity map}}, denoted \(I\), is the function on some vector space that maps each element to itself. That is, \(I \in \LM(V, V)\) is defined by
+    \[
+        Iv = v.
+    \]
+\end{itemize}
+
+\section{Theorem}
+
+\subsection{Linear maps and basis of domain}\label{lemma}
+
+Suppose \(v_1, \dots, v_n\) is a basis of \(V\) and \(w_1, \dots, w_m \in W\). Then there exists a unique linear map \(T: V \to W\) such that
+\[
+    T v_j = w_j
+\]
+for each \(j = 1, \dots, n\).
+
+\subsubsection*{Proof}
+
+We first show the existence of such linear map, then we prove its uniqueness.
+
+\begin{itemize}
+    \item Define \(T: V \to W\) by
+    \[
+        T(c_1 v_1 + \cdots + c_n v_n) = c_1 w_1 + \cdots + c_n w_n,
+    \]
+    where \(c\)'s are arbitrary scalars in \(\Fd\). Then it is easy to see that \(T v_j = w_j\) for each \(j\), by taking \(c_j = 1\) and all the other \(c\)'s equal to 0.
+    
+    Let's verify that \(T \in \LM(V, W)\).
+    \begin{itemize}
+        \item \fbox{\(T: V \to W\) is a function}
+        
+        For every \(v \in V\), \(v = c_1 v_1 + \cdots + c_n v_n\) for some scalars \(c\)'s as \(v_1, \dots, v_n\) is a basis of \(V\), so \(Tv\) exists for all \(v \in V\). Then \(c_1 w_1 + \cdots + c_n w_n \in W\) as addition is closed, so \(T(V) \in W\).
+
+        \item \fbox{additivity}
+
+        Suppose \(u, v \in V\), with \(u = a_1 v_1 + \cdots + a_n v_n\) and \(v = b_1 v_1 + \cdots + b_n v_n\),
+        \begin{align*}
+            T(u + v)
+            &= T((a_1 + b_1) v_1 + \cdots + (a_n + b_n) v_n) \\
+            &= (a_1 + b_1) w_1 + \cdots + (a_n + b_n) w_n \\
+            &= a_1 w_1 + \cdots + a_n w_n + b_1 w_1 + \cdots + b_n w_n \\
+            &= Tu + Tv.
+        \end{align*}
+
+        \item \fbox{homogeneity}
+
+        Suppose \(v \in V\) and \(\lambda \in \Fd\), with \(v = c_1 v_1 + \cdots + c_n v_n\),
+        \begin{align*}
+            T(\lambda v)
+            &= T(\lambda c_1 v_1 + \cdots + \lambda c_n v_n) \\
+            &= \lambda c_1 w_1 + \cdots + \lambda c_n w_n \\
+            &= \lambda (c_1 w_1 + \cdots + c_n w_n) \\ 
+            &= \lambda Tv.
+        \end{align*}
+    \end{itemize}
+
+    \item To show the uniqueness, let \(S \in \LM(V, W)\) be such that \(S v_j = w_j\) for each \(j = 1, \dots, n\). For every \(v \in V\) with \(v = c_1 v_1 + \cdots + c_n v_n\), by the additivity and homogeneity of \(S\),
+    \begin{align*}
+        S v
+        &= S(c_1 v_1 + \cdots + c_n v_n) \\
+        &= c_1 S v_1 + \cdots + c_n S v_n \\
+        &= c_1 w_1 + \cdots + c_n w_n,
+    \end{align*}
+    which is identical to the \(T\) we defined above.
+\end{itemize}
+
+\subsection{Linear maps take 0 to 0}
+
+Suppose \(T\) is a linear map from \(V\) to \(W\). Then \(T(0) = 0\).
+
+\subsubsection*{Proof}
+By additivity of \(T\), we have
+\[
+    T(0) = T(0 + 0) = T(0) + T(0).
+\]
+Adding the additive inverse of \(T(0)\) on both side then gives \(0 = T(0)\).
+
+\section{Exercise}
+
+\subsection{3.A.3}
+
+Suppose \(T \in \LM(\Fd^n, \Fd^m)\). Show that there exist scalars \(A_{j, k} \in \Fd\) for \(j = 1, \dots, m\) and \(k = 1, \dots, n\) such that
+\[
+    T(x_1, \dots, x_n) = (A_{1, 1} x_1 + \cdots + A_{1, n} x_n, \dots, A_{m, 1} x_1 + \cdots + A_{m, n} x_n)
+\]
+for every \((x_1, \dots, x_n) \in \Fd^n\).
+
+\subsubsection*{Solution}
+
+Let \(e_1, \dots, e_n\) be the standard basis of \(\Fd^n\), that is, \(e_k\) has 1 on the \(k\)-th coordinate, and 0 on the other ones. We define the scalars \(A_{1, k}, \dots, A_{m, k}\) to be the entries of \(T e_k\); specifically, for \(k = 1, \dots, n\),
+\[
+    T e_k = (A_{1, k}, \dots, A_{m, k}).
+\]
+Then for all \(v = (x_1, \dots, x_n) \in \Fd^n\), it can be written as \(v = x_1 e_1 + \cdots + x_n e^n\). Thus
+\begin{align*}
+    T(x_1, \dots, x_n)
+    &= T v \\
+    &= T(x_1 e_1 + \cdots + x_n e_n) \\
+    &= x_1 T e_1 + \cdots + x_n T e_n \\
+    &= x_1 (A_{1, 1}, \dots, A_{m, 1}) + \cdots + x_n (A_{1, n}, \dots, A_{m, n}) \\
+    &= (A_{1, 1} x_1 + \cdots + A_{1, n} x_n, \dots, A_{m, 1} x_1 + \cdots + A_{m, n} x_n)
+\end{align*}
+
+\subsection{3.A.4}\label{this}
+
+Suppose \(T \in \LM(V, W)\) and \(v_1, \dots, v_m\) is a list of vectors in \(V\) such that \(T v_1, \dots, T v_m\) is a linearly independent list in \(W\). Prove that \(v_1, \dots, v_m\) is linearly independent.
+
+\subsubsection*{Solution}
+
+Let \(a_1, \dots, a_m\) be scalars in \(\Fd\) such that
+\[
+    a_1 v_1 + \cdots + a_m v_m = 0.
+\]
+Since \(T\) is a function,
+\[
+    T(a_1 v_1 + \cdots + a_m v_m) = T(0),
+\]
+which gives
+\[
+    a_1 T v_1 + \cdots + a_m T v_m = 0.
+\]
+And because \(T v_1, \dots, T v_m\) is linearly independent, it follows that all the \(a\)'s equal to 0. Thus \(v_1, \dots v_m\) is linearly independent.
+
+\subsection{3.A.7}
+
+Show that every linear map from a 1-dimensional vector space to itself is multiplication by some scalar. More precisely, prove that if \(\dim V = 1\) and \(T \in \LM(V, V)\), then there exists \(\lambda \in \Fd\) such that \(Tv = \lambda v\) for all \(v \in V\).
+
+\subsubsection*{Solution}
+
+Let \(u\) be a basis of \(V\). Since \(T u \in V\), it can be written by the basis \(u\). Let \(\lambda \in \Fd\) such that
+\[
+    T u = \lambda u.
+\]
+Then for every \(v \in V\), it can be written as \(v = au\) for some \(a \in \Fd\), thus
+\[
+    T v = T(au) = a Tu = a \lambda u = \lambda v.
+\]
+
+\subsection{3.A.10}\label{prev}
+
+Suppose \(U\) is a subspace of \(V\) with \(U \neq V\). Suppose \(S \in \LM(U, W)\) and \(S \neq 0\). Define \(T: V \to W\) by
+\[
+    Tv =
+    \begin{cases}
+        Sv, & \text{if } v \in U, \\
+        0,  & \text{if } v \in V \setminus U.
+    \end{cases}
+\]
+Prove that \(T\) is not a linear map on \(V\).
+
+\subsubsection*{Solution}
+
+Suppose \(v \in U\) and \(v' \in V \setminus U\), then it can be shown that \(v + v' \in V \setminus U\). Thus
+\[
+    T(v + v') = 0, \quad Tv + Tv' = Sv + 0 = Sv,
+\]
+which invalidates the additivity of a linear map.
+
+\subsection{3.A.11}
+
+Suppose \(V\) is finite-dimensional. Prove that every linear map on a subspace of \(V\) can be extended to a linear map on \(V\). In other words, show that if \(U\) is a subspace of \(V\) and \(S \in \LM(U, W)\), then there exists \(T \in \LM(V, W)\) such that \(Tu = Su\) for all \(u \in U\).
+
+\subsubsection*{Solution}
+
+Let \(u_1, \dots, u_m\) be a basis of \(U\), and it can be extended as \(u_1, \dots, u_m, u_{m+1}, \dots, u_{m+n}\) to be a basis of \(V\). Define \(w_1, \dots, w_{m+n}\) by
+\[
+    w_i =
+    \begin{cases}
+        S u_i, & \text{if } i = 1, \dots, m \\
+        0    , & \text{if } i = m + 1, \dots, m + n
+    \end{cases}
+\]
+Then by \ref{lemma}, there exists \(T \in \LM(V, W)\) such that \(T u_i = w_i\) for each \(i = 1, \dots, m + n\). And it remains true that \(Tu = Su\) for all \(u \in U\), as \(u = a_1 u_1 + \cdots + a_m u_m\) for some scalars \(a\)'s in \(\Fd\), then
+\begin{align*}
+    Tu
+    &= T(a_1 u_1 + \cdots + a_m u_m) \\
+    &= a_1 T u_1 + \cdots + a_m T u_m \\
+    &= a_1 w_1 + \cdots + a_m w_m \\
+    &= a_1 S u_1 + \cdots + a_m S u_m \\
+    &= S(a_1 u_1 + \cdots + a_m u_m) \\
+    &= Su.
+\end{align*}
+
+\subsubsection*{Note}
+
+Let's take more effort to explicitly write out the formula of \(T\). Let \(U'\) be the subspace of \(V\) such that \(V = U \oplus U'\), then \(u_{m+1}, \dots, u_{m+n}\) is a basis of \(U'\). For every \(v \in V\), it can be written as
+\[
+    v = u + u' = a_1 u_1 + \cdots + a_m u_m + a_{m+1} u_{m+1} + \cdots + a_{m+n} u_{m+n},
+\]
+for some unique \(u \in U\) and \(u' \in U'\), and for some scalars \(a\)'s in \(\Fd\). Then
+\begin{align*}
+    Tv
+    &= T(u + u') \\
+    &= Tu + Tu' \\
+    &= Su + a_{m+1} T u_{m+1} + \cdots + a_{m+n} T u_{m+n} \\
+    &= Su + a_{m+1} w_{m+1} + \cdots + a_{m+n} w_{m+n} \\
+    &= Su + 0 \\
+    &= Su.
+\end{align*}
+This is different from \ref{prev} because when \(v \in V \setminus U\), \(Tv\) does not snap it to \(0\). Instead, by writing \(v = u + u'\), we can see that it only snaps \(u'\) to \(0\) but preserves \(u\) as \(Su\). For comparison, suppose \(v \in U\) and \(v' \in V \setminus U\), then we can write \(v' = u + u'\). Thus
+\[
+    T(v + v') = Sv + Su, \quad Tv + Tv' = Sv + Su.
+\]
+
+\subsection{3.A.13}
+
+Suppose \(v_1, \dots, v_m\) is a linearly dependent list of vectors in \(V\). Suppose also that \(w \neq \{ 0 \}\). Prove that there exist \(w_1, \dots, w_m \in W\) such that no \(T \in \LM(L, W)\) satisfies \(Tv_k = w_k\) for each \(k = 1, \dots, m\).
+
+\subsubsection*{Solution}
+
+By the contraposition of \ref{this}, since \(v_1, \dots, v_m\) is linearly dependent, it follows that \(Tv_1, \dots, Tv_m\) is a linearly dependent list in \(W\). Then let \(w_1, \dots, w_m\) be linearly independent in \(W\), we can show that no \(T \in \LM(L, W)\) exists for the requirement as follows. Let \(a_1, \dots, a_m \in \Fd\), not all 0, be such that
+\[
+    a_1 v_1 + \cdots + a_m v_m = 0.
+\]
+Since \(T\) is a function,
+\[
+    T(a_1 v_1 + \cdots + a_m v_m) = T(0).
+\]
+Then
+\[
+    a_1 T v_1 + \cdots + a_m T v_m = 0.
+\]
+If it were true that \(Tv_k = w_k\) for each \(k = 1, \dots, m\), then it would imply that \(w_1, \dots, w_m\) is linearly dependent, which would be a contradiction.
+
+\end{document}
