@@ -1,0 +1,1805 @@
+\documentclass[12pt]{report}
+\usepackage[a4paper, total={17.18cm, 24.62cm}]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\newcommand{\Fd}{\mathbf{F}}
+\newcommand{\Rl}{\mathbf{R}}
+\newcommand{\Cm}{\mathbf{C}}
+\newcommand{\PO}{\mathcal{P}}
+\newcommand{\textdf}[1]{\textit{\textbf{#1}}}
+\DeclareMathOperator{\spn}{span}
+
+\title{Vector Space}
+\author{Lan Yung-Chi}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter{Field}
+
+\section{Definition}
+
+A \textdf{field} \(\Fd\) is a set containing at least two distinct elements called 0 and 1, along with operations of addition and multiplication satifying all the properties listed below.
+\begin{enumerate}
+    \item \fbox{commutativity}
+
+    \hspace{5mm} \(\alpha + \beta = \beta + \alpha\) and \(\alpha \beta = \beta \alpha\), for all \(\alpha, \beta \in \Fd\).
+
+    \item \fbox{associativity}
+
+    \hspace{5mm} \((\alpha + \beta) + \lambda = \alpha + (\beta + \lambda)\) and \((\alpha \beta) \lambda = \alpha (\beta \lambda)\), for all \(\alpha, \beta, \lambda \in \Fd\).
+
+    \item \fbox{identities}
+
+    \hspace{5mm} \(\lambda + 0 = \lambda\) and \(1 \lambda = \lambda\), for all \(\lambda \in \Fd\).
+
+    \item \fbox{additive Inverse}
+
+    \hspace{5mm} For every \(\alpha \in \Fd\), there exists a unique \(\beta \in \Fd\) such that \(\alpha + \beta = 0\).
+
+    \item \fbox{multiplicative inverse}
+
+    \hspace{5mm} For every \(\alpha \in \Fd\) with \(\alpha \neq 0\), there exists a unique \(\beta \in \Fd\) such that \(\alpha \beta = 1\).
+
+    \item \fbox{distributive property}
+
+    \hspace{5mm} \(\lambda(\alpha + \beta) = \lambda \alpha + \lambda \beta\), for all \(\lambda, \alpha, \beta \in \Fd\).
+\end{enumerate}
+
+\subsubsection*{Note}
+
+In linear algebra we deal with fields such as \(\Rl\) and \(\Cm\) most of the time, so throughout this book \(\Fd\) stands for either \(\Rl\) or \(\Cm\) unless specified.
+
+\section{Exercise}
+
+\subsection{\(\Cm\) is a field}
+
+Prove that the set of complex numbers with the following operations of addition and multiplication is a field. For the sake of simplicity, we claim that \(\Rl\) is a field, and safely use calculation techniques from \(\Rl\).
+
+\begin{itemize}
+    \item A \textdf{complex number} is an ordered pair \((a, b)\), where \(a, b \in \Rl\), written as \(a + b \,i\).
+    \item The set of all complex numbers is denoted by \(\Cm\):
+    \[
+        \Cm = \{ a + b \,i \mid a, b \in \Rl \}.
+    \]
+    \item Addition and multiplication on \(\Cm\) are defined by
+    \begin{equation}\label{eq:cm_add}
+        (a + b \,i) + (c + d \,i) = (a + c) + (b + d) \,i,
+    \end{equation}
+    \begin{equation}\label{eq:cm_mul}
+        (a + b \,i)(c + d \,i) = (ac - bd) + (ad + bc) \,i;
+    \end{equation}
+    with \(a, b, c, d \in \Rl\).
+\end{itemize}
+
+\subsubsection*{Proof}
+
+First of all, \(\{0, 1\} \subseteq \Cm\) as \(0 = 0 + 0 \,i\) and \(1 = 1 + 0 \,i\).
+
+\begin{enumerate}
+    \item \fbox{commutativity}
+
+    For all \(\alpha, \beta \in \Cm\), we can write \(\alpha = a + b \,i\) and \(\beta = c + d \,i\) with some \(a, b, c, d \in \Rl\), then
+    \begin{align*}
+        \alpha + \beta
+        &= (a + b \,i) + (c + d \,i)    &\\
+        &= (a + c) + (b + d) \,i        &\text{by \eqref{eq:cm_add}}\\
+        \beta + \alpha
+        &= (c + d \,i) + (a + b \,i)    &\\
+        &= (c + a) + (d + b) \,i        &\text{by \eqref{eq:cm_add}}\\
+        &= \alpha + \beta               &\text{by comm. of } \Rl\\
+        &                               &\\
+        \alpha \beta
+        &= (a + b \,i)(c + d \,i)       &\\
+        &= (ac - bd) + (ad + bc) \,i    &\text{by \eqref{eq:cm_mul}}\\
+        \beta \alpha
+        &= (c + d \,i)(a + b \,i)       &\\
+        &= (ca - db) + (da + cb) \,i    &\text{by \eqref{eq:cm_mul}}\\
+        &= \alpha \beta                 &\text{by comm. of } \Rl
+    \end{align*}
+
+    \item \fbox{associativity}
+
+    For all \(\alpha, \beta, \lambda \in \Cm\), write \(\alpha = a + b \,i\), \(\beta = c + d \,i\), \(\lambda = e + f \,i\) with some \(a, b, c, d, e, f \in \Rl\), then
+    \begin{align*}
+        (\alpha + \beta) + \lambda
+        &= [(a + b \,i) + (c + d \,i)] + (e + f \,i)    &\\
+        &= [(a + c) + (b + d) \,i] + (e + f \,i)        &\text{by \eqref{eq:cm_add}}\\
+        &= [(a + c) + e] + [(b + d) + f] \,i            &\text{by \eqref{eq:cm_add}}\\
+        \alpha + (\beta + \lambda)
+        &= (a + b \,i) + [(c + d \,i) + (e + f \,i)]    &\\
+        &= (a + b \,i) + [(c + e) + (d + f) \,i]        &\text{by \eqref{eq:cm_add}}\\
+        &= [a + (c + e)] + [b + (d + f)] \,i            &\text{by \eqref{eq:cm_add}}\\
+        &= (\alpha + \beta) + \lambda                   &\text{by asso. of } \Rl\\
+        \\
+        (\alpha \beta) \lambda
+        &= [(a + b \,i)(c + d \,i)](e + f \,i)          &\\
+        &= [(ac - bd) + (ad + bc) \,i](e + f \,i)       &\text{by \eqref{eq:cm_mul}}\\
+        &= [(ac - bd)e - (ad + bc)f] + [(ac - bd)f + (ad + bc)e] \,i    &\text{by \eqref{eq:cm_mul}}\\
+        &= (ace - bde - adf - bcf) + (acf - bdf + ade + bce) \,i        &\text{by dist. of } \Rl\\
+        \alpha (\beta \lambda)
+        &= (a + b \,i)[(c + d \,i)(e + f \,i)]          &\\
+        &= (a + b \,i)[(ce - df) + (cf + de) \,i]       &\text{by \eqref{eq:cm_mul}}\\
+        &= [a(ce - df) - b(cf + de)] + [a(cf + de) + b(ce - df)] \,i    &\text{by \eqref{eq:cm_mul}}\\
+        &= (ace - bde - adf - bcf) + (acf - bdf + ade + bce) \,i        &\text{by dist. of } \Rl\\
+        &= (\alpha \beta) \lambda                       &\text{by comm. of } \Rl
+    \end{align*}
+
+    \item \fbox{identities}
+
+    For all \(\lambda \in \Cm\), write \(\lambda = a + b \,i\) for some \(a, b \in \Rl\), then
+    \begin{align*}
+        \lambda + 0
+        &= (a + b \,i) + (0 + 0 \,i)    &\\
+        &= (a + 0) + (b + 0) \,i        &\text{by \eqref{eq:cm_add}}\\
+        &= a + b \,i                    &\text{by iden. of } \Rl\\
+        &= \lambda                      &\\
+        \\
+        1 \lambda
+        &= (1 + 0 \,i)(a + b \,i)       &\\
+        &= (1a + 0b) + (1b + 0a) \,i    &\text{by \eqref{eq:cm_mul}}\\
+        &= a + b \,i                    &\text{by iden. and mul. of } \Rl\\
+        &= \lambda
+    \end{align*}
+
+    \item \fbox{additive inverse}
+
+    For every \(\alpha \in \Cm\), write \(\alpha = a + b \,i\) for some \(a, b \in \Rl\), then we can find a unique \(\beta = c + d \,i \in \Cm\) such that \(\alpha + \beta = 0\) by the following manner:
+    \begin{align*}
+        \alpha + \beta
+        &= (a + b \,i) + (c + d \,i)    &\\
+        &= (a + c) + (b + d) \,i        &\text{by \eqref{eq:cm_add}}\\
+        &= 0 + 0 \,i                    &\text{by assumption}\\
+        \Rightarrow (c, d) &= (-a, -b)  &\text{by add.inv. of } \Rl
+    \end{align*}
+
+    \item \fbox{multiplicative inverse}
+
+    For every \(\alpha \in \Cm\), write \(\alpha = a + b \,i\) for some \(a, b \in \Rl\) with \(a \neq 0\) and \(b \neq 0\), then we can find a unique \(\beta = c + d \,i \in \Cm\) such that \(\alpha \beta = 1\) by the following manner:
+    \begin{align*}
+        \alpha \beta
+        &= (a + b \,i)(c + d \,i)       &\\
+        &= (ac - bd) + (ad + bc) \,i    &\text{by \eqref{eq:cm_mul}}\\
+        &= 1 + 0 \,i                    &\text{by assumption}
+    \end{align*}
+    That is, \(ac - bd = 1\) and \(ad + bc = 0\). By solving these two equations for \(c\) and \(d\), we have
+    \[
+        (c, d) = \left(\frac{a}{a^2 + b^2}, \; \frac{-b}{a^2 + b^2}\right).
+    \]
+
+    \item \fbox{distributive property}
+    
+    For all \(\alpha, \beta, \lambda \in \Cm\), write \(\alpha = a + b \,i\), \(\beta = c + d \,i\), \(\lambda = e + f \,i\) with some \(a, b, c, d, e, f \in \Rl\), then
+    \begin{align*}
+        \lambda(\alpha + \beta)
+        &= (e + f \,i)[(a + b \,i) + (c + d \,i)]               &\\
+        &= (e + f \,i)[(a + c) + (b + d) \,i]                   &\text{by \eqref{eq:cm_add}}\\
+        &= [e(a + c) - f(b + d)] + [e(b + d) + f(a + c)] \,i    &\text{by \eqref{eq:cm_mul}}\\
+        &= (ea + ec - fb - fd) + (eb + ed + fa + fc) \,i        &\text{by dist. of } \Rl\\
+        \\
+        \lambda \alpha + \lambda \beta
+        &= [(e + f \,i)(a + b \,i)] + [(e + f \,i)(c + d \,i)]          &\\
+        &= [(ea - fb) + (eb + fa) \,i] + [(ec - fd) + (ed + fc) \,i]    &\text{by \eqref{eq:cm_mul}}\\
+        &= (ea - fb + ec - fd) + (eb + fa + ed + fc) \,i                &\text{by \eqref{eq:cm_add}}\\
+        &= \lambda(\alpha + \beta)                                      &\text{by comm. of } \Rl
+    \end{align*}
+\end{enumerate}
+
+\chapter{Vector Space}
+
+\section{Definition}
+
+\begin{itemize}
+    \item An \textdf{addition} on a set \(V\) is a function \(V \times V \to V\) that maps each pair \((u, v)\) to an element \(u + v\).
+
+    \item A \textdf{scalar multiplication} on a set \(V\) over a field \(\Fd\) is a function \(\Fd \times V \to V\) that maps each pair \((\lambda, v)\) to an element \(\lambda v\).
+
+    \item A \textdf{vector space} is a set \(V\) over a field \(\Fd\) along with an addition on \(V\) and a scalar multiplication on \(V\) over \(\Fd\) such that the following properties hold:
+    \begin{enumerate}
+        \item \fbox{commutativity}
+    
+        \hspace{5mm} \(u + v = v + u\), for all \(u, v \in V\).
+    
+        \item \fbox{associativity}
+    
+        \hspace{5mm} \((u + v) + w = u + (v + w)\) and \((ab)v = a(bv)\), for all \(u, v, w \in V\) and all \(a, b \in \Fd\).
+    
+        \item \fbox{additive identity}
+    
+        \hspace{5mm} There exists an element \(0 \in V\) such that \(v + 0 = v\) for all \(v \in V\).
+    
+        \item \fbox{additive inverse}
+    
+        \hspace{5mm} For every \(v \in V\), there exists \(w \in V\) such that \(v + w = 0\).
+    
+        \item \fbox{multiplicative identity}
+    
+        \hspace{5mm} \(1v = v\) for all \(v \in V\).
+    
+        \item \fbox{distributive properties}
+    
+        \hspace{5mm} \(a(u + v) = au + av\) and \((a + b)v = av + bv\), for all \(a, b \in \Fd\) and all \(u, v \in V\).
+    \end{enumerate}
+
+    The 5-th property is not requiring the existence of \(1\), as \(1\) implicitly exists in any field \(\Fd\); instead, it states that based on the given operation of scalar multiplication, \(1\) should be the multiplicative identity for all vectors.
+
+    \item \(\Fd^S\) denotes the set of functions from a set \(S\) to a field \(\Fd\).
+
+    \item For \(f, g \in \Fd^S\), the \textdf{sum} \(f + g \in \Fd^S\) is the function defined by
+    \[
+        (f + g)(x) = f(x) + g(x)
+    \]
+    for all \(x \in S\).
+
+    \item For \(\lambda \in \Fd\) and \(f \in \Fd^S\), the \textdf{product} \(\lambda f \in \Fd^S\) is the function defined by
+    \[
+        (\lambda f)(x) = \lambda f(x)
+    \]
+    for all \(x \in S\).
+\end{itemize}
+
+\subsubsection*{Note}
+
+\(\Fd^n\) is a special case of \(\Fd^S\) because a \(n\)-tuple of number in \(\Fd\) can be thought of as a function from \(\{1, 2, \dots, n\}\) to \(\Fd\). That is, we can think of \(\Fd^n\) as \(\Fd^{\{1, 2, \dots, n\}}\). Take \(\Rl^3\) for example.
+
+\begin{itemize}
+    \item \(\Rl^3\) can be seen as the set of functions from the set \(\{1, 2, 3\}\) to \(\Rl\). Here functions are what we normally understand as vectors. That is, the function \(v \in \Rl^3\) has \(1, 2, 3\) map to \(x_1, x_2, x_3 \in \Rl\) correspondingly, so we can write \(v = (x_1, x_2, x_3)\).
+
+    \item For \(f, g \in \Rl^3\), the sum \(f + g \in \Rl^3\) is the function defined by
+    \[
+        (f + g)(x) = f(x) + g(x), \quad \text{for all } x \in \{1, 2, 3\}.
+    \]
+    That is, for all \(u = (x_1, x_2, x_3), v = (y_1, y_2, y_3) \in \Rl^3\),
+    \begin{equation}\label{eq:r3_sum}
+        u + v = (x_1, x_2, x_3) + (y_1, y_2, y_3) = (x_1 + y_1, x_2 + y_2, x_3 + y_3).
+    \end{equation}
+
+    \item For \(\lambda \in \Rl\) and \(f \in \Rl^3\), the product \(\lambda f \in \Rl^3\) is the function defined by
+    \[
+        (\lambda f)(x) = \lambda f(x), \quad \text{for all } x \in \{1, 2, 3\}.
+    \]
+    That is, for all \(\lambda \in \Rl\) and \(v = (x_1, x_2, x_3) \in \Rl^3\),
+    \begin{equation}\label{eq:r3_product}
+        \lambda v = \lambda (x_1, x_2, x_3) = (\lambda x_1, \lambda x_2, \lambda x_3).
+    \end{equation}
+\end{itemize}
+In conclusion, this provides an definition of addition and scalar multiplication for \(\Fd^S\), and we can proceed to see that \(\Fd^S\) is a vector space.
+
+\section{Theorem}
+
+\subsection{Unique additive identity}
+
+A vector space has a unique additive identity.
+
+\subsubsection*{Proof}
+
+Suppose to the contrary that there were a vector space \(V\) with distinct additive identities \(0, 0' \in V\), then it would create a contradiction that \(0 = 0'\) as follows:
+\begin{align*}
+    0'
+    &= 0' + 0   & \text{by add.iden. of } V \\
+    &= 0 + 0'   & \text{by comm. of } V \\
+    &= 0        & \text{by add.iden. of } V
+\end{align*}
+
+\subsection{Unique additive inverse}
+
+Every element in a vector space has a unique additive inverse.
+
+\subsubsection*{Proof}
+
+Suppose to the contrary that there were a vector space \(V\) with some element \(v \in V\) having distinct additive inverses \(w, w' \in V\), then it would create a contradiction that \(w = w'\) as follows:
+\begin{align*}
+    w
+    &= w + 0        & \text{by add.iden. of } V \\
+    &= w + (v + w') & \text{by add.inv. of } V \\
+    &= (w + v) + w' & \text{by asso. of } V \\
+    &= 0 + w'       & \text{by add.inv of } V \\
+    &= w' + 0       & \text{by comm. of } V \\
+    &= w'           & \text{by add.iden. of } V
+\end{align*}
+
+\subsubsection*{Note}
+
+As we show that additive inverses are unique, now the following notation makes sense. Let \(v, w \in V\), then
+\begin{itemize}
+    \item \(-v\) denotes the additive inverse of \(v\);
+    \item \(w - v\) is defined to be \(w + (-v)\).
+\end{itemize}
+
+\subsection{The number \(0\)}
+
+For every vector space \(V\) over a field \(\Fd\), \(0v = \mathbf{0}\) for all \(v \in V\).
+
+\subsubsection*{Proof}
+To avoid confusion, mark the additive identity in \(\Fd\) as 0, and the additive identity in \(V\) as \(\mathbf{0}\).
+\begin{align*}
+    0v
+    &= (0 + 0)v                                 & \text{by add.iden. of } \Fd \\
+    &= 0v + 0v                                  & \text{by dist. of } V \\
+    \Rightarrow 0v + w &= 0v + 0v + w           & \text{where } w \text{ is the additive inverse of } 0v \\
+    \Rightarrow \mathbf{0} &= 0v + \mathbf{0}   & \text{by add.inv. of } V \\
+    &= 0v                                       & \text{by add.iden. of } V
+\end{align*}
+
+\subsection{The vector 0}
+
+For every vector space \(V\) over a field \(\Fd\), \(a\mathbf{0} = \mathbf{0}\) for every \(a \in \Fd\).
+
+\subsubsection*{Proof}
+To avoid confusion, mark the additive identity in \(\Fd\) as 0, and the additive identity in \(V\) as \(\mathbf{0}\).
+\begin{align*}
+    a \mathbf{0}
+    &= a (\mathbf{0} + \mathbf{0})  & \text{by add.iden. of } V \\
+    &= a \mathbf{0} + a \mathbf{0}  & \text{by dist. of } V \\
+    \Rightarrow a \mathbf{0} + w &= a \mathbf{0} + a \mathbf{0} + w & \text{where } w \text{ is the additive inverse of } a \mathbf{0} \\
+    \Rightarrow \mathbf{0} &= a \mathbf{0} + \mathbf{0} & \text{by add.inv. of } V \\
+    &= a \mathbf{0} & \text{by add.iden. of } V
+\end{align*}
+
+\section{Exercise}
+
+\subsection{\(\Rl^3\) a is vector space}
+
+Prove that \(\Rl^3\) is a vector space (with the operations \eqref{eq:r3_sum} and \eqref{eq:r3_product}).
+
+\subsubsection*{Proof}
+\begin{enumerate}
+    \item \fbox{commutativity}
+
+    For all \(u, v \in \Rl^3\),
+    \begin{align*}
+        u + v
+        &= (x_1, x_2, x_3) + (y_1, y_2, y_3) \\
+        &= (x_1 + y_1, x_2 + y_2, x_3 + y_3) & \text{by \eqref{eq:r3_sum}} \\
+        v + u
+        &= (y_1, y_2, y_3) + (x_1, x_2, x_3) \\
+        &= (y_1 + x_1, y_2 + x_2, y_3 + x_3) & \text{by \eqref{eq:r3_sum}} \\
+        &= v + u    & \text{by comm. of } \Rl
+    \end{align*}
+
+    \item \fbox{associativity}
+
+    For all \(u, v, w \in \Rl^3\),
+    \begin{align*}
+        (u + v) + w
+        &= \bigl((x_1, x_2, x_3) + (y_1, y_2, y_3)\bigl) + (z_1, z_2, z_3) \\
+        &= (x_1 + y_1, x_2 + y_2, x_3 + y_3) + (z_1, z_2, z_3)          & \text{by \eqref{eq:r3_sum}} \\
+        &= ((x_1 + y_1) + z_1, (x_2 + y_2) + z_2, (x_3 + y_3) + z_3)    & \text{by \eqref{eq:r3_sum}} \\
+        u + (v + w)
+        &= (x_1, x_2, x_3) + \bigl((y_1, y_2, y_3) + (z_1, z_2, z_3)\bigl) \\
+        &= (x_1, x_2, x_3) + (y_1 + z_1, y_2 + z_2, y_3 + z_3)          & \text{by \eqref{eq:r3_sum}} \\
+        &= (x_1 + (y_1 + z_1), x_2 + (y_2 + z_2), x_3 + (y_3 + z_3))    & \text{by \eqref{eq:r3_sum}} \\
+        &= (u + v) + w  & \text{by asso. of } \Rl
+    \end{align*}
+
+    For all \(a, b \in \Rl\) and all \(v \in \Rl^3\),
+    \begin{align*}
+        (ab)v
+        &= (ab)(y_1, y_2, y_3) \\
+        &= ((ab)y_1, (ab)y_2, (ab)y_3)      & \text{by \eqref{eq:r3_product}} \\
+        a(bv)
+        &= a\bigl(b(y_1, y_2, y_3)\bigl) \\
+        &= a(b y_1, b y_2, b y_3)           & \text{by \eqref{eq:r3_product}} \\
+        &= (a(b y_1), a(b y_2), a(b y_3))   & \text{by \eqref{eq:r3_product}} \\
+        &= (ab)v   & \text{by asso. of } \Rl
+    \end{align*}
+
+    \item \fbox{additive identity}
+
+    We show the existence of zero vector by finding one. Let the zero vector be \(0 = (0, 0, 0) \in \Rl^3\) such that for all \(v \in \mathbf{R_3}\),
+    \begin{align*}
+        &v + 0 = v, \\
+        \Rightarrow \quad &(y_1 + 0, y_2 + 0, y_3 + 0) = (y_1, y_2, y_3)  &\text{by \eqref{eq:r3_sum}} \\
+        \Rightarrow \quad &(0, 0, 0) = (0, 0, 0)                          &\text{by add.iden. of } \Rl
+    \end{align*}
+
+    \item \fbox{additive inverse}
+
+    We show the existence of additive inverse for every vector by finding one for each of them. For every \(u \in \Rl^3\), let \(w \in \Rl^3\) be the vector such that
+    \begin{align*}
+        &u + w = 0, \\
+        \Rightarrow \quad &(x_1 + z_1, x_2 + z_2, x_3 + z_3) = (0, 0, 0)    &\text{by \eqref{eq:r3_sum} and } 0 \in \Rl^3 \\
+        \Rightarrow \quad &(z_1, z_2, z_3) = (-x_1, -x_2, -x_3)             &\text{by add.inv. of } \Rl
+    \end{align*}
+
+    \item \fbox{multiplicative identity}
+
+    For all \(v \in \Rl^3\),
+    \begin{align*}
+        1v
+        &= 1(y_1, y_2, y_3) \\
+        &= (1y_1, 1y_2, 1y_3)   & \text{by \eqref{eq:r3_product}} \\
+        &= (y_1, y_2, y_3)      & \text{by mul.iden. of } \Rl \\
+        &= v
+    \end{align*}
+
+    \item \fbox{distributive properties}
+
+    For all \(a \in \Rl\) and all \(u, v \in \Rl^3\),
+    \begin{align*}
+        a(u + v)
+        &= a \bigl( (x_1, x_2, x_3) + (y_1, y_2, y_3) \bigr) \\
+        &= a (x_1 + y_1, x_2 + y_2, x_3 + y_3)          & \text{by \eqref{eq:r3_sum}} \\
+        &= (a(x_1 + y_1), a(x_2 + y_2), a(x_3 + y_3))   & \text{by \eqref{eq:r3_product}} \\
+        au + av
+        &= a(x_1, x_2, x_3) + a(y_1, y_2, y_3) \\
+        &= (ax_1, ax_2, ax_3) + (ay_1, ay_2, ay_3)  & \text{by \eqref{eq:r3_product}} \\
+        &= (ax_1 + ay_1, ax_2 + ay_2, ax_3 + ay_3)  & \text{by \eqref{eq:r3_sum}} \\
+        &= a(u + v)                                 & \text{by dist. of } \Rl \\
+    \end{align*}
+
+    For all \(a, b \in \Rl\) and all \(v \in \Rl^3\),
+    \begin{align*}
+        (a + b)v
+        &= (a + b)(y_1, y_2, y_3) \\
+        &= ((a + b)y_1, (a + b)y_2, (a + b)y_3)     & \text{by \eqref{eq:r3_product}} \\
+        av + bv
+        &= a(y_1, y_2, y_3) + b(y_1, y_2, y_3) \\
+        &= (ay_1, ay_2, ay_3) + (by_1, by_2, by_3)  & \text{by \eqref{eq:r3_product}} \\
+        &= (ay_1 + by_1, ay_2 + by_2, ay_3 + by_3)  & \text{by \eqref{eq:r3_sum}} \\
+        &= (a + b)v                                 & \text{by dist. of } \Rl
+    \end{align*}
+\end{enumerate}
+
+\chapter{Subspace}
+
+\section{Definition}
+
+For vector space \(V\) over a field \(\Fd\), a subset \(U\) of \(V\) is called a \textdf{subspace} of \(V\) if \(U\) is also a vector space over \(\Fd\), using the same addition and scalar multiplication as on \(V\).
+
+\section{Theorem}
+
+\subsection{Conditions for a subspace}
+
+A subset \(U\) of \(V\) is a subspace of \(V\) if and only if \(U\) satisfies the following three conditions:
+
+\begin{enumerate}
+    \item \fbox{additive identity}
+
+    \hspace{5mm} \(0 \in U\).
+
+    \item \fbox{closed under addition}
+
+    \hspace{5mm} For all \(u, w \in U\), \(u + w \in U\).
+
+    \item \fbox{closed under scalar multiplication}
+
+    \hspace{5mm} For all \(a \in \Fd\) and all \(u \in U\), \(au \in U\).
+\end{enumerate}
+
+\subsubsection*{Note}
+If one were to carelessly exclude the first condition, thinking that it should have been implicitly satisfied by the third condition as follows:
+\begin{center}
+    Choose \(a = 0\) and any \(u \in U\), then \(au = 0 \in U\) exists. (Wrong!)
+\end{center}
+While \(0\) always exists in a field, \(U\) might be an empty set thus \(u\) cannot be chosen. The core issue is that the 2-nd and 3-rd conditions alone fail to rule out the case \(U = \varnothing\), as they only states that \textit{all} vectors are closed under addition and scalar multiplication, which do not require the \textit{existence} of them.
+
+\subsubsection*{Proof}
+
+Given a subset \(U\) of \(V\) over \(\Fd\), we aim to show that both directions are true.
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)} Suppose that \(U\) is a subspace of \(V\), that is, \(U\) is a vector space over the same field. We aim to show that \(U\) satisfies the three conditions.
+
+    \begin{itemize}
+        \item The 1-st condition is satisfied by the definition of the vector space that \(U\) has a additive identity called \(0\).
+        \item The 2-nd and 3-rd conditions are satisfied by the definitions of operations on \(U\), as addition is the function of \(U \times U \to U\) and scalar multiplication is the function of \(\Fd \times U \to U\). This implies that all sums between vectors and all products between numbers and vectors, remain vectors in \(U\).
+    \end{itemize}
+    
+    \item \fbox{\(\Longleftarrow\)} Suppose that \(U\) satisfies the three conditions. We aim to show that \(U\) is a vector space over \(\Fd\).
+
+    First of all, the operations of addition \(U \times U \to U\) and scalar multiplication \(\Fd \times U \to U\) have to make sense. This is ensured by the 2-nd and 3-rd conditions. Now we verify the definition of the vector space.
+    \begin{itemize}
+        \item The existence of additive identity is ensured by the 1-st condition.
+        \item For all \(u \in U\), the additive inverse \((-1)u = -u\) exists in \(U\) by the 3-rd condition.
+        \item The other properties (i.e. commutativity, associativity, multiplicative identity, distributive properties) are automatically satisfied for \(U\) because they hold on a larger set \(V\). This can be verified easily.
+    \end{itemize}
+
+    Thus, \(U\) is a vector space and hence is a subspace of \(V\).
+\end{itemize}
+
+\section{Exercise}
+
+\subsection{Continuous real functions are subspaces}
+
+The set of continuous real-valued functions on the interval \([0, 1]\) is a subspace of \(\Rl^{[0, 1]}\).
+
+\subsubsection*{Proof}
+
+Let \(\mathcal{C}([0, 1], \Rl)\) denote the set of all continuous real-valued functions on the interval \([0, 1]\). Specifically,
+\[
+    \mathcal{C}([0, 1], \Rl) = \{ f: [0, 1] \to \Rl \mid f \text{ is continuous} \}.
+\]
+We aim to prove that \(\mathcal{C}([0, 1], \Rl)\) is a subspace of \(\Rl^{[0, 1]}\). Recall that we call a function \(f\) continuous if \(f\) is continuous on all points of its domain. That is,
+\[
+    \lim_{t \to x} f(t) = f(x), \quad \forall x \in [0, 1].
+\]
+
+\begin{itemize}
+    \item \fbox{additive identity}
+
+    \(0 \in \mathcal{C}([0, 1], \Rl)\). The function that is identically 0 is continuous because it is constant.
+
+    \item \fbox{closed under addition}
+
+    Suppose \(f, g \in \mathcal{C}([0, 1], \Rl)\). Then for all \(x \in [0, 1]\),
+    \begin{align*}
+        \lim_{t \to x} (f + g)(t)
+        &= \lim_{t \to x}(f(t) + g(t)) \\
+        &= \lim_{t \to x} f(t) + \lim_{t \to x} g(t) \\
+        &= f(x) + g(x) \\
+        &= (f + g)(x).
+    \end{align*}
+    Thus, \(f + g \in \mathcal{C}([0, 1], \Rl)\).
+
+    \item \fbox{closed under scalar multiplication}
+
+    Suppose \(\lambda \in R\) and \(f \in \mathcal{C}([0, 1], \Rl)\). Then for all \(x \in [0, 1]\),
+    \begin{align*}
+        \lim_{t \to x} (\lambda f)(t)
+        &= \lim_{t \to x} \lambda f(t) \\
+        &= \lambda \lim_{t \to x} f(t) \\
+        &= \lambda f(x) \\
+        &= (\lambda f)(x).
+    \end{align*}
+    Thus, \(\lambda f \in \mathcal{C}([0, 1], \Rl)\).
+\end{itemize}
+
+\subsection{Differentiable real functions are subspaces}
+
+The set of differentiable real-valued functions on \(\Rl\) is a subspace of \(\Rl^{\Rl}\).
+
+\subsubsection*{Proof}
+
+Let \(\mathcal{D}(\Rl, \Rl)\) denote the set of all differentiable real-valued functions on \(\Rl\). Specifically,
+\[
+    \mathcal{D}(\Rl, \Rl) = \{ f: \Rl \to \Rl \mid f \text{ is differentiable} \}.
+\]
+We aim to prove that \(\mathcal{D}(\Rl, \Rl)\) is a subspace of \(\Rl^{\Rl}\). Recall that we call a function \(f\) differentiable if \(f\) is differentible on all points of its domain. That is,
+\[
+    f'(x) = \lim_{t \to x} \frac{f(t) - f(x)}{t - x}
+\]
+exists for all \(x \in \Rl\).
+
+\begin{itemize}
+    \item \fbox{additive identity}
+
+    \(0 \in \mathcal{D}(\Rl, \Rl)\). The function that is identically 0 is differentiable because the derivative of 0 is 0.
+
+    \item \fbox{closed under addition}
+
+    Suppose \(f, g \in \mathcal{D}(\Rl, \Rl)\). Then for all \(x \in \Rl\),
+    \begin{align*}
+        (f + g)'(x)
+        &= \lim_{t \to x} \frac{(f + g)(t) - (f + g)(x)}{t - x} \\
+        &= \lim_{t \to x} \frac{f(t) + g(t) - f(x) - g(x)}{t - x} \\
+        &= \lim_{t \to x} \left( \frac{f(t) - f(x)}{t - x} + \frac{g(t) - g(x)}{t - x} \right) \\
+        &= \lim_{t \to x} \frac{f(t) - f(x)}{t - x} + \lim_{t \to x} \frac{g(t) - g(x)}{t - x} \\
+        &= f'(x) + g'(x).
+    \end{align*}
+    Thus, \((f + g)'(x)\) exists for all \(x \in \Rl\), then \(f + g \in \mathcal{D}(\Rl, \Rl)\).
+
+    \item \fbox{closed under scalar multiplication}
+
+    Suppose \(\lambda \in R\) and \(f \in \mathcal{D}(\Rl, \Rl)\). Then for all \(x \in \Rl\),
+    \begin{align*}
+        (\lambda f)'(x)
+        &= \lim_{t \to x} \frac{(\lambda f)(t) - (\lambda f)(x)}{t - x} \\
+        &= \lim_{t \to x} \frac{\lambda f(t) - \lambda f(x)}{t - x} \\
+        &= \lambda \lim_{t \to x} \frac{f(t) - f(x)}{t - x} \\
+        &= \lambda f'(t).
+    \end{align*}
+    Thus, \((\lambda f)'(x)\) exists for all \(x \in \Rl\), then \(\lambda f \in \mathcal{D}(\Rl, \Rl)\).
+\end{itemize}
+
+\subsection{1.C.9 Periodic functions are not necessarily subspaces}
+
+A function \(f: \Rl \to \Rl\) is called \textdf{periodic} if there exists a positive number \(p\) such that \(f(x) = f(x + p)\) for all \(x \in \Rl\). Is the set of periodic functions from \(\Rl\) to \(\Rl\) a subspace of \(\Rl^{\Rl}\)?
+
+\subsubsection*{Solution}
+
+Let \(\mathcal{T}(\Rl, \Rl)\) denote the set of all periodic functions on \(\Rl\). Specifically,
+\[
+    \mathcal{T}(\Rl, \Rl) = \{ f: \Rl \to \Rl \mid f \text{ is periodic} \}.
+\]
+We aim to prove that \(\mathcal{T}(\Rl, \Rl)\) is not a subspace of \(\Rl^{\Rl}\).
+
+\begin{itemize}
+    \item \fbox{additive identity}
+
+    \(0 \in \mathcal{T}(\Rl, \Rl)\). The function that is identically 0 is periodic because for any constant function \(f(x) = c\), we have \(f(x) = f(x + p) = c\) for any \(p > 0\).
+
+    \item \fbox{not closed under addition}
+
+    Suppose \(f, g \in \mathcal{T}(\Rl, \Rl)\) with periods \(1\) and \(\sqrt{2}\) correspondingly. Suppose to the contrary that their sum were periodic with period \(p > 0\), then both would have to repeat after \(p\). That is
+    \[
+        p = m \cdot 1 = n \cdot \sqrt{2}
+    \]
+    for some positive integers \(m\) and \(n\). This would follow that
+    \[
+        \sqrt{2} = \frac{m}{n}
+    \]
+    is rational, which is a contradiction.\footnote{Note that when their periods \(p_1\) and \(p_2\) are such that \(p_1 / p_2 \in \mathbf{Q}\), then \(f + g\) is periodic.}
+
+    \item \fbox{closed under scalar multiplication}
+
+    Suppose \(\lambda \in \Rl\) and \(f \in \mathcal{T}(\Rl, \Rl)\) with period \(p > 0\). Then
+    \[
+        (\lambda f) (x + p) = \lambda f(x + p) = \lambda f(x) = (\lambda f)(x).
+    \]
+    Thus, \(\lambda f \in \mathcal{T}(\Rl, \Rl)\).
+\end{itemize}
+
+\subsection{1.C.10 Intersection of subspaces are a subspace}
+
+Suppose \(U_1\) and \(U_2\) are subspaces of \(V\). Prove that the intersection \(U_1 \cap U_2\) is a subspace of \(V\).
+
+\subsubsection*{Solution}
+
+\begin{itemize}
+    \item \fbox{additive identity}
+
+    \(0 \in U_1 \cap U_2\) since \(0 \in U_1\) and \(0 \in U_2\).
+
+    \item \fbox{closed under addition}
+
+    Suppose \(u, v \in U_1 \cap U_2\). Then \(u + v \in U_1\) since \(u, v \in U_1\) and \(U_1\) is closed under addition; similarly, \(u + v \in U_2\). Thus \(u + v \in U_1 \cap U_2\).
+
+    \item \fbox{closed under scalar multiplication}
+
+    Suppose \(a \in \Fd\) and \(v \in U_1 \cap U_2\). Then \(a v \in U_1\) since \(v \in U_1\) and \(U_1\) is closed under scalar multiplication; similarly, \(a v \in U_2\). Thus \(a v \in U_1 \cap U_2\).
+\end{itemize}
+
+\subsection{1.C.10 Union of subspaces}
+
+Prove that the union of two subspaces of \(V\) is a subspace of \(V\) if and only if one of the subspaces is contained in the other.
+
+\subsubsection*{Solution}
+
+Given that \(U_1\) and \(U_2\) are subspaces of \(V\). We aim to prove that \(U_1 \cup U_2\) is a subspace of \(V\) if and only if \(U_1 \subseteq U_2\) or \(U_2 \subseteq U_1\).
+
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)}
+
+    Suppose to the contrary that \(U_1 \cup U_2\) were subspaces of \(V\) and none of them were not contained in the other. That is, \(U_1 \setminus U_2 \neq \varnothing\) and \(U_2 \setminus U_1 \neq \varnothing\). Let \(u_1 \in U_1 \setminus U_2\) and \(u_2 \in U_2 \setminus U_1\). Since \(u_1, u_2 \in U_1 \cup U_2\), it should have followed that \(u_1 + u_2 \in U_1 \cup U_2\). Then one of the following two cases should have been true.
+    \begin{enumerate}
+        \item[(a)] \(u_1 + u_2 \in U_1\). Then subtraction in \(U_1\) would give \((u_1 + u_2) - u_1 = u_2 \in U_1\), which cannot be true since \(u_2 \in U_2 \setminus U_1\).
+
+        \item[(b)] \(u_1 + u_2 \in U_2\). Then subtraction in \(U_2\) would give \((u_1 + u_2) - u_2 = u_1 \in U_2\), which also cannot be true since \(u_1 \in U_1 \setminus U_2\).
+    \end{enumerate}
+    Thus, \(u_1 + u_2 \notin U_1 \cup U_2\), we reach a contradiction.
+
+    \item \fbox{\(\Longleftarrow\)}
+
+    Suppose that one of the subspaces is contained in the other. If \(U_1 \subseteq U_2\), then \(U_1 \cup U_2 = U_2\) is a subspace of \(V\); if \(U_2 \subseteq U_1\), then \(U_1 \cup U_2 = U_1\) is also a subspace of \(V\).
+\end{itemize}
+
+\chapter{Polynomial}
+
+\section{Definition}
+
+\begin{itemize}
+    \item A function \(p: \Fd \to \Fd\) is called a \textdf{polynomial} with coefficients in \(\Fd\) if there exist \(a_0, \dots a_m \in \Fd\) such that
+    \[
+        p(z) = a_0 + a_1 z + a_2 z^2 + \cdots + a_m z^m
+    \]
+    for all \(z \in \Fd\).
+    
+    \item \(\PO(\Fd)\) is the set of all polynomials with coefficients in \(\Fd\).
+
+    \item A polynomial \(p \in \PO(\Fd)\) is said to have \textdf{degree} \(m\) if there exist scalars \(a_0, a_1, \dots, a_m \in \Fd\) with \(a_m \neq 0\) such that
+    \[
+        p(z) = a_0 + a_1 z + a_2 z^2 + \cdots + a_m z^m
+    \]
+    for all \(z \in \Fd\).
+
+    \item If \(p\) has degree \(m\), we write \(\deg p = m\).
+
+    \item The polynomial that is identically 0 is said to have degree \(-\infty\).
+
+    \item For a nonnegative integer \(m\), \(\PO_m(\Fd)\) denotes the set of all polynomials with coefficients in \(\Fd\) and degree at most \(m\).\footnote{Note that we use the convention \(m > -\infty\), so \(0 \in \PO_m(\Fd)\) for every nonnegative integer \(m\).}
+\end{itemize}
+
+\section{Theorem}
+
+\subsection{\(\PO(\Fd)\) is a vector space}
+
+With the usual operations of addition and scalar multiplication, \(\PO(\Fd)\) is a vector space over \(\Fd\). In other words, \(\PO(\Fd)\) is a subspace of \(\Fd^{\Fd}\).
+
+\subsubsection*{Note}
+
+Recall that \(\Fd^{\Fd}\) denotes the set of functions from \(\Fd\) to \(\Fd\). And for \(f, g \in \Fd^{\Fd}\) and \(\lambda \in \Fd\), the sum \(f + g \in \Fd^{\Fd}\) and the product \(\lambda f \in \Fd^{\Fd}\) are defined by
+\[
+    (f + g)(z) = f(z) + g(z), \quad (\lambda f)(z) = \lambda f(z)
+\]
+for all \(z \in \Fd\).
+
+\subsubsection*{Proof}
+
+Let's show that \(\PO(\Fd)\) is a subspace of \(\Fd^{\Fd}\). First of all, \(\PO(\Fd)\) is a subset of \(\Fd^{\Fd}\) because every polynomial is a function from \(\Fd\) to \(\Fd\).
+
+\begin{itemize}
+    \item \fbox{additive identity}
+    
+    \(0 \in \PO(\Fd)\) because 0 is a polynomial of degree \(-\infty\) by definition.
+
+    \item \fbox{closed under addition}
+    
+    For all \(p, q \in \PO(\Fd)\), we can write
+    \begin{align*}
+        &p(z) = a_0 + a_1 z + \cdots + a_m z^m, \quad \text{for some nonnegative integer } m, \\
+        &q(z) = c_0 + a_1 z + \cdots + c_n z^n, \quad \hspace{2.5mm} \text{for some nonnegative integer } n.
+    \end{align*}
+    Without loss of generality, assume \(m \geq n\), then
+    \begin{align*}
+        (p + q)(z)
+        &= p(z) + q(z) \\
+        &= (a_0 + a_1 z + \cdots + a_m z^m) + (c_0 + c_1 z + \cdots + c_n z^n) \\
+        &= (a_0 + c_0) + (a_1 + c_1) z + \cdots + (a_n + c_n) z_n + \cdots + a_m z_m
+    \end{align*}
+    Thus, \(p + q \in \PO(\Fd)\).
+
+    \item \fbox{closed under scalar multiplication}
+    
+    For all \(\lambda \in \Fd\) and \(p \in \PO(\Fd)\),
+    \begin{align*}
+        (\lambda p)(z)
+        &= \lambda p(z) \\
+        &= \lambda (a_0 + a_1 z + \cdots + a_m z^m) \\
+        &= \lambda a_0 + \lambda a_1 z + \cdots + \lambda a_m z^m
+    \end{align*}
+    Thus, \(\lambda p \in \PO(\Fd)\).
+\end{itemize}
+
+\chapter{Span}
+
+\section{Definition}
+
+\begin{itemize}
+    \item A \textdf{linear combination} of a list \(v_1, v_2, \dots, v_m\) of vectors in \(V\) is a vector of the form
+    \[
+        a_1 v_1 + \cdots + a_m v_m,
+    \]
+    where \(a_1, \dots, a_m \in \Fd\).
+    \item The set of all linear combination of a list \(v_1, \dots, v_m\) of vectors in \(V\) is called the \textdf{span} of \(v_1, \dots, v_m\), denoted \(\spn(v_1, \dots, v_m)\). In other words,
+    \[
+        \spn(v_1, \dots, v_m) = \{ a_1 v_1 + \cdots + a_m v_m \mid a_1, \dots, a_m \in \Fd \}.
+    \]
+    \item The span of the empty list is defined to be \(\{ 0 \}\). That is, 
+    \[
+        \spn() = \{ 0 \}.
+    \]
+    \item If \(\spn(v_1, \dots, v_m)\) equals \(V\), we say that the list \(v_1, \dots, v_m\) \textdf{spans} \(V\).
+\end{itemize}
+
+\section{Theorem}
+
+\subsection{Smallest subspace}
+
+The span of a list of vectors in \(V\) is the smallest subspace of \(V\) containing all vectors in the list.
+
+\subsubsection*{Proof}
+
+Given a list \(v_1, \dots, v_m\) of vectors in \(V\), we aim to show that \(\spn(v_1, \dots, v_m)\) is a subspace of \(V\), then that it contains \(v_1, \dots, v_m\), finally that it is the smallest subspace of \(V\) containing \(v_1, \dots, v_m\).
+
+\begin{enumerate}
+    \item \(\spn(v_1, \dots, v_m)\) is a subspace of \(V\) by satisfying the following conditions of subspace.
+    \begin{itemize}
+        \item \fbox{\(\spn(v_1, \dots, v_m) \subseteq V\)}
+        
+        For all \(u \in \spn(v_1, \dots, v_m)\),
+        \[
+            u = a_1 v_1 + \cdots + a_m v_m, \quad \text{for some } a_1, \dots, a_m.
+        \]
+        And since each \(v_i \in V\) and \(V\) is closed under addition and scalar multiplication, it follows that \(u \in V\).
+
+        \item \fbox{additive identity}
+        \[
+            0v_1 + \cdots + 0v_m = 0 \quad \in \spn(v_1, \dots, v_m).
+        \]
+
+        \item \fbox{closed under addition}
+
+        For all \(u, w \in \spn(v_1, \dots, v_m)\),
+        \begin{align*}
+            u + w
+            &= (a_1 v_1 + \cdots + a_m v_m) + (c_1 v_1 + \cdots + c_m v_m) \\
+            &= (a_1 + c_1) v_1 + \cdots (a_m + c_m) v_m \quad \in \spn(v_1, \dots, v_m).
+        \end{align*}
+
+        \item \fbox{closed under scalar multiplication}
+        
+        For all \(\lambda \in \Fd\) and all \(u \in \spn(v_1, \dots, v_m)\),
+        \begin{align*}
+            \lambda u
+            &= \lambda (a_1 v_1 + \cdots + a_m v_m) \\
+            &= (\lambda a_1) v_1 + \cdots + (\lambda a_m) v_m \quad \in \spn(v_1, \dots, v_m).
+        \end{align*}
+    \end{itemize}
+
+    \item For each \(j = 1, \dots, m\), \(v_j\) is clearly a linear combination of \(v_1, \dots, v_m\) (by setting all \(a\)'s to 0 except \(a_j = 1\)).
+
+    \item For every subspace \(U\) of \(V\) containing \(v_1, \dots, v_m\), \(U\) should contain all the linear combination of \(v_1, \dots, v_m\). Suppose to the contrary that \(U\) did not contain some linear combination of them, \(U\) would not be a vector space since it would not be closed under addition or scalar multiplication. Thus, there is no subspace of \(V\) containing \(v_1, \dots, v_m\) smaller than \(\spn(v_1, \dots, v_m)\).
+\end{enumerate}
+
+\chapter{Linear Independence}
+
+\section{Definition}
+
+\begin{itemize}
+    \item A list \(v_1, \dots, v_m\) of vectors in \(V\) is called \textdf{linearly independent} if the only choice of \(a_1, \dots, a_m \in \Fd\) that makes \(a_1 v_1 + \cdots + a_m v_m\) equal \(0\) is \(a_1 = \cdots = a_m = 0\). In other words, for any scalars \(a_1, \dots, a_m \in \Fd\), if \(a_1 v_1 + \cdots + a_m v_m = 0\), then \(a_1 = \cdots = a_m = 0\).
+
+    \item The empty list \(()\) is declared to be linearly independent.
+
+    \item A list of vectors in \(V\) is called \textdf{linearly dependent} if it is not linearly independent. In other words, there exist \(a_1, \dots, a_m \in \Fd\), not all \(0\), such that \(a_1 v_1 + \cdots + a_m v_m = 0\).
+\end{itemize}
+
+\section{Theorem}
+
+\subsection{Unique linear combination}\label{subsec:unique_linear_combination}
+
+For all \(v_1, \dots, v_m \in V\), the list \(v_1, \dots, v_m\) is linearly independent if and only if each vector in \(\spn(v_1, \dots, v_m)\) has only one representation as a linear combination of \(v_1, \dots, v_m\).
+
+\subsubsection*{Proof}
+
+For all \(u \in \spn(v_1, \dots, v_m)\), we can write
+\[
+    u = a_1 v_1 + \cdots + a_m v_m, \quad \text{for some } a_1, \dots a_m \in \Fd.
+\]
+Let's consider another set of coefficients
+\[
+    u = c_1 v_1 + \cdots + c_m v_m, \quad \text{for some } c_1, \dots c_m \in \Fd.
+\]
+Subtracting the two equations gives
+\[
+    0 = (a_1 - c_1) v_1 + \cdots + (a_m - c_m) v_m.
+\]
+
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)} Suppose that \(v_1, \dots, v_m\) is linearly independent, then each \(a_j - c_j\) should equal \(0\). Thus \(u\) has only one unique linear combination of \(v_1, \dots, v_m\).
+
+    \item \fbox{\(\Longleftarrow\)} Suppose that \(u\) has only one unique linear combination of \(v_1, \dots, v_m\), then each \(a_j = c_j\) and \(v_1, \dots, v_m\) is linearly independent. If \(v_1, \dots, v_m\) were linearly dependent, then there would exist \(a_j - c_j \neq 0\), which leads to multiple representations of \(u\).
+\end{itemize}
+
+\subsection{Removal keeps linear independence}
+
+If some vectors are removed from a linearly independent list, the remaining list is also linearly independent.
+
+\subsubsection*{Proof}
+
+Given a list \(v_1, \dots, v_m\) of linearly independent vectors in \(V\). Without loss of generality, suppose we remove some vectors at the end.\footnote{The order of vector does not matter here.} That is, let \(I = \{1, \dots, k\}\) be the set of indicies we keep, and \(J = \{k + 1, \dots, m\}\) be the set of indicies we remove, with \(1 \leq k < m\).\footnote{For the case where we remove all vectors, \(k = 0\), the empty remaining list is declared linearly independent.}
+
+Suppose to the contrary that the list after removal were linearly dependent. Then there would be \(a_1, \dots a_k \in \Fd\), not all \(0\), such that
+\[
+    a_1 v_1 + \cdots + a_k v_k = 0.
+\]
+By filling up with the removed vectors, we have
+\[
+    a_1 v_1 + \cdots + a_k v_k + 0 v_{k+1} + \cdots + 0 v_m = 0
+\]
+That is, there exists a non-trivial linear combination of \(v_1, \dots, v_m\) that equals \(0\), which contradicts that \(v_1, \dots, v_m\) is linearly independent.
+
+\subsection{Linearly dependent vector causes linearly dependent list}\label{subsec:dependent_vector}
+
+If some vector in a list of vectors in \(V\) is a linear combination of the other vectors, then the list is linearly dependent.
+
+\subsubsection*{Proof}
+
+Given a list \(v_1, \dots, v_m\) of vectors in \(V\) where \(m > 1\). Without loss of generality, we assume that the first vector \(v_1\) is a linear combination of the other vectors \(v_2, \dots, v_m\). Then there exist \(a_2, \dots, a_m \in \Fd\) such that
+\[
+    v_1 = a_2 v_2 + \cdots + a_m v_m
+\]
+\[
+    \Rightarrow -v_1 + a_2 v_2 + \cdots + a_m v_m = 0.
+\]
+Thus, \(v_1, \dots, v_m\) is linearly dependent.
+
+\subsection{Linearly dependent list has a vector to blame}
+
+The converse of the previous statement is also true. Specifically, if a list of vectors is linearly dependent, then some vector in the list is a linear combination of the other vectors.
+
+\subsubsection*{Proof}
+
+This is more tedious since we have to consider several edge cases.
+
+\begin{itemize}
+    \item For the case where the list is of length 0, the empty list is declared to be linearly independent, which does not satisfy the condition, so we can skip it.
+
+    \item For the case where the list is of length 1, we are going to show that for this list to be linearly dependent, that one vector has to be the zero vector \(0\). And \(0\) is indeed a linear combination of \textit{the other} vectors, by definition of \(\spn() = \{ 0 \}\).
+
+    Let \(v_1 \in V\) be the linearly dependent list of length 1. There exists a scalar \(a_1 \neq 0\) in \(\Fd\) such that
+    \[
+        a_1 v_1 = 0.
+    \]
+    Thus, \(v_1 = 0\).
+
+    \item For the cases where the list is of length greater than 1, let the list be \(v_1, \dots, v_m\) in \(V\) where \(m > 1\). Suppose the list is linearly dependent, then there exist \(a_1, \dots, a_m \in \Fd\), not all zeros, such that
+    \[
+        a_1 v_1 + \cdots + a_m v_m = 0.
+    \]
+    Without loss of generality, assume that \(a_1 \neq 0\). Then we can arrange the equation as
+    \[
+        v_1 = -\frac{a_2}{a_1} v_2 - \cdots - \frac{a_m}{a_1} v_m.
+    \]
+    Thus, we find \(v_1\) as a linear combination of the other vectors.\footnote{Generally, each \(v_j\) with \(a_j \neq 0\) is a linear combination of the other vectors since we can arrange the equation similarly.}
+\end{itemize}
+
+\subsubsection*{Note}
+
+From this theorem and the previous one (\ref{subsec:dependent_vector}), whether a list of vector is linearly dependent could be defined as whether there is \textit{one of the vector} being a linear combination of \textit{the other vectors}. But it is not so precise to think like this way due to the dubious meaning of ``one of the vector'' and ``the other vectors''. In fact, we do not even consider the edge cases in \ref{subsec:dependent_vector} since it seems like the statement assumes the existence of that vector and the other vectors. In addition, this way of phrasing make one of the vector guilty, while the original definition only states that there is a non-trivial linear combination equal to 0.
+
+\subsection{The zero vector 0 causes linearly dependent list}\label{subsec:0_causes_dependent}
+
+Every list of vectors in \(V\) containing the zero vector is linearly dependent.
+
+\subsubsection*{Proof}
+
+Given a list \(v_1, \dots, v_m\) of vectors in \(V\), where \(m \geq 1\), suppose one of them is the zero vector. Without loss of generality, assume \(v_1\) is the zero vector. Then \(v_1\) can be written as a trivial linear combination of the other vectors as
+\[
+    v_1 = 0 v_2 + \cdots + 0 v_m.
+\]
+Then by \ref{subsec:dependent_vector}, \(v_1, \dots, v_m\) is linearly dependent.
+
+\subsection{Linear Dependence Lemma}\label{subsec:LDL}
+
+Suppose \(v_1, \dots, v_m\) is a linearly dependent list in \(V\). Then there exists \(j \in \{1, \dots, m\}\) such that the following hold:
+\begin{enumerate}
+    \item[(a)] \(v_j \in \spn(v_1, \dots, v_{j-1})\);
+    \item[(b)] if the \(j\)-th term is removed from \(v_1, \dots, v_m\), the span of the remaining list equals \(\spn(v_1, \dots, v_m)\).
+\end{enumerate}
+
+\subsubsection*{Proof}
+
+\begin{enumerate}
+    \item[(a)]
+    Because the list is linearly dependent, there exist \(a_1, \dots, a_m \in \Fd\), not all 0, such that
+    \[
+        a_1 v_1 + \cdots + a_m v_m = 0.
+    \]
+    Let \(j\) be the largest element of \(\{1, \dots, m\}\) such that \(a_j \neq 0\). Then
+    \[
+        a_1 v_1 + \cdots + a_j v_j = 0
+    \]
+    \begin{equation}\label{eq:j_as_prev}
+        \Rightarrow \; v_j = - \frac{a_1}{a_j} v_1 - \cdots - \frac{a_{j-1}}{a_j} v_{j-1}
+    \end{equation}
+    Thus, (a) is true.
+
+    \item[(b)]
+    \begin{itemize}
+        \item \fbox{\(\spn(v_1, \dots, v_m) \subseteq \spn(v_1, \dots, v_m \setminus v_j)\)}
+
+        Suppose \(u \in \spn(v_1, \dots, v_m)\). Then there exist \(c_1, \dots, c_m \in \Fd\) such that
+        \[
+            u = c_1 v_1 + \cdots + c_j v_j + \cdots + c_m v_m.
+        \]
+        By replacing \(v_j\) with \eqref{eq:j_as_prev}, we represent \(u\) as a linear combination of the list \(v_1, \dots, v_m\) without \(v_j\). Thus \(u \in \spn(v_1, \dots, v_m \setminus v_j)\).
+
+        \item \fbox{\(\spn(v_1, \dots, v_m \setminus v_j) \subseteq \spn(v_1, \dots, v_m)\)}
+
+        This is trivial since for every \(u\) as a linear combination of the list \(v_1, \dots, v_m \setminus v_j\), adding \(0 v_j\) gives a linear combination of \(v_1, \dots, v_m\).
+    \end{itemize}
+\end{enumerate}
+
+\section{Exercise}
+
+\subsection{2.A.8}
+
+Suppose \(v_1, \dots, v_m\) is linearly independent in \(V\) and \(\lambda \in \Fd\). Prove that if \(\lambda \neq 0\), then \(\lambda v_1, \dots, \lambda v_m\) is linearly independent.
+
+\subsubsection*{Proof}
+
+Suppose \(\lambda \neq 0\). Let \(a_1, \dots, a_m \in \Fd\) be such that
+\[
+    a_1 \lambda v_1 + \cdots + a_m \lambda v_m = 0
+\]
+\[
+    \Rightarrow a_1 v_1 + \cdots + a_m v_m = 0.
+\]
+Since \(v_1, \dots, v_m\) is linearly independent, it follows that \(a_1 = \cdots = a_m = 0\). Thus \(\lambda v_1, \dots, \lambda v_m\) is linearly independent.
+
+\subsection{2.A.10}
+
+Suppose \(v_1, \dots, v_m\) is linearly independent in \(V\) and \(w \in V\). Prove that if \(v_1 + w, \dots, v_m + w\) is linearly dependent, then \(w \in \spn(v_1, \dots, v_m)\).
+
+\subsubsection*{Proof}
+
+Suppose \(v_1 + w, \dots, v_m + w\) is linearly dependent, then there exist \(a_1, \dots, a_m \in \Fd\), not all 0, such that
+\[
+    a_1 (v_1 + w) + \cdots + a_m (v_m + w) = 0
+\]
+\[
+    \Rightarrow \; a_1 v_1 + \cdots + a_m v_m = - (a_1 + \cdots + a_m) w
+\]
+Since \(v_1, \dots, v_m\) is linearly independent, the linear combination on the left hand side cannot be zero, thus \(a_1 + \cdots + a_m \neq 0\) and \(w \neq 0\). Then we can arrange the equation as
+\[
+    w = - \frac{a_1}{a_1 + \cdots + a_m} v_1 - \cdots - \frac{a_m}{a_1 + \cdots + a_m} v_m.
+\]
+Therefore, \(w \in \spn(v_1, \dots, v_m)\).
+
+\subsection{2.A.11 Extension of linearly independent list}
+
+Suppose \(v_1, \dots, v_m\) is linearly independent in \(V\) and \(w \in V\). Show that \(v_1, \dots, v_m, w\) is linearly independent if and only if \(w \notin \spn(v_1, \dots, v_m)\).
+
+\subsubsection*{Proof}
+
+Given a linearly independent list \(v_1, \dots, v_m \in V\) and \(w \in V\), we aim to show that both directions are true.
+
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)}
+    Suppose to the contrary that \(v_1, \dots, v_m, w\) were linearly independent and \(w \in \spn(v_1, \dots, v_m)\). Then by \ref{subsec:dependent_vector}, because \(w\) is a linear combination of the other vectors, \(v_1, \dots, v_m, w\) would be linearly dependent, which is a contradiction.
+
+    \item \fbox{\(\Longleftarrow\)}
+    Suppose to the contrary that \(w \notin \spn(v_1, \dots, v_m)\) and \(v_1, \dots, v_m, w\) were linearly dependent, then there would exist \(c_1, \dots, c_m, c_w \in \Fd\), not all 0, such that
+    \[
+        c_1 v_1 + \cdots + c_m v_m + c_w w = 0.
+    \]
+    \begin{itemize}
+        \item For the case where \(c_w = 0\), then
+        \[
+            c_1 v_1 + \cdots + c_m v_m = 0
+        \]
+        Thus, \(v_1, \dots, v_m\) would be linearly dependent, which is a contradiction.
+
+        \item  For the case where \(c_w \neq 0\), then we could arrange the equation so that \(w\) is a linear combination of \(v_1, \dots, v_m\), which contradicts that \(w \notin \spn(v_1, \dots, v_m)\).
+    \end{itemize}
+\end{itemize}
+
+\chapter{Finite-dimensional}
+
+\section{Definition}
+
+\begin{itemize}
+    \item A vector space is called \textdf{finite-dimensional} if some list of vectors in it spans the space.\footnote{Note that by definition lists have finite length.}
+
+    \item A vector space is called \textdf{infinite-dimensional} if it is not finite-dimensional.
+\end{itemize}
+
+\section{Theorem}
+
+\subsection{\(\Fd^n\) is finite-dimensional}
+
+\(\Fd^n\) is a finite-dimensional vector space for every positive integer \(n\).
+
+\subsubsection*{Proof}
+
+For each \(j = 1, \dots, n\), define \(e_j \in \Fd^n\) such that it has 1 at the \(j\)-th coordinate and 0 otherwise. We aim to show that \(e_1, \dots, e_n\) spans \(\Fd^n\).
+
+\begin{itemize}
+    \item \fbox{\(\Fd^n \subseteq \spn(e_1, \dots, e_n)\)}
+    
+    For every vector \(v = (x_1, \dots, x_n) \in \Fd^n\),
+    \[
+        (x_1, \dots, x_n) = x_1 e_1 + \cdots + x_n e_n.
+    \]
+    Thus \(v \in \spn(e_1, \dots, e_n)\).
+
+    \item \fbox{\(\spn(e_1, \dots, e_n) \subseteq \Fd^n\)}
+    
+    For every vector \(u \in \spn(e_1, \dots, e_n)\), there exist \(a_1, \dots, a_n \in \Fd\) such that
+    \[
+        u = a_1 e_1 + \cdots + a_n e_n = (a_1, a_2, \dots, a_n).
+    \]
+    Thus \(u \in \Fd^n\).
+\end{itemize}
+
+\subsection{\(\PO_m(\Fd)\) is finite-dimensional}
+
+\(\PO_m(\Fd)\) is a finite-dimensional vector space for each nonnegative integer \(m\).
+
+\subsubsection*{Proof}
+
+It is trivial that \(\PO_m(\Fd) = \spn(1, z, \dots, z^m)\), where each \(z^k\) denotes a polynomial.
+
+\subsection{\(\PO(\Fd)\) is infinite-dimensional}
+
+\(\PO(\Fd)\) is a infinite-dimensional vector space.
+
+\subsubsection*{Proof}
+
+Suppose to the contrary that there were a spanning list of polynomials \(p_1, \dots, p_n \in \PO(\Fd)\). Let \(m\) be the higest degree of those polynomials. Then every polynomial in \(\spn(p_1, \dots, p_n)\) would only have degree at most \(m\). Thus \(z^{m+1}\) would not be in \(\spn(p_1, \dots, p_n)\), which is a contradiction.
+
+\subsection{Length of linearly independent list \(\leq\) length of spanning list}\label{subsec:length_inequality}
+
+In a finite-dimensional vector space, the length of every linearly independent list of vectors is less than or equal to the length of every spanning list of vectors.\footnote{We require the vector space to be finite-dimensional so that the existence of a spanning list is granted.}
+
+\subsubsection*{Proof}
+
+Suppose \(u_1, \dots, u_m\) is linearly independent in \(V\), and \(w_1, \dots, w_n\) spans \(V\). We aim to prove that \(m \leq n\), by observing the following procedure of adding \(u\) and removing \(w\) one at a time. At the end we will see that all \(u\)'s have been added and we does not run out of \(w\)'s to remove.
+\begin{center}
+    \fbox{
+        \begin{minipage}{.9\textwidth}
+            Let \(B\) be the list \(w_1, \dots w_n\), and for each iteration \(j\) from \(1\) to \(m\),
+            \begin{enumerate}
+                \item insert \(u_j\) into \(B\) such that \(u_j\) becomes the \(j\)-th element of \(B\);
+                \item remove one \(v\) from \(B\), where \(v\) is in the span of all the preceding elements.
+            \end{enumerate}
+        \end{minipage}
+    }
+\end{center}
+At the end of each \(j\)-th iteration, we claim that the following loop invariants \(\mathcal{I}(j)\) stay true.
+\begin{enumerate}
+    \item[(a)] \(B\) spans \(V\);
+    \item[(b)] \(B\) looks like this:
+    \[
+        u_1, \dots, u_{j}, \text{ remaining } w\text{'s} \quad (\text{total length } m)
+    \]
+\end{enumerate}
+Let's verify the loop invariants.
+\begin{itemize}
+    \item First we aim to show that \(\mathcal{I}(1)\) holds. At the start of the \(1\)-st iteration, \(B\) is
+    \[
+        w_1, \dots, w_n \quad (\text{total length } n)
+    \]
+    After the insertion, \(B\) becomes
+    \[
+        u_1, w_1, \dots, w_n \quad (\text{total length } n + 1)
+    \]
+    Because \(w_1, \dots, w_n\) spans the space, \(u_1 \in V\) must be a linear combination of \(w_1, \dots, w_n\). Thus right now \(B\) is linearly dependent. And based on \hyperref[subsec:LDL]{Linear Dependence Lemma}, we can always find an element \(v\) to remove such that, \(v\) is in the span of all the preceding elements, and after the removal the span of the remaining list is still \(V\). The invariant (a) is satisfied.
+
+    Furthermore, the removal does not choose \(u_1\) because if \(u_1\) were to be chosen, it would be that \(u_1 \in \spn() = \{ 0 \}\), which contradicts that \(u_1, \dots, u_m\) is linearly independent.\footnote{Recall that every list containing 0 is linearly dependent by \ref{subsec:0_causes_dependent}.} Thus, one of the \(w\)'s is choosen and removed. \(B\) now looks like
+    \[
+        u_1, \text{ remaining } w\text{'s} \quad (\text{total length } n)
+    \]
+    The invariant (b) is satisfied.
+
+    \item Suppose \(\mathcal{I}(j-1)\) is true for some \(j \in \{2, \dots, m\}\), we aim to show that \(\mathcal{I}(j)\) remains true. Now we have the spanning list \(B\) as
+    \[
+        u_1, \dots, u_{j-1}, \text{ remaining } w\text{'s} \quad (\text{total length } n)
+    \]
+
+    After the insertion, \(B\) becomes linearly dependent by \ref{subsec:dependent_vector}. Now \(B\) looks like
+    \[
+        u_1, \dots, u_j, \text{ remaining } w\text{'s} \quad (\text{total length } n + 1)
+    \]
+
+    For the removal, based on \hyperref[subsec:LDL]{Linear Dependence Lemma}, there exists an element \(v\) to be chosen, and after the removal \(B\) still spans \(V\). The loop invariant (a) is satisfied. And because \(u_1, \dots, u_j\) is linearly independent, any \(u\) will not be choosen, as it cannot be in the span of the other \(u\)'s. Thus the loop invariant (b) is satisfied.
+\end{itemize}
+We have shown that \(\mathcal{I}(j)\) stays true throughout the whole loop, so the algorithm is valid. Therefore, in each iteration, there is always a \(w\) to be choosen and removed, so the number of \(w\)'s must be at least \(m\). That is, \(m \leq n\).
+
+\subsection{Finite-dimensional subspaces}
+
+Every subspace of a finite-dimensional vector space is finite-dimensional.
+
+\subsubsection*{Proof}
+
+Suppose \(V\) is finite-dimensional and \(U\) is a subspace of \(V\). We aim to construct a spanning list \(B\) of \(U\).
+
+\begin{center}
+    \fbox{
+        \begin{minipage}{.9\textwidth}
+            \(B\) starts as an empty list.
+
+            \textbf{Step 1}
+            \begin{center}\begin{minipage}{.9\textwidth}
+                If \(U = \{ 0 \}\), then \(U\) is finite-dimensional and we are done; or else, add a nonzero vector \(v_1 \in U\) into the list \(B\).
+            \end{minipage}\end{center}
+
+            \textbf{Step j}
+            \begin{center}\begin{minipage}{.9\textwidth}
+                If \(U = \spn(B)\), then \(U\) is finite-dimensional and we are done; or else, add a nonzero vector \(v_j\) with \(v_j \in U\) and \(v_j \notin \spn(B)\) into the list \(B\).
+            \end{minipage}\end{center}
+        \end{minipage}
+    }
+\end{center}
+To ensure that the procedure is valid, we shall guarantee the existence of \(v\) when the procedure needs it.
+\begin{itemize}
+    \item The first step is valid because when \(U = \{ 0 \}\) it terminates immediately, otherwise it can always find a nonzero \(v_1 \in U\).
+
+    \item Suppose the first \(j-1\) steps are valid, we want to ensure that the \(j\)-th step is valid. Now we observe the following claim which we shall prove at the end:
+    \begin{center}
+        \(U \neq \spn(B)\) if and only if there exists a nonzero vector \(v_j \in U \setminus \spn(B)\).
+    \end{center}
+    Then the \(j\)-th step is valid for the following reasons. When \(U = \spn(B)\), the procedure terminates immediately; otherwise, the statement grants the existence of the \(v_j\) which we want to add to \(B\).
+
+    Since the first step is valid, and every next step if not terminating yet is valid, the algorithm is valid for every possible step \(j\).
+
+    \item Now we want to verify that the procedure always terminates eventually. After each step, we have constructed \(B = v_1, \dots, v_{j-1}\) such that no vector in \(B\) is in the span of the preceding vectors. That is, for each \(i = 1, \dots, j-1\),
+    \[
+        v_i \notin \spn(v_1, \dots, v_{i-1}).
+    \]
+    Thus \(B\) is linearly independent by \hyperref[subsec:LDL]{Linear Dependence Lemma}. And by \ref{subsec:length_inequality}, the linearly independent list \(B\) has a length upper bound because it cannot be longer than any spanning list in the finite-dimensional vector space \(V\). And when \(B\) cannot expand anymore, this implies that we cannot find more \(v_j\) to add. With the claim, this follows that \(U = \spn(B)\).
+\end{itemize}
+
+\subsubsection*{Claim}
+
+For every list of vectors \(B = v_1, \dots, v_{j-1}\) in \(U\), \(U \neq \spn(B)\) if and only if there exists a nonzero vector \(v_j \in U \setminus \spn(B)\).
+
+\subsubsection*{Proof}
+
+Given a list of vectors \(B = v_1, \dots, v_{j-1}\) in \(U\). Because each \(v_i \in U\), it is trivial that \(\spn(B) \subseteq U\). Then,
+\begin{enumerate}
+    \item[(a)] \(\spn(B) \neq U\), if and only if,
+    \item[(b)] \(\spn(B) \subset U\), if and only if,
+    \item[(c)] there exists nonzero \(v_j \in U \setminus \spn(B)\).\footnote{\(v_j \neq 0\) because \(0 \in \spn(B)\)}
+\end{enumerate}
+
+\section{Exercise}
+
+\subsection{2.A.14}
+
+Prove that \(V\) is infinite-dimensional if and only if there is a sequence \(v_1, v_2, \dots\) of vectors in \(V\) such that \(v_1, \dots, v_m\) is linearly independent for every positive integer \(m\).
+
+\subsubsection*{Proof}
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)} Suppose that \(V\) is infinite-dimensional. We construct the sequence as the following manner.
+
+    \begin{center}
+        \fbox{
+            \begin{minipage}{.9\textwidth}
+                \textbf{Step 1}
+                \begin{center}\begin{minipage}{.9\textwidth}
+                    Choose a nonzero vector \(v_1\) such that \(v_1 \in V\).
+                \end{minipage}\end{center}
+                \textbf{Step j}
+                \begin{center}\begin{minipage}{.9\textwidth}
+                    Choose a vector \(v_j\) such that \(v_j \in V\) and \(v_j \notin \spn(v_1, \dots, v_{j-1})\).
+                \end{minipage}\end{center}
+            \end{minipage}
+        }
+    \end{center}
+
+    First, we can always find such \(v_j\) in each step because \(\spn(v_1, \dots, v_{j-1}) \subset V\). This is true since there does not exist a spanning list in \(V\), which means \(\spn(v_1, \dots, v_{j-1}) \neq V\).\footnote{And \(\spn(v_1, \dots, v_{j-1}) \subseteq V\) is trivial as every \(v\) is in \(V\).}
+
+    Then, after each step \(j\), for every \(i = 1, \dots, j\), we have \(v_i \notin \spn(v_1, \dots, v_{i-1})\). Thus, the list \(v_1, \dots, v_j\) is linearly independent by the \hyperref[subsec:LDL]{Linear Dependence Lemma}.
+
+    \item \fbox{\(\Longleftarrow\)} Suppose that there is a sequence \(v_1, v_2, \dots\) of vectors in \(V\) such that \(v_1, \dots, v_m\) is linearly independent for every positive integer \(m\). If \(V\) were to be finite-dimensional, then there would exist a spanning list with length \(n\). But at the same time \(v_1, \dots, v_{n+1}\) is a linearly independent list longer than that spanning list, which is a contradiction.
+\end{itemize}
+
+\subsection{2.A.15 \(\Fd^{\infty}\) is infinite-dimensional}
+
+Prove that \(\Fd^{\infty}\) is infinite-dimensional.
+
+\subsubsection*{Note}
+
+Recall that \(\Fd^{\infty}\) can be thought of as \(\Fd^{\{1, 2, \dots\}}\). It is defined to be the set of all sequences of elements of \(\Fd\):
+\[
+    \Fd^{\infty} = \{ (x_1, x_2, \dots) \mid x_j \in \Fd, \forall j \in \{1, 2, \dots\} \}
+\]
+
+\subsubsection*{Proof}
+
+Suppose to the contrary that there were a spanning list \(v_1, \dots, v_m\) of vectors in \(\Fd^{\infty}\). For each \(k \in \{1, 2, \dots\}\), define \(e_k \in \Fd^{\infty}\) such that it has 1 at the \(k\)-th coordinate and 0 otherwise. Then the list \(e_1, \dots, e_{m+1}\) is linearly independent and is longer than the spanning list \(v_1, \dots, v_m\), which is a contradiction.
+
+\subsection{2.A.16}
+
+Prove that the real vector space of all continuous real-valued functions on the interval \([0, 1]\) is infinite-dimensional.
+
+\subsubsection*{Proof}
+
+Denote the vector space as
+\[
+    \mathcal{C}([0, 1], \Rl) = \{ f: [0, 1] \to \Rl \mid f \text{ is continuous} \}.
+\]
+Suppose to the contrary that there were a spanning list \(f_1, \dots, f_m\) of functions in \(\mathcal{C}([0, 1], \Rl)\). But we can we have a linearly independent list \((1, x, x^2, \dots, x^m)\) of functions in \(\mathcal{C}([0, 1], \Rl)\) longer than the spanning list, which is a contradiction.
+
+\chapter{Basis}
+
+\section{Definition}
+
+A \textdf{basis} of \(V\) is a list of vectors in \(V\) that is linearly independent and spans \(V\).
+
+\section{Theorem}
+
+\subsection{Criterion for basis}
+
+A list \(v_1, \dots, v_n\) of vectors in \(V\) is a basis of \(V\) if and only if every \(v \in V\) can be written uniquely in the form
+\begin{equation}\label{eq:basis}
+    v = a_1 v_1 + \cdots + a_n v_n,
+\end{equation}
+where \(a_1, \dots, a_n \in \Fd\).
+
+\subsubsection*{Proof}
+
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)} Suppose that \(v_1, \dots, v_n\) is a basis of \(V\). For every \(v \in V\), there exist \(a_1, \dots, a_n \in \Fd\) satisfying the equation \eqref{eq:basis} since \(v_1, \dots, v_n\) spans \(V\). And since \(v_1, \dots, v_n\) is linearly independent, the representation is unique by \ref{subsec:unique_linear_combination}.
+
+    \item \fbox{\(\Longleftarrow\)} Suppose that every \(v \in V\) can be written uniquely in the form of \eqref{eq:basis}. This clearly shows that \(v_1, \dots, v_n\) spans \(V\). Thus, we have that every \(v \in \spn(v_1, \dots, v_n)\) can be written uniquely in the form of \eqref{eq:basis}, \(v_1, \dots, v_n\) is linearly independent by \ref{subsec:unique_linear_combination}.
+\end{itemize}
+
+\subsection{Spanning list reduced to a basis}\label{subsec:spanning_list_reduced_to_a_basis}
+
+Every spanning list in a vector space can be \textit{reduced} to a basis of the vector space.\footnote{By \textit{reduce} we mean removing some vectors in the list, or not removing any vector at all.}
+
+\subsubsection*{Proof}
+
+Suppose \(v_1, \dots, v_n\) is a spanning list of \(V\). We aim to show that the following procedure reduces the list to a basis of \(V\).
+
+\begin{center}
+    \fbox{
+        \begin{minipage}{.9\textwidth}
+            \(B\) starts as the list \(v_1, \dots, v_n\).
+
+            \textbf{Step 1}
+
+            \hspace{5mm} If \(v_1 = 0\), remove \(v_1\) from \(B\); otherwise, leave \(B\) unchanged.
+
+            \textbf{Step j (from 2 to n)}
+
+            \hspace{5mm} If \(v_j \in \spn(v_1, \dots, v_{j-1})\), remove \(v_j\) from \(B\); otherwise, leave \(B\) unchanged.
+        \end{minipage}
+    }
+\end{center}
+If the original spanning list is already linearly independent, then the procedure does not remove any vector, which is the correct output. Now suppose that the spanning list is linearly dependent at the beginning. By \hyperref[subsec:LDL]{Linear Dependence Lemma}, after each step the span of \(B\) does not change, thus at the end of the procedure we have \(\spn(B) = V\). And since the procedure ensures that no vector in \(B\) is in the span of the preceding vectors, \(B\) becomes linearly independent. Therefore, the procedure correcetly reduces the spanning list to a basis of \(V\).
+
+\subsection{Basis of finite-dimensional vector space}
+
+Every finite-dimensional vector space has a basis.
+
+\subsubsection*{Proof}
+
+By definition, every finite-dimensional vector space \(V\) has a spanning list. And this spanning list can be reduced to a basis of \(V\) by the result of \ref{subsec:spanning_list_reduced_to_a_basis}.
+
+\subsection{Linearly independent list extended to a basis}\label{subsec:linearly_independent_list_extended_to_a_basis}
+
+Every linearly independent list of vectors in a finite-dimensional vector space can be \textit{extended} to a basis of the vector space.\footnote{By \textit{extend} we mean adding some vectors, or not adding any vector at all.}
+
+\subsubsection*{Proof}
+
+Suppose \(u_1, \dots, u_m\) is linearly independent in a finite-dimensional vector space \(V\). Let \(w_1, \dots, w_n\) be a basis of \(V\). Then the list
+\[
+    u_1, \dots, u_m, w_1, \dots, w_n
+\]
+spans \(V\). Applying the procedure in the proof of \ref{subsec:spanning_list_reduced_to_a_basis} to this list produces a basis of \(V\) consisting of \(u_1, \dots, u_m\) and some \(w\)'s, as none of the \(u\)'s get removed because \(u_1, \dots, u_m\) is linearly independent. Thus, \(u_1, \dots, u_m\) can be extended to a basis of \(V\).
+
+\section{Exercise}
+
+\subsection{2.B.1}
+
+Find all vector spaces that have exactly one basis.
+
+\subsubsection*{Solution}
+
+The vector space \(V = \{ 0 \}\) is the only vector space that has exactly one basis, which is the empty set since \(\spn() = \{0\}\). For every other vector spaces, suppose \(w_1, w_2, \dots, w_n\) is a basis, then \(2w_1, w_2, \dots, w_n\) is a different basis.
+
+\chapter{Direct Sum}
+
+\section{Definition}
+
+\begin{itemize}
+    \item Suppose \(U_1, \dots, U_m\) are subsets of \(V\). The \textdf{sum} of \(U_1, \dots ,U_m\), denoted \(U_1 + \cdots + U_m\), is the set of all possible sums of elements of \(U_1, \dots, U_m\). More precisely,
+    \[
+        U_1 + \cdots + U_m = \{ u_1 + \cdots + u_m \mid u_1 \in U_1, \dots, u_m \in U_m \}.
+    \]
+
+    \item Suppose \(U_1, \dots, U_m\) are subspaces of \(V\). The sum \(U_1 + \cdots + U_m\) is called a \textdf{direct sum} if each element of \(U_1 + \cdots + U_m\) can be written uniquely as a sum \(u_1 + \cdots u_m\), where each \(u_j \) is in \(U_j\).
+
+    \item If \(U_1 + \cdots + U_m\) is a direct sum, then \(U_1 \oplus \cdots \oplus U_m\) denotes \(U_1 + \cdots + U_m\), with the \(\oplus\) notation serving as an indication that this is a direct sum.
+\end{itemize}
+
+\section{Theorem}
+
+\subsection{Smallest containing subspace}
+
+Suppose \(U_1, \dots, U_m\) are subspaces of \(V\). Then \(U_1 + \cdots + U_m\) is the smallest subspace of \(V\) containing \(U_1, \dots, U_m\).
+
+\subsubsection*{Proof}
+
+Given subspaces \(U_1, \dots, U_m\) of \(V\), we aim to show that \(U_1 + \cdots + U_m\) is a subspace of \(V\), contains \(U_1, \dots, U_m\), and is the smallest subspace of \(V\) containing \(U_1, \dots, U_m\).
+
+\begin{itemize}
+    \item Because \(U_1, \dots, U_m\) are subspaces of \(V\), it is obvious that \(0 \in U_1 + \cdots + U_m\) and that \(U_1 + \cdots U_m\) is closed under addition and scalar multiplication.
+
+    \item In each \(U_j\), for every \(u_j \in U_j\), clearly that \(u_j \in U_1 + \cdots U_m\) because we can choose all the other \(u\)'s as 0. Thus, each \(U_j \subseteq U_1 + \cdots U_m\).
+
+    \item For every subspace \(W\) of \(V\) that containing \(U_1, \dots, U_m\), we have \(U_1 + \cdots + U_m \subseteq W\) for the following reason. For every \(u \in U_1 + \cdots + U_m\), we can write
+    \[
+        u = u_1 + \cdots + u_m,
+    \]
+    where \(u_1 \in U_1, \dots, u_m \in U_m\). And because \(W\) contains \(U_1, \dots, U_m\), this means that each \(u_j \in W\), and so is their sum \(u_1 + \cdots + u_m\) since \(W\) is closed under addition. Thus \(u \in W\).
+\end{itemize}
+
+\subsection{Condition for direct sum}\label{subsec:condition_for_direct_sum}
+
+Suppose \(U_1, \dots, U_m\) are subspaces of \(V\). Then \(U_1 + \cdots + U_m\) is a direct sum if and only if the only way to write 0 as a sum \(u_1 + \cdots + u_m\), where each \(u_j\) is in \(U_j\), is by taking each \(u_j\) equal to 0.
+
+\subsubsection*{Proof}
+
+Given subspaces \(U_1, \dots, U_m\) of \(V\), we aim to show that both directions are true.
+
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)} Suppose to the contrary that \(U_1 + \cdots + U_m\) were a direct sum and there were \(u_1 \in U_1, \dots, u_m \in U_m\), not all 0, such that
+    \[
+        u_1 + \cdots + u_m = 0.
+    \]
+    Then we would have a different representation that adds to the same element 0, as
+    \[
+        2 u_1 + \cdots + 2 u_m = 0,
+    \]
+    which contradicts that \(U_1 + \cdots + U_m\) is a direct sum.
+
+    \item \fbox{\(\Longleftarrow\)} Suppose that the only way to write 0 as a sum \(u_1 + \cdots + u_m\), where each \(u_j\) is in \(U_j\), is by taking each \(u_j\) equal to 0. For every \(w \in U_1 + \cdots + U_m\), we can write
+    \[
+        w = u_1 + \cdots + u_m,
+    \]
+    for some \(u_1 \in U_1, \dots, u_m \in U_m\). To show that this representation is unique, consider another representation that
+    \[
+        w = v_1 + \cdots + v_m,
+    \]
+    for some \(v_1 \in U_1, \dots, v_m \in U_m\). Subtracting these two equations gives
+    \[
+        0 = (u_1 - v_1) + \cdots + (u_m - v_m).
+    \]
+    Because \((u_1 - v_1) \in U_1, \dots, (u_m - v_m) \in U_m\), based on the assumption, each \(u_j - v_j\) should equal to 0. Thus \(u_1 = v_1, \dots, u_m = v_m\); that is, the representation of \(w\) is unique.
+\end{itemize}
+
+\subsection{Condition for direct sum of two subspaces}
+
+Suppose \(U\) and \(W\) are subspaces of \(V\). Then \(U + W\) is a direct sum if and only if \(U \cap W = \{ 0 \}\).
+
+\subsubsection*{Proof}
+
+Given that \(U\) and \(W\) are subspaces of \(V\). We aim to prove that both directions are true.
+
+\begin{itemize}
+    \item \fbox{\(\Longrightarrow\)} Suppose that \(U + W\) is a direct sum. Then we know that for every \(u \in U\) and \(w \in W\), \(u + w = 0\) implies \(u = w = 0\) by \ref{subsec:condition_for_direct_sum}. Now given any \(v \in U \cap W\), there exists its additive inverse \(v' \in U \cap W\) such that \(v + v' = 0\). And by \(v \in U\) and \(v' \in W\), we have \(v = v' = 0\). Thus, \(U \cap W = \{ 0 \}\).
+
+    \item \fbox{\(\Longleftarrow\)} Suppose \(U \cap W = \{ 0 \}\). To prove that \(U + W\) is a direct sum, suppose \(u \in U\) and \(w \in W\) such that \(u + w = 0\), we want to show that \(u = w = 0\). Because the additive inverse is unique, we know that \(u = -w \in W\). This implies that \(u \in U \cap W\). Thus \(u = 0\), and it follows that \(w = -u = 0\).
+\end{itemize}
+
+\subsection{Every subspace of \(V\) is part of a direct sum equal to \(V\)}
+
+Suppose \(V\) is finite-dimensional and \(U\) is a subspace of \(V\). Then there is a subspace \(W\) of \(V\) such that \(V = U \oplus W\).
+
+\subsubsection*{Proof}
+
+Given that \(V\) is finite-dimensional and \(U\) is a subspace of \(V\), \(U\) is also finite-dimensional. Let \(u_1, \dots, u_m\) be a basis of \(U\). By \ref{subsec:linearly_independent_list_extended_to_a_basis}, the list can then be extended to be a basis of \(V\), as
+\[
+    u_1, \dots, u_m, w_1, \dots, w_n.
+\]
+Let \(W = \spn(w_1, \dots, w_n)\). We aim to show that \(U + W\) is a direct sum and \(V = U + W\).
+
+\begin{itemize}
+    \item \fbox{\(U \cap W = \{ 0 \}\)}
+    
+    For every \(v \in U \cap W\), there exist scalars \(a\)'s, \(b\)'s in \(\Fd\) such that
+    \[
+        v = a_1 u_1 + \cdots + a_m u_m = b_1 w_1 + \cdots + b_n w_n.
+    \]
+    Thus
+    \[
+        a_1 u_1 + \cdots + a_m u_m + (-b_1) w_1 + \cdots + (-b_n) w_n = 0.
+    \]
+    Since \(u_1, \dots, u_m, w_1, \dots, w_n\) is linearly independent, it must be that \(a_1 = \cdots = a_m = -b_1 = \cdots = -b_n = 0\). Thus \(v = 0\).
+
+    \item \fbox{\(U + W \subseteq V\)}
+    
+    It is trivially true as \(U\) and \(W\) are subspaces of \(V\).
+
+    \item \fbox{\(V \subseteq U + W\)}
+    
+    For every \(v \in V\), since the list \(u_1, \dots, u_m, w_1, \dots, w_n\) spans \(V\), there exist scalars \(a\)'s, \(b\)'s in \(\Fd\) such that
+    \[
+        v = a_1 u_1 + \cdots + a_m u_m + b_1 w_1 + \cdots + b_n w_n.
+    \]
+    Let \(u = a_1 u_1 + \cdots + a_m u_m \in U\) and \(w = b_1 w_1 + \cdots + b_n w_n \in W\), we can represent \(v\) as \(v = u + w\). Thus \(v \in U + W\).
+\end{itemize}
+
+\section{Exercise}
+
+\subsection{1.C.16}
+
+Is the operation of addition on the subspaces of \(V\) commutative? In other words, if \(U\) and \(W\) are subspaces of \(V\), is \(U + W = W + U\)?
+
+\subsubsection*{Solution}
+
+Yes because addition in vector space is commutative. For every \(v \in U + W\), we can write \(v = u + w = w + u\) for some \(u \in U\) and \(w \in W\), thus \(v \in W + U\).
+
+\subsection{1.C.17}
+
+Is the operation of addition on the subspaces of \(V\) associative? In other words, if \(U_1, U_2, U_3\) are subspaces of \(V\), is \((U_1 + U_2) + U_3 = U_1 + (U_2 + U_3)\)?
+
+\subsubsection*{Solution}
+
+Yes because addition in vector space is associative. For every \(v \in (U_1 + U_2) + U_3\), we can write \(v = (u_1 + u_2) + u_3 = u_1 + (u_2 + u_3)\) for some \(u_1 \in U_1, u_2 \in U_2, u_3 \in U_3\), thus \(v \in U_1 + (U_2 + U_3)\).
+
+\subsection{1.C.18}
+
+Does the operation of addition on the subspaces of \(V\) have an additive identity? Which subspaces have additive inverses?
+
+\subsubsection*{Solution}
+
+For every subspaces \(U\) of \(V\), we have \(U + \{ 0 \} = U\); thus \(\{ 0 \}\) is an additive identity. For a subspace \(U\) of \(V\) to have a additive inverse, there should be a subspace \(U'\) of \(V\) such that \(U + U' = \{ 0 \}\). The only \(U\) satisfying this requirement is \(\{ 0 \}\), as any other \(U\) would lead to \(U + U' \neq \{ 0 \}\) for any \(U'\).
+
+\subsection{1.C.24}
+
+A function \(f: \Rl \to \Rl\) is called \textit{\textbf{even}} if
+\[
+    f(-x) = f(x), \quad \forall x \in \Rl.
+\]
+A function \(f: \Rl \to \Rl\) is called \textit{\textbf{odd}} if
+\[
+    f(-x) = -f(x), \quad \forall x \in \Rl.
+\]
+Let \(U_{\text{e}}\) denote the set of real-valued even functions on \(\Rl\) and let \(U_{\text{o}}\) denote the set of real-valued odd functions on \(\Rl\). Show that \(\Rl^{\Rl} = U_{\text{e}} \oplus U_{\text{o}}\).
+
+\subsubsection*{Solution}
+
+We aim to show that \(U_{\text{e}} + U_{\text{o}}\) is a direct sum, and \(U_{\text{e}} + U_{\text{o}} = \Rl^{\Rl}\).
+
+\begin{itemize}
+    \item \fbox{\(U_{\text{e}} \cap U_{\text{o}} = \{ 0 \}\)}
+    
+    Suppose to the contrary that there were \(f \in U_{\text{e}} \cap U_{\text{o}}\) such that \(f\) is not identically 0, then there would exist \(x \in \Rl\) such that \(f(x) \neq 0\). By \(f \in U_{\text{e}}\) we have \(f(x) = f(-x)\); and by \(f \in U_{\text{o}}\) we have \(f(x) = -f(-x)\). This would lead to \(f(-x) = -f(-x) \neq 0\), which is a contradiction.
+
+    \item \fbox{\(U_{\text{e}} + U_{\text{o}} \subseteq \Rl^{\Rl}\)}
+    
+    For every \(f \in U_{\text{e}} + U_{\text{o}}\), it is trivial that \(f \in \Rl^{\Rl}\), as \(U_{\text{e}}\) and \(U_{\text{o}}\) are subspaces of \(\Rl^{\Rl}\).
+
+    \item \fbox{\(\Rl^{\Rl} \subseteq U_{\text{e}} + U_{\text{o}}\)}
+
+    For every \(f \in \Rl^{\Rl}\), we want to find \(g \in U_{\text{e}}\) and \(h \in U_{\text{o}}\) such that
+    \[
+        f(x) = g(x) + h(x), \quad \forall x \in \Rl.
+    \]
+    To find the value of \(g(x)\) and \(h(x)\) at any point \(x = x_0\), we solve the following system.
+    \[
+        \begin{cases}
+            & f(x_0) = g(x_0) + h(x_0) \\
+            & f(-x_0) = g(-x_0) + h(-x_0) = g(x_0) - h(x_0)
+        \end{cases}
+    \]
+    \[
+        \Longrightarrow \quad g(x_0) = \frac{f(x_0) + f(-x_0)}{2}, \quad h(x_0) = \frac{f(x_0) - f(-x_0)}{2}.
+    \]
+\end{itemize}
+
+\subsection{2.B.8}
+
+Suppose \(U\) and \(W\) are subspaces of \(V\) such that \(V = U \oplus W\). Suppose also that \(u_1, \dots u_m\) is a basis of \(U\) and \(w_1, \dots, w_n\) is a basis of \(W\). Prove that
+\[
+    u_1, \dots, u_m, w_1, \dots, w_n
+\]
+is a basis of \(V\).
+
+\subsubsection*{Proof}
+
+We aim to show that \(u_1, \dots, u_m, w_1, \dots, w_n\) is linearly independent and spans \(V\).
+
+\begin{itemize}
+    \item Let \(a_1, \dots, a_m, b_1, \dots, b_n \in \mathbf{F}\) be scalars such that
+    \[
+        a_1 u_1 + \cdots + a_m u_m + b_1 w_1 + \cdots b_n w_n = 0.
+    \]
+    We can write \(u = a_1 u_1 + \cdots + a_m u_m \in U\) and \(w = b_1 w_1 + \cdots b_n w_n = 0\). And since \(U + W\) is a direct sum, \(u + w = 0\) implies \(u = w = 0\). That is,
+    \[
+        a_1 u_1 + \cdots + a_m u_m = b_1 w_1 + \cdots b_n w_n = 0.
+    \]
+    Because \(u_1, \dots, u_m\) and \(w_1, \dots, w_n\) are bases,
+    \[
+        a_1 = \cdots = a_m = b_1 = \cdots = b_n = 0.
+    \]
+    Thus \(u_1, \dots, u_m, w_1, \dots, w_n\) is linearly independent.
+
+    \item For every \(v \in V\), since \(V = U + W\), there exist \(u \in U\) and \(w \in W\) such that \(v = u + w\). And we can further write \(u\) and \(v\) as
+    \[
+        u = a_1 u_1 + \cdots + a_m u_m, \quad w = b_1 w_1 + \cdots b_n w_n,
+    \]
+    for some scalars \(a_1, \dots, a_m, b_1, \dots, b_n \in \mathbf{F}\). Then
+    \[
+        v = a_1 u_1 + \cdots + a_m u_m + b_1 w_1 + \cdots b_n w_n.
+    \]
+    Thus \(v \in \spn(u_1, \dots, u_m, w_1, \dots, w_n)\), which concludes that the list spans \(V\).
+\end{itemize}
+
+\chapter{Dimension}
+
+\section{Definition}
+
+\begin{itemize}
+    \item The \textdf{dimension} of a finite-dimensional vector space is the length of any basis of the vector space.
+
+    \item If \(V\) is finite-dimensional, the dimension of \(V\) is denoted by \(\dim V\).
+\end{itemize}
+
+\section{Theorem}
+
+\subsection{Basis length does not depend on basis}
+
+Any two bases of a finite-dimensional vector space have the same length.
+
+\subsubsection*{Proof}
+
+Suppose \(V\) is finite-dimensional. Let \(B_1\) nad \(B_2\) be two bases of \(V\), with length \(m_1\) and \(m_2\) correspondingly. By \ref{subsec:length_inequality},
+\begin{itemize}
+    \item since \(B_1\) is linearly independent and \(B_2\) spans \(V\), we have \(m_1 \leq m_2\);
+    \item since \(B_2\) is linearly independent and \(B_1\) spans \(V\), we have \(m_2 \leq m_1\).
+\end{itemize}
+Thus, \(m_1 = m_2\).
+
+\subsection{Dimension of a subspace}
+
+If \(V\) is finite-dimensional and \(U\) is a subspace of \(V\), then \(\dim U \leq \dim V\).
+
+\subsubsection*{Proof}
+
+Let \(B_1\) be a basis of \(V\) and \(B_2\) be a basis of \(U\), with length \(m_1\) and \(m_2\) correspondingly. Since \(B_1\) spans \(V\) and \(B_2\) is linearly independent, we have \(m_1 \geq m_2\) by \ref{subsec:length_inequality}. Thus \(\dim V \geq \dim U\).
+
+\subsection{Linearly independent list of the right length is a basis}\label{subsec:linearly_independent_list_as_basis}
+
+Suppose \(V\) is finite-dimensional. Then every linearly independent list of vectors in \(V\) with length \(\dim V\) is a basis of \(V\).
+
+\subsubsection*{Proof}
+
+Let \(\dim V = n\), and \(v_1, \dots, v_n\) be linearly indepedent vectors in \(V\). The list \(v_1, \dots v_n\) can be extended to a basis of \(V\) by \ref{subsec:linearly_independent_list_extended_to_a_basis}. But notice that every basis of \(V\) has length \(n\), so the extension is the trivial one. That is, the list \(v_1, \dots, v_n\) is a basis.
+
+\subsection{Spanning list of the right length is a basis}\label{subsec:spanning_list_as_basis}
+
+Suppose \(V\) is finite-dimensional. Then every spanning list of vectors in \(V\) with \(\dim V\) is a basis of \(V\).
+
+\subsubsection*{Proof}
+
+Let \(\dim V = n\), and \(v_1, \dots, v_n\) be a spanning list of \(V\). The list \(v_1, \dots v_n\) can be reduced to a basis of \(V\) by \ref{subsec:spanning_list_reduced_to_a_basis}. But notice that every basis of \(V\) has length \(n\), so the reduction is the trivial one. That is, the list \(v_1, \dots, v_n\) is a basis.
+
+\subsection{Dimension of a sum}
+
+If \(U_1\) and \(U_2\) are subspaces of a finite-dimensional vector space, then
+\[
+    \dim(U_1 + U_2) = \dim U_1 + \dim U_2 - \dim(U_1 \cap U_2).
+\]
+
+\subsubsection*{Proof}
+Let
+\[
+    u_1, \dots, u_m \text{ be a basis of } U_1 \cap U_2.
+\]
+It can be extended to be basis of \(U_1\) and \(U_2\) by \ref{subsec:linearly_independent_list_extended_to_a_basis}. Let
+\begin{align*}
+    & u_1, \dots, u_m, v_1, \dots, v_i \text{\hspace{1.8mm} be a basis of } U_1, \\
+    & u_1, \dots, u_m, w_1, \dots, w_i \text{ be a basis of } U_2.
+\end{align*}
+We aim to show that
+\[
+    u_1, \dots, u_m, v_1, \dots, v_i, w_1, \dots, w_j
+\]
+is a basis of \(U_1 + U_2\). This shall conclude that
+\[
+    \dim(U_1 + U_2) = m + i + j = (m + i) + (m + j) - m = \dim U_1 + \dim U_2 - \dim(U_1 \cap U_2).
+\]
+
+\begin{itemize}
+    \item \fbox{Linear Independence}
+
+    Suppose that
+    \[
+        a_1 u_1 + \cdots + a_m u_m + b_1 v_1 + \cdots + b_i v_i + c_1 w_1 + \cdots + c_j w_j = 0
+    \]
+    for some scalars \(a\)'s, \(b\)'s, and \(c\)'s in \(\mathbf{F}\). Let
+    \begin{align*}
+        u &= a_1 u_1 + \cdots + a_m u_m \in U_1 \cap U_2 \\
+        v &= b_1 v_1 \,+ \cdots + b_i v_i \hspace{3.8mm} \in U_1 \\
+        w &= c_1 w_1 + \cdots + c_j w_j \hspace{1.9mm} \in U_2
+    \end{align*}
+    Then we have \(u + v + w = 0\). Arranging the equation gives \(v = -u - w\). Since \(v \in U_1\) and \(-u - w \in U_2\), we have \(v \in U_1 \cap U_2\). And because \(u_1, \dots, u_m\) is a basis of \(U_1 \cap U_2\), we can write \(v\) in term of this basis as
+    \[
+        b_1 v_1 + \cdots + b_i v_i = d_1 u_1 + \cdots + d_m u_m,
+    \]
+    for some scalars \(d\)'s in \(\mathbf{F}\). Notice that \(u_1, \dots, u_m, v_1, \dots, v_i\) is a basis of \(U_1\), that is, it is linearly independent, so all \(b\)'s and \(d\)'s equal 0. Now \(u + v + w = 0\) becomes \(u + w = 0\).
+    \[
+        a_1 u_1 + \cdots + a_m u_m + c_1 w_1 + \cdots + c_j w_j = 0.
+    \]
+    Similarly, \(u_1, \dots, u_m, w_1, \dots, w_j\) is a basis of \(U_2\), so all \(a\)'s and \(c\)'s equal 0. In conclusion, all \(a\)'s, \(b\)'s and \(c\)'s equal 0, so \(u_1, \dots, u_m, v_1, \dots, v_i, w_1, \dots, w_j\) is linearly independent.
+
+    \item \fbox{\(\spn(u_1, \dots, u_m, v_1, \dots, v_i, w_1, \dots, w_j) \subseteq U_1 + U_2\)}
+
+    For every \(v\) in \(\spn(u_1, \dots, u_m, v_1, \dots, v_i, w_1, \dots, w_j)\), we can write
+    \[
+        v = a_1 u_1 + \cdots + a_m u_m + b_1 v_1 + \cdots + b_i v_i + c_1 w_1 + \cdots + c_j w_j,
+    \]
+    for some scalars \(a\)'s, \(b\)'s, \(c\)'s in \(\mathbf{F}\). Because \(a_1 u_1 + \cdots + a_m u_m + b_1 v_1 + \cdots + b_i v_i\) is in \(U_1\) and \(c_1 w_1 + \cdots + c_j w_j\) is in \(U_2\), we have \(v \in U_1 + U_2\).
+
+    \item \fbox{\(U_1 + U_2 \subseteq \spn(u_1, \dots, u_m, v_1, \dots, v_i, w_1, \dots, w_j)\)}
+
+    For every \(v \in U_1 + U_2\), it can be written as \(v = s_1 + s_2\), for some \(s_1 \in U_1\) and \(s_2 \in U_2\). We can further represent \(s_1\) and \(s_2\) by their bases.
+    \begin{align*}
+        & s_1 = a_1 u_1 + \cdots + a_m u_m + b_1 v_1 + \cdots + b_i v_i \\
+        & s_2 = c_1 u_1 + \cdots + c_m u_m + d_1 w_1 + \cdots + d_j w_j
+    \end{align*}
+    Substitute them in, we get
+    \[
+        v = (a_1 + c_1) u_1 + \cdots + (a_m + c_m) u_m + b_1 v_1 + \cdots + b_i v_i + d_1 w_1 + \cdots + d_j w_j
+    \]
+    Thus, \(v \in \spn(u_1, \dots, u_m, v_1, \dots, v_i, w_1, \dots, w_j)\).
+\end{itemize}
+
+\section{Exercise}
+
+\subsection{2.C.1}
+
+Suppose \(V\) is finite-dimensional and \(U\) is a subspace of \(V\) such that \(\dim U = \dim V\). Prove that \(U = V\).
+
+\subsubsection*{Solution}
+
+Let \(v_1, \dots, v_m\) be a basis of \(U\), where \(m = \dim U\), then it is also a basis of \(V\) as \(m = \dim V\) by \ref{subsec:linearly_independent_list_as_basis}. Observe that for any two vector spaces \(U\) and \(V\) sharing a same basis, we have \(U = V\), as every vector in their spaces can be represented by that basis.
+
+\subsection{2.C.9}
+
+Suppose \(v_1, \dots, v_m\) is linearly independent in \(V\) and \(w \in V\). Prove that
+\[
+    \dim \spn(v_1 + w, \dots, v_m + w) \geq m - 1.
+\]
+
+\subsubsection*{Solution}
+
+We aim to find a list of linearly independent vectors of length \(m-1\) in \(\spn(v_1 + w, \dots, v_m + w)\). This shall conclude that every basis in this subspace has length no less than \(m-1\) by \ref{subsec:linearly_independent_list_extended_to_a_basis}, thus \(\dim \spn(v_1 + w, \dots, v_m + w) \geq m - 1\). Let
+\[
+    u_i = (v_i + w) - (v_m + w) = v_i - v_m \in \spn(v_1 + w, \dots, v_m + w)
+\]
+for each \(i = 1, \dots, m-1\). We proceed to show that \(u_1, \dots, u_{m-1}\) is linearly independent. Let \(a_1, \dots, a_{m-1}\) be scalars in \(\mathbf{F}\) such that
+\[
+    a_1 u_1 + \cdots + a_{m-1} u_{m-1} = 0.
+\]
+Then substitution gives
+\[
+    a_1 (v_1 - v_m) + \cdots + a_{m-1} (v_{m-1} - v_m) = 0.
+\]
+\[
+    \Rightarrow a_1 v_1 + \cdots + a_{m-1} v_{m-1} + (-a_1 - \cdots - a_{m-1}) v_m = 0.
+\]
+Since \(v_1, \dots, v_m\) is linearly independent, all the \(a\)'s must equal 0, thus \(u_1, \dots, u_{m-1}\) is linearly independent.
+
+\subsection{2.C.14 Dimension of sum of subspaces}\label{subsec:sum_dim_inequality}
+
+Suppose \(U_1, \dots, U_m\) are finite-dimensional subspaces of \(V\). Prove that \(U_1 + \cdots + U_m\) is finite-dimensional and
+\[
+    \dim(U_1 + \cdots + U_m) \leq \dim U_1 + \cdots + \dim U_m.
+\]
+
+\subsubsection*{Solution}
+
+For each \(i = 1, \dots, m\), let \(d_i = \dim U_i\), and
+\[
+    u_{i, 1}, \, u_{i, 2}, \dots, \, u_{i, d_i}
+\]
+be a basis of \(U_i\). Then all these bases combined is a spanning list of \(U_1 + \cdots + U_m\) for the following reason. For every \(v \in U_1 + \cdots + U_m\) it can be written as \(v = u_1 + \cdots + u_m\) for some \(u_i \in U_i\). And each \(u_i\) can be further represented by its basis \(u_{i, 1}, u_{i, 2}, \dots, u_{i, d_i}\). Then, the dimension of \(U_1 + \cdots + U_m\) is no more than the length of this spanning list by \ref{subsec:spanning_list_reduced_to_a_basis}.
+
+\subsection{2.C.15}
+
+Suppose \(V\) is finite-dimensional, with \(\dim V \geq 1\). Prove that there exist 1-dimensional subspaces \(U_1, \dots, U_n\) of \(V\) such that
+\[
+    V = U_1 \oplus \cdots \oplus U_n.
+\]
+
+\subsubsection*{Solution}
+
+Let \(u_1, \dots, u_n\) be a basis of \(V\), then \(U_1 = \spn(u_1), \dots, U_n = \spn(u_n)\) satisfy the requirement. It is obvious that the dimension of each \(U_i\) is 1. Now we prove that \(U_1 + \cdots + U_n\) is a direct sum. Suppose \(w_1 \in U_1, \dots, w_n \in U_n\) are such that
+\[
+    w_1 + \cdots + w_n = 0.
+\]
+Each \(w_i\) can be written by its basis \(u_i\), that is, there are scalars \(a_1, \dots, a_n\) such that
+\[
+    a_1 u_1 + \cdots + a_n u_n = 0.
+\]
+Since \(u_1, \dots, u_n\) is linearly independent, all \(a\)'s equal 0. Then all \(w\)'s equal 0, thus \(U_1 + \cdots + U_n\) is a direct sum.
+
+\subsection{2.C.16 Dimension of direct sum of subspaces}
+
+Suppose \(U_1, \dots, U_m\) are finite-dimensional subspaces of \(V\) such that \(U_1 + \cdots + U_m\) is a direct sum. Prove that \(U_1 \oplus \cdots \oplus U_m\) is finite-dimensional and
+\[
+    \dim(U_1 \oplus \cdots \oplus U_m) = \dim U_1 + \cdots + \dim U_m.
+\]
+
+\subsubsection*{Solution}
+
+For each \(i = 1, \dots, m\), let \(d_i = \dim U_i\), and
+\[
+    u_{i, 1}, \, u_{i, 2}, \dots, \, u_{i, d_i}
+\]
+be a basis of \(U_i\). Then all these bases combined is a spanning list of \(U_1 + \cdots + U_m\) for the same reason in \ref{subsec:sum_dim_inequality}, so \(U_1 + \cdots + U_m\) is finite-dimensional. Now we show that this spanning list is linearly independent when \(U_1 + \cdots + U_m\) is a direct sum, so that it shall be a basis of \(U_1 \oplus \cdots \oplus U_m\). Let the following scalars \(a\)'s be such that
+\[
+    \sum_{i=1}^{m} \sum_{j=1}^{d_i} a_{i, j} \, u_{i, j} = 0.
+\]
+Let
+\[
+    w_i = \sum_{j=1}^{d_i} a_{i, j} \, u_{i, j},
+\]
+then it is clear that \(\sum_{i=1}^{m} w_i = 0\) implies each \(w_i = 0\) since each \(w_i \in U_i\) and \(U_1 + \cdots + U_m\) is a direct sum. Thus, all \(a\)'s equal to 0, so the spanning list is linearly independent.
+
+
+\end{document}
